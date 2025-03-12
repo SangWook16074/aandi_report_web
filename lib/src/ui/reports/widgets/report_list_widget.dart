@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/data/reports/dtos/report_summary.dart';
 import 'package:a_and_i_report_web_server/src/data/reports/entity/report.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_status_widget.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_title_row.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 // 전달받은 과제목록 렌더링
 class ReportListWidget extends StatelessWidget {
   final String label;
-  final List<Report> reports;
+  final List<ReportSummary> reports;
   const ReportListWidget(
       {super.key, required this.label, required this.reports});
 
@@ -41,7 +42,7 @@ class ReportListWidget extends StatelessWidget {
         children: List.generate(
             reports.length,
             (index) => ReportTitleRow(
-                  title: "$index. ${reports[index].title}",
+                  reportSummary: reports[index],
                 )),
       );
 }

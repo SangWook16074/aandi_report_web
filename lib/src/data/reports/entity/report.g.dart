@@ -16,11 +16,12 @@ _$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
       objects: (json['objects'] as List<dynamic>)
           .map((e) => SeqString.fromJson(e as Map<String, dynamic>))
           .toList(),
-      exampleIO: (json['exampleIO'] as List<dynamic>)
+      exampleIo: (json['exampleIo'] as List<dynamic>)
           .map((e) => ExampleIO.fromJson(e as Map<String, dynamic>))
           .toList(),
       reportType: $enumDecode(_$ReportTypeEnumMap, json['reportType']),
       week: (json['week'] as num).toInt(),
+      level: $enumDecode(_$LevelEnumMap, json['level']),
     );
 
 Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) =>
@@ -30,14 +31,22 @@ Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) =>
       'content': instance.content,
       'requirement': instance.requirement,
       'objects': instance.objects,
-      'exampleIO': instance.exampleIO,
+      'exampleIo': instance.exampleIo,
       'reportType': _$ReportTypeEnumMap[instance.reportType]!,
       'week': instance.week,
+      'level': _$LevelEnumMap[instance.level]!,
     };
 
 const _$ReportTypeEnumMap = {
   ReportType.CS: 'CS',
   ReportType.BASIC: 'BASIC',
+};
+
+const _$LevelEnumMap = {
+  Level.VERYHIGH: 'VERYHIGH',
+  Level.HIGH: 'HIGH',
+  Level.MEDIUM: 'MEDIUM',
+  Level.LOW: 'LOW',
 };
 
 _$SeqStringImpl _$$SeqStringImplFromJson(Map<String, dynamic> json) =>

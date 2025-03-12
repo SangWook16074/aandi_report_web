@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/data/reports/dtos/report_summary.dart';
 import 'package:a_and_i_report_web_server/src/data/reports/entity/report.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -12,5 +13,5 @@ abstract class ReportRepository {
 
   // 과제 목록 GET 요청
   @GET("/api/report")
-  Future<List<Report>> getReports();
+  Future<List<ReportSummary>> getReports();
 }

@@ -1,15 +1,9 @@
+import 'package:a_and_i_report_web_server/src/data/reports/enums/level.dart';
+import 'package:a_and_i_report_web_server/src/data/reports/enums/report_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'report.freezed.dart';
 part 'report.g.dart';
-
-@JsonEnum(alwaysCreate: true)
-enum ReportType {
-  @JsonValue("CS")
-  CS,
-  @JsonValue("BASIC")
-  BASIC,
-}
 
 /// 과제 엔티티
 ///
@@ -32,13 +26,16 @@ sealed class Report with _$Report {
     required List<SeqString> objects,
 
     // 예제 입출력
-    required List<ExampleIO> exampleIO,
+    required List<ExampleIO> exampleIo,
 
     // 과제 분류
     required ReportType reportType,
 
     // 과제 주차
     required int week,
+
+    // 과제 난이도
+    required Level level,
   }) = _Report;
 
   factory Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);

@@ -1,7 +1,7 @@
 import 'package:a_and_i_report_web_server/src/core/extensions/report_type_filter_extension.dart';
 import 'package:a_and_i_report_web_server/src/core/extensions/week_filter_extension.dart';
 import 'package:a_and_i_report_web_server/src/core/providers/report_list_view_model_provider.dart';
-import 'package:a_and_i_report_web_server/src/data/reports/entity/report.dart';
+import 'package:a_and_i_report_web_server/src/data/reports/enums/report_type.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

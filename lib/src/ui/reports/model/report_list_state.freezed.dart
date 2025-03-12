@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ReportListState {
-  List<Report> get reports => throw _privateConstructorUsedError;
+  List<ReportSummary> get reports => throw _privateConstructorUsedError;
 
   /// Create a copy of ReportListState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +31,7 @@ abstract class $ReportListStateCopyWith<$Res> {
           ReportListState value, $Res Function(ReportListState) then) =
       _$ReportListStateCopyWithImpl<$Res, ReportListState>;
   @useResult
-  $Res call({List<Report> reports});
+  $Res call({List<ReportSummary> reports});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$ReportListStateCopyWithImpl<$Res, $Val extends ReportListState>
       reports: null == reports
           ? _value.reports
           : reports // ignore: cast_nullable_to_non_nullable
-              as List<Report>,
+              as List<ReportSummary>,
     ) as $Val);
   }
 }
@@ -68,7 +68,7 @@ abstract class _$$ReportListStateImplCopyWith<$Res>
       __$$ReportListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Report> reports});
+  $Res call({List<ReportSummary> reports});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ class __$$ReportListStateImplCopyWithImpl<$Res>
       reports: null == reports
           ? _value._reports
           : reports // ignore: cast_nullable_to_non_nullable
-              as List<Report>,
+              as List<ReportSummary>,
     ));
   }
 }
@@ -98,13 +98,13 @@ class __$$ReportListStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ReportListStateImpl implements _ReportListState {
-  const _$ReportListStateImpl({final List<Report> reports = const []})
+  const _$ReportListStateImpl({final List<ReportSummary> reports = const []})
       : _reports = reports;
 
-  final List<Report> _reports;
+  final List<ReportSummary> _reports;
   @override
   @JsonKey()
-  List<Report> get reports {
+  List<ReportSummary> get reports {
     if (_reports is EqualUnmodifiableListView) return _reports;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reports);
@@ -138,11 +138,11 @@ class _$ReportListStateImpl implements _ReportListState {
 }
 
 abstract class _ReportListState implements ReportListState {
-  const factory _ReportListState({final List<Report> reports}) =
+  const factory _ReportListState({final List<ReportSummary> reports}) =
       _$ReportListStateImpl;
 
   @override
-  List<Report> get reports;
+  List<ReportSummary> get reports;
 
   /// Create a copy of ReportListState
   /// with the given fields replaced by the non-null parameter values.

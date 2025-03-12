@@ -27,9 +27,10 @@ mixin _$Report {
   List<SeqString> get requirement =>
       throw _privateConstructorUsedError; // 과제 목표
   List<SeqString> get objects => throw _privateConstructorUsedError; // 예제 입출력
-  List<ExampleIO> get exampleIO => throw _privateConstructorUsedError; // 과제 분류
+  List<ExampleIO> get exampleIo => throw _privateConstructorUsedError; // 과제 분류
   ReportType get reportType => throw _privateConstructorUsedError; // 과제 주차
-  int get week => throw _privateConstructorUsedError;
+  int get week => throw _privateConstructorUsedError; // 과제 난이도
+  Level get level => throw _privateConstructorUsedError;
 
   /// Serializes this Report to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,9 +52,10 @@ abstract class $ReportCopyWith<$Res> {
       String content,
       List<SeqString> requirement,
       List<SeqString> objects,
-      List<ExampleIO> exampleIO,
+      List<ExampleIO> exampleIo,
       ReportType reportType,
-      int week});
+      int week,
+      Level level});
 }
 
 /// @nodoc
@@ -76,9 +78,10 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
     Object? content = null,
     Object? requirement = null,
     Object? objects = null,
-    Object? exampleIO = null,
+    Object? exampleIo = null,
     Object? reportType = null,
     Object? week = null,
+    Object? level = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,9 +104,9 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
           ? _value.objects
           : objects // ignore: cast_nullable_to_non_nullable
               as List<SeqString>,
-      exampleIO: null == exampleIO
-          ? _value.exampleIO
-          : exampleIO // ignore: cast_nullable_to_non_nullable
+      exampleIo: null == exampleIo
+          ? _value.exampleIo
+          : exampleIo // ignore: cast_nullable_to_non_nullable
               as List<ExampleIO>,
       reportType: null == reportType
           ? _value.reportType
@@ -113,6 +116,10 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as Level,
     ) as $Val);
   }
 }
@@ -130,9 +137,10 @@ abstract class _$$ReportImplCopyWith<$Res> implements $ReportCopyWith<$Res> {
       String content,
       List<SeqString> requirement,
       List<SeqString> objects,
-      List<ExampleIO> exampleIO,
+      List<ExampleIO> exampleIo,
       ReportType reportType,
-      int week});
+      int week,
+      Level level});
 }
 
 /// @nodoc
@@ -153,9 +161,10 @@ class __$$ReportImplCopyWithImpl<$Res>
     Object? content = null,
     Object? requirement = null,
     Object? objects = null,
-    Object? exampleIO = null,
+    Object? exampleIo = null,
     Object? reportType = null,
     Object? week = null,
+    Object? level = null,
   }) {
     return _then(_$ReportImpl(
       id: null == id
@@ -178,9 +187,9 @@ class __$$ReportImplCopyWithImpl<$Res>
           ? _value._objects
           : objects // ignore: cast_nullable_to_non_nullable
               as List<SeqString>,
-      exampleIO: null == exampleIO
-          ? _value._exampleIO
-          : exampleIO // ignore: cast_nullable_to_non_nullable
+      exampleIo: null == exampleIo
+          ? _value._exampleIo
+          : exampleIo // ignore: cast_nullable_to_non_nullable
               as List<ExampleIO>,
       reportType: null == reportType
           ? _value.reportType
@@ -190,6 +199,10 @@ class __$$ReportImplCopyWithImpl<$Res>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as Level,
     ));
   }
 }
@@ -203,12 +216,13 @@ class _$ReportImpl implements _Report {
       required this.content,
       required final List<SeqString> requirement,
       required final List<SeqString> objects,
-      required final List<ExampleIO> exampleIO,
+      required final List<ExampleIO> exampleIo,
       required this.reportType,
-      required this.week})
+      required this.week,
+      required this.level})
       : _requirement = requirement,
         _objects = objects,
-        _exampleIO = exampleIO;
+        _exampleIo = exampleIo;
 
   factory _$ReportImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReportImplFromJson(json);
@@ -243,13 +257,13 @@ class _$ReportImpl implements _Report {
   }
 
 // 예제 입출력
-  final List<ExampleIO> _exampleIO;
+  final List<ExampleIO> _exampleIo;
 // 예제 입출력
   @override
-  List<ExampleIO> get exampleIO {
-    if (_exampleIO is EqualUnmodifiableListView) return _exampleIO;
+  List<ExampleIO> get exampleIo {
+    if (_exampleIo is EqualUnmodifiableListView) return _exampleIo;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exampleIO);
+    return EqualUnmodifiableListView(_exampleIo);
   }
 
 // 과제 분류
@@ -258,10 +272,13 @@ class _$ReportImpl implements _Report {
 // 과제 주차
   @override
   final int week;
+// 과제 난이도
+  @override
+  final Level level;
 
   @override
   String toString() {
-    return 'Report(id: $id, title: $title, content: $content, requirement: $requirement, objects: $objects, exampleIO: $exampleIO, reportType: $reportType, week: $week)';
+    return 'Report(id: $id, title: $title, content: $content, requirement: $requirement, objects: $objects, exampleIo: $exampleIo, reportType: $reportType, week: $week, level: $level)';
   }
 
   @override
@@ -276,10 +293,11 @@ class _$ReportImpl implements _Report {
                 .equals(other._requirement, _requirement) &&
             const DeepCollectionEquality().equals(other._objects, _objects) &&
             const DeepCollectionEquality()
-                .equals(other._exampleIO, _exampleIO) &&
+                .equals(other._exampleIo, _exampleIo) &&
             (identical(other.reportType, reportType) ||
                 other.reportType == reportType) &&
-            (identical(other.week, week) || other.week == week));
+            (identical(other.week, week) || other.week == week) &&
+            (identical(other.level, level) || other.level == level));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -291,9 +309,10 @@ class _$ReportImpl implements _Report {
       content,
       const DeepCollectionEquality().hash(_requirement),
       const DeepCollectionEquality().hash(_objects),
-      const DeepCollectionEquality().hash(_exampleIO),
+      const DeepCollectionEquality().hash(_exampleIo),
       reportType,
-      week);
+      week,
+      level);
 
   /// Create a copy of Report
   /// with the given fields replaced by the non-null parameter values.
@@ -318,9 +337,10 @@ abstract class _Report implements Report {
       required final String content,
       required final List<SeqString> requirement,
       required final List<SeqString> objects,
-      required final List<ExampleIO> exampleIO,
+      required final List<ExampleIO> exampleIo,
       required final ReportType reportType,
-      required final int week}) = _$ReportImpl;
+      required final int week,
+      required final Level level}) = _$ReportImpl;
 
   factory _Report.fromJson(Map<String, dynamic> json) = _$ReportImpl.fromJson;
 
@@ -336,11 +356,13 @@ abstract class _Report implements Report {
   @override
   List<SeqString> get objects; // 예제 입출력
   @override
-  List<ExampleIO> get exampleIO; // 과제 분류
+  List<ExampleIO> get exampleIo; // 과제 분류
   @override
   ReportType get reportType; // 과제 주차
   @override
-  int get week;
+  int get week; // 과제 난이도
+  @override
+  Level get level;
 
   /// Create a copy of Report
   /// with the given fields replaced by the non-null parameter values.
