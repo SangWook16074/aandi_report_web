@@ -18,28 +18,15 @@ class ReportLevelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 81,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Lv.",
-            style: TextStyle(
-                color: Color(0xff000000),
-                fontSize: 15,
-                fontWeight: FontWeight.bold),
-          ),
-          Container(
-            width: 30,
-            height: 30,
-            alignment: Alignment.center,
-            decoration:
-                BoxDecoration(color: level.color, shape: BoxShape.circle),
-            child: Text(
-              level.label,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+      child: Container(
+        width: 30,
+        height: 30,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(color: level.color, shape: BoxShape.circle),
+        child: Text(
+          level.label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

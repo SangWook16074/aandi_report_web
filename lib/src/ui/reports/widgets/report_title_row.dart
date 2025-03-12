@@ -2,30 +2,27 @@ import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_level_wi
 import 'package:flutter/material.dart';
 
 class ReportTitleRow extends StatelessWidget {
-  const ReportTitleRow({super.key});
+  final String title;
+  const ReportTitleRow({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.5, horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _title(),
-          _level(),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xff000000),
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const ReportLevelWidget(level: ReportLevel.low),
         ],
       ),
     );
   }
-
-  Widget _title() => const Text(
-        "0-1. Hello World!",
-        style: TextStyle(
-          color: Color(0xff000000),
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-
-  Widget _level() => const ReportLevelWidget(level: ReportLevel.low);
 }

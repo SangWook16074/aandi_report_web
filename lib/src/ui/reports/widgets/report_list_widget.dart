@@ -12,42 +12,22 @@ class ReportListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (reports.isNotEmpty)
-        // 과제 뷰
-        ? Column(
-            children: [_label(), _reports()],
-          )
-        // 빈 과제 뷰
-        : _empty();
+    return Column(
+      children: [_label(), _reports()],
+    );
   }
-
-  // 빈 과제 뷰
-  Widget _empty() => const SizedBox(
-        height: 153,
-        width: 1000,
-        child: Center(
-          child: Text(
-            "아직 과정이 준비되지 않았습니다.",
-            style: TextStyle(
-              color: Color(0xffAFAFAF),
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      );
 
   //
   Widget _label() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 13.5, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
             Text(
               label,
               style: const TextStyle(
                   color: Color(0xff000000),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               width: 30,
@@ -58,7 +38,10 @@ class ReportListWidget extends StatelessWidget {
       );
 
   Widget _reports() => Column(
-        children:
-            List.generate(reports.length, (index) => const ReportTitleRow()),
+        children: List.generate(
+            reports.length,
+            (index) => ReportTitleRow(
+                  title: "$index. ${reports[index].title}",
+                )),
       );
 }

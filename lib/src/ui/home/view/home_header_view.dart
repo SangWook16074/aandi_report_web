@@ -17,10 +17,10 @@ class HomeHeaderView extends Container {
                       blurRadius: 5.0)
                 ]),
             child: const Text(
-              "주차별 과제 안내",
+              "목차",
               style: TextStyle(
                   color: Color(0xff323232),
-                  fontSize: 30,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold),
             ));
 }

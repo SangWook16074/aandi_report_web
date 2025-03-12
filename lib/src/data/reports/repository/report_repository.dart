@@ -1,4 +1,3 @@
-import 'package:a_and_i_report_web_server/src/data/reports/entity/base_response.dart';
 import 'package:a_and_i_report_web_server/src/data/reports/entity/report.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -12,6 +11,6 @@ abstract class ReportRepository {
   factory ReportRepository(Dio dio, {String baseUrl}) = _ReportRepository;
 
   // 과제 목록 GET 요청
-  @GET("/api/post")
-  Future<BaseResponse<List<Report>>> getPost();
+  @GET("/api/report")
+  Future<List<Report>> getReports();
 }

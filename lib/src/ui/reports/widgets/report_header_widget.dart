@@ -6,6 +6,6 @@ class ReportHeaderWidget extends Text {
       : super(label,
             style: const TextStyle(
                 color: Color(0xff000000),
-                fontSize: 20,
+                fontSize: 30,
                 fontWeight: FontWeight.bold));
 }

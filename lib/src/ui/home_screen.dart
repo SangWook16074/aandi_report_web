@@ -13,35 +13,39 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 80, bottom: 15, left: 200, right: 200),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 사이트 로고
-              _logo(),
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SizedBox(
+              width: 1040,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 사이트 로고
+                  _logo(),
 
-              // 사이트 헤더 영역
-              _header(),
-              const SizedBox(
-                height: 20,
-              ),
-              // CS 과제 목록
-              _csReports(),
-              const SizedBox(
-                height: 20,
-              ),
+                  // 사이트 헤더 영역
+                  _header(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // CS 과제 목록
+                  _csReports(),
+                  const SizedBox(
+                    height: 20,
+                  ),
 
-              // BASIC 과정 과제 목록
-              _basicReports(),
-              const SizedBox(
-                height: 200,
-              ),
+                  // BASIC 과정 과제 목록
+                  _basicReports(),
+                  const SizedBox(
+                    height: 100,
+                  ),
 
-              // 사이트 하단 로고
-              _bottom(),
-            ],
+                  // 사이트 하단 로고
+                  _bottom(),
+                ],
+              ),
+            ),
           ),
         ),
       ),

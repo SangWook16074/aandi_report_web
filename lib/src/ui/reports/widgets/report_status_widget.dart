@@ -30,11 +30,11 @@ class ReportStatus extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(width: 3, color: color)),
+            border: Border.all(width: 2, color: color)),
         alignment: Alignment.center,
         child: Text(
           type.status,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       );
 }
