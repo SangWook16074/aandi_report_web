@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/ui/common/view/basic_screen.dart';
 import 'package:a_and_i_report_web_server/src/ui/common/widgets/bottom_logo.dart';
 import 'package:a_and_i_report_web_server/src/ui/common/widgets/logo.dart';
 import 'package:a_and_i_report_web_server/src/ui/home/view/home_header_view.dart';
@@ -12,44 +13,36 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-              width: 1040,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 사이트 로고
-                  _logo(),
+        body: BasicScreen(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // 사이트 로고
+          _logo(),
 
-                  // 사이트 헤더 영역
-                  _header(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // CS 과제 목록
-                  _csReports(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  // BASIC 과정 과제 목록
-                  _basicReports(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-
-                  // 사이트 하단 로고
-                  _bottom(),
-                ],
-              ),
-            ),
+          // 사이트 헤더 영역
+          _header(),
+          const SizedBox(
+            height: 20,
           ),
-        ),
+          // CS 과제 목록
+          _csReports(),
+          const SizedBox(
+            height: 20,
+          ),
+
+          // BASIC 과정 과제 목록
+          _basicReports(),
+          const SizedBox(
+            height: 100,
+          ),
+
+          // 사이트 하단 로고
+          _bottom(),
+        ],
       ),
-    );
+    ));
   }
 
   /// 사이트 로고

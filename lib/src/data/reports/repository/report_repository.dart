@@ -14,4 +14,7 @@ abstract class ReportRepository {
   // 과제 목록 GET 요청
   @GET("/api/report")
   Future<List<ReportSummary>> getReports();
+
+  @GET("/api/report/{id}")
+  Future<Report> getReportById(@Path("id") String id);
 }
