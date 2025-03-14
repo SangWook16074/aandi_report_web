@@ -6,29 +6,20 @@ class BottomLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "A&I",
-            style: TextStyle(
-                color: Color(0xff425065),
-                fontSize: 50,
-                fontWeight: FontWeight.bold),
+          SizedBox(
+            width: 123,
+            child: Image.asset("assets/logo.png"),
           ),
-          Text(
-            "Application Developer Club",
-            style: TextStyle(
-                color: Color(0xff425065),
-                fontSize: 10,
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
+          const Text(
             "이 사이트는 A&I 회원들을 위한 과제 사이트입니다. ",
             style: TextStyle(
-                color: Color(0xff425065),
+                color: Color(0xff000000),
                 fontSize: 10,
                 fontWeight: FontWeight.bold),
           ),
