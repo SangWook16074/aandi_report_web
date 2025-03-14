@@ -33,6 +33,10 @@ class ContentIOView extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       contents[index].$1,
+                      style: TextStyle(
+                          color: const Color(0xff000000).withOpacity(.48),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   Padding(
@@ -56,6 +60,10 @@ class ContentIOView extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       contents[index].$2,
+                      style: TextStyle(
+                          color: const Color(0xff000000).withOpacity(.48),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],

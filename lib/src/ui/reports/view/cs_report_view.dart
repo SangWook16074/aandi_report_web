@@ -1,5 +1,6 @@
 import 'package:a_and_i_report_web_server/src/ui/reports/view/cs_report_list_view.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_header_widget.dart';
+import 'package:a_and_i_report_web_server/src/ui/reports/widgets/triangle_point.dart';
 import 'package:flutter/material.dart';
 
 /// CS 과제 뷰
@@ -38,6 +39,10 @@ class CsReportView extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 13.5),
         child: Row(
           children: [
+            TrianglePoint(),
+            SizedBox(
+              width: 30,
+            ),
             ReportHeaderWidget("기초 CS 과정"),
           ],
         ),
