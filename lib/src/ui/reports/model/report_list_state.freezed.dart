@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ReportListState {
   List<ReportSummary> get reports => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
 
   /// Create a copy of ReportListState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $ReportListStateCopyWith<$Res> {
           ReportListState value, $Res Function(ReportListState) then) =
       _$ReportListStateCopyWithImpl<$Res, ReportListState>;
   @useResult
-  $Res call({List<ReportSummary> reports});
+  $Res call({List<ReportSummary> reports, String errorMsg});
 }
 
 /// @nodoc
@@ -50,12 +51,17 @@ class _$ReportListStateCopyWithImpl<$Res, $Val extends ReportListState>
   @override
   $Res call({
     Object? reports = null,
+    Object? errorMsg = null,
   }) {
     return _then(_value.copyWith(
       reports: null == reports
           ? _value.reports
           : reports // ignore: cast_nullable_to_non_nullable
               as List<ReportSummary>,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$ReportListStateImplCopyWith<$Res>
       __$$ReportListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ReportSummary> reports});
+  $Res call({List<ReportSummary> reports, String errorMsg});
 }
 
 /// @nodoc
@@ -85,12 +91,17 @@ class __$$ReportListStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? reports = null,
+    Object? errorMsg = null,
   }) {
     return _then(_$ReportListStateImpl(
       reports: null == reports
           ? _value._reports
           : reports // ignore: cast_nullable_to_non_nullable
               as List<ReportSummary>,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -98,7 +109,8 @@ class __$$ReportListStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ReportListStateImpl implements _ReportListState {
-  const _$ReportListStateImpl({final List<ReportSummary> reports = const []})
+  const _$ReportListStateImpl(
+      {final List<ReportSummary> reports = const [], this.errorMsg = ""})
       : _reports = reports;
 
   final List<ReportSummary> _reports;
@@ -111,8 +123,12 @@ class _$ReportListStateImpl implements _ReportListState {
   }
 
   @override
+  @JsonKey()
+  final String errorMsg;
+
+  @override
   String toString() {
-    return 'ReportListState(reports: $reports)';
+    return 'ReportListState(reports: $reports, errorMsg: $errorMsg)';
   }
 
   @override
@@ -120,12 +136,14 @@ class _$ReportListStateImpl implements _ReportListState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ReportListStateImpl &&
-            const DeepCollectionEquality().equals(other._reports, _reports));
+            const DeepCollectionEquality().equals(other._reports, _reports) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_reports));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_reports), errorMsg);
 
   /// Create a copy of ReportListState
   /// with the given fields replaced by the non-null parameter values.
@@ -138,11 +156,14 @@ class _$ReportListStateImpl implements _ReportListState {
 }
 
 abstract class _ReportListState implements ReportListState {
-  const factory _ReportListState({final List<ReportSummary> reports}) =
-      _$ReportListStateImpl;
+  const factory _ReportListState(
+      {final List<ReportSummary> reports,
+      final String errorMsg}) = _$ReportListStateImpl;
 
   @override
   List<ReportSummary> get reports;
+  @override
+  String get errorMsg;
 
   /// Create a copy of ReportListState
   /// with the given fields replaced by the non-null parameter values.

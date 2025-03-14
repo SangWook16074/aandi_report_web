@@ -11,5 +11,6 @@ part 'report_list_state.freezed.dart';
 sealed class ReportListState with _$ReportListState {
   const factory ReportListState({
     @Default([]) List<ReportSummary> reports,
+    @Default("") String errorMsg,
   }) = _ReportListState;
 }

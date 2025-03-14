@@ -15,6 +15,24 @@ class CsReportListView extends ConsumerWidget {
     final viewModel = ref.watch(reportListViewModelProvider);
     final csReports =
         viewModel.state.reports.getReportsAtType(type: ReportType.CS);
+
+    if (viewModel.state.errorMsg.isNotEmpty) {
+      return SizedBox(
+        height: 153,
+        width: 1000,
+        child: Center(
+          child: Text(
+            viewModel.state.errorMsg,
+            style: const TextStyle(
+              color: Color(0xffAFAFAF),
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      );
+    }
+
     if (csReports.isEmpty) {
       return const SizedBox(
         height: 153,
