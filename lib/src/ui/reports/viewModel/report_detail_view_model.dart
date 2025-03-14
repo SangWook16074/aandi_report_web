@@ -15,8 +15,12 @@ class ReportDetailViewModel extends ChangeNotifier {
   void onEvent(ReportDetailEvent event) async {
     switch (event) {
       case ReadReportDatail():
-        _state =
-            LoadedState(report: await reportRepository.getReportById(event.id));
+        try {
+          _state = LoadedState(
+              report: await reportRepository.getReportById(event.id));
+        } on Exception catch (e) {
+          _state = ErrorState(errorMsg: e.toString());
+        }
     }
     notifyListeners();
   }

@@ -16,7 +16,11 @@ class ReportListViewModel with ChangeNotifier {
   ReportListState get state => _state;
 
   void _fetchData() async {
-    _state = _state.copyWith(reports: await reportRepository.getReports());
+    try {
+      _state = _state.copyWith(reports: await reportRepository.getReports());
+    } on Exception catch (e) {
+      _state = _state.copyWith(errorMsg: e.toString());
+    }
     notifyListeners();
   }
 }

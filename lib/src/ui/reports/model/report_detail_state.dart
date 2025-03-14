@@ -9,8 +9,12 @@ final class LoadingState extends ReportDetailState {
 }
 
 final class ErrorState extends ReportDetailState {
+  final String errorMsg;
+  ErrorState({required this.errorMsg});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        errorMsg,
+      ];
 }
 
 final class LoadedState extends ReportDetailState {
