@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: "A&I 과제",
       debugShowCheckedModeBanner: false,
       routerConfig: routes,
       theme: theme,
