@@ -12,11 +12,24 @@ class ContentListView extends StatelessWidget {
         contents.length,
         (index) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 13.0),
-          child: Text(contents[index],
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              )),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.5),
+                child: Container(
+                  width: 5,
+                  height: 5,
+                  decoration: const BoxDecoration(
+                      color: Color(0xff000000), shape: BoxShape.circle),
+                ),
+              ),
+              Text(contents[index],
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  )),
+            ],
+          ),
         ),
       ),
     );
