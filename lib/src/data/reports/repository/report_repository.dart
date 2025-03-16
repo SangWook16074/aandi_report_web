@@ -6,7 +6,7 @@ import 'package:retrofit/retrofit.dart';
 part 'report_repository.g.dart';
 
 /// 과제 레포지토리
-@RestApi(baseUrl: "https://aandi-dev.xyz/:8081")
+@RestApi(baseUrl: "https://aandi-dev.xyz")
 abstract class ReportRepository {
   factory ReportRepository(Dio dio, {String baseUrl}) = _ReportRepository;
 

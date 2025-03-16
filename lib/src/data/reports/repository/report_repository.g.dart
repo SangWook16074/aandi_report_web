@@ -14,8 +14,7 @@ class _ReportRepository implements ReportRepository {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??=
-        'http://ec2-3-39-93-251.ap-northeast-2.compute.amazonaws.com:8081';
+    baseUrl ??= 'https://aandi-dev.xyz';
   }
 
   final Dio _dio;
