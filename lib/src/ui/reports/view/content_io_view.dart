@@ -23,7 +23,6 @@ class ContentIOView extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 980,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     decoration: BoxDecoration(
@@ -50,7 +49,6 @@ class ContentIOView extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 980,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     decoration: BoxDecoration(

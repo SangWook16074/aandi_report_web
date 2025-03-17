@@ -5,9 +5,8 @@ import 'package:a_and_i_report_web_server/src/ui/reports/view/basic_report_view.
 import 'package:a_and_i_report_web_server/src/ui/reports/view/cs_report_view.dart';
 import 'package:flutter/material.dart';
 
-/// 사이트 홈 UI
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeMobileScreen extends StatelessWidget {
+  const HomeMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +20,18 @@ class HomeScreen extends StatelessWidget {
         // 사이트 헤더 영역
         _header(),
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
         // CS 과제 목록
         _csReports(),
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
 
         // BASIC 과정 과제 목록
         _basicReports(),
         const SizedBox(
-          height: 100,
+          height: 50,
         ),
 
         // 사이트 하단 로고
@@ -50,7 +49,7 @@ class HomeScreen extends StatelessWidget {
   /// 사이트 헤더 영역
   ///
   /// 현재는 과제 개요 텍스트가 렌더링됨.
-  Widget _header() => const HomeHeaderView();
+  Widget _header() => HomeHeaderView();
 
   /// CS 과제 목록
   ///

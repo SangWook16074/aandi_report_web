@@ -1,4 +1,5 @@
 import 'package:a_and_i_report_web_server/src/data/reports/dtos/report_summary.dart';
+import 'package:a_and_i_report_web_server/src/ui/common/view/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_status_widget.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_title_row.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +24,15 @@ class ReportListWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                  color: Color(0xff000000),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600),
-            ),
+            Builder(builder: (context) {
+              return Text(
+                label,
+                style: TextStyle(
+                    color: const Color(0xff000000),
+                    fontSize: ResponsiveLayout.isMobile(context) ? 18 : 22,
+                    fontWeight: FontWeight.w600),
+              );
+            }),
             const SizedBox(
               width: 30,
             ),

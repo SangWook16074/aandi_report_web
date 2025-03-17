@@ -43,7 +43,7 @@ class CsReportView extends StatelessWidget {
             SizedBox(
               width: 30,
             ),
-            ReportHeaderWidget("기초 CS 과정"),
+            ReportHeaderWidget(label: "기초 CS 과정"),
           ],
         ),
       );

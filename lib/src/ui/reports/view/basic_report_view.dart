@@ -38,7 +38,7 @@ class BasicReportView extends StatelessWidget {
             SizedBox(
               width: 30,
             ),
-            ReportHeaderWidget("BASIC 과정"),
+            ReportHeaderWidget(label: "BASIC 과정"),
           ],
         ),
       );

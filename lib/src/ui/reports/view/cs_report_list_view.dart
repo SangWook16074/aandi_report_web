@@ -2,6 +2,7 @@ import 'package:a_and_i_report_web_server/src/core/extensions/week_filter_extens
 import 'package:a_and_i_report_web_server/src/core/extensions/report_type_filter_extension.dart';
 import 'package:a_and_i_report_web_server/src/core/providers/report_list_view_model_provider.dart';
 import 'package:a_and_i_report_web_server/src/data/reports/enums/report_type.dart';
+import 'package:a_and_i_report_web_server/src/ui/common/view/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/ui/reports/widgets/report_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,15 +35,15 @@ class CsReportListView extends ConsumerWidget {
     }
 
     if (csReports.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 153,
         width: 1000,
         child: Center(
           child: Text(
             "아직 과정이 준비되지 않았습니다.",
             style: TextStyle(
-              color: Color(0xffAFAFAF),
-              fontSize: 15,
+              color: const Color(0xffAFAFAF),
+              fontSize: ResponsiveLayout.isMobile(context) ? 13 : 15,
               fontWeight: FontWeight.w500,
             ),
           ),
