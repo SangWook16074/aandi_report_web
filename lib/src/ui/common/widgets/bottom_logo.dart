@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/ui/common/view/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 /// 사이트 하단에 렌더링 되는 하단 앱 로고
@@ -13,7 +14,7 @@ class BottomLogo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 123,
+            width: ResponsiveLayout.isMobile(context) ? 90 : 120,
             child: Image.asset("assets/logo.png"),
           ),
           const Text(
