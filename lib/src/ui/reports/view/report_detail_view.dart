@@ -101,14 +101,10 @@ class ReportDetailView extends ConsumerWidget {
               const SubTitleView(label: "예제 입출력"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  children: [
-                    ContentIOView(
-                        contents: report.exampleIo
-                            .map((io) => (io.input, io.output))
-                            .toList())
-                  ],
-                ),
+                child: ContentIOView(
+                    contents: report.exampleIo
+                        .map((io) => (io.input, io.output))
+                        .toList()),
               ),
               const SubTitleView(label: "과제 제출 방법"),
               const Padding(
