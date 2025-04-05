@@ -36,7 +36,7 @@ class ReportListWidget extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            const ReportStatus(type: ReportStatueType.done),
+            ReportStatus(type: ReportStatueType.fromEndAt(reports[1].endAt)),
           ],
         ),
       );

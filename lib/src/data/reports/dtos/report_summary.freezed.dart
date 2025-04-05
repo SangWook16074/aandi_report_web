@@ -26,6 +26,7 @@ mixin _$ReportSummary {
   String get title => throw _privateConstructorUsedError;
   Level get level => throw _privateConstructorUsedError;
   ReportType get reportType => throw _privateConstructorUsedError;
+  DateTime get endAt => throw _privateConstructorUsedError;
 
   /// Serializes this ReportSummary to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $ReportSummaryCopyWith<$Res> {
       int seq,
       String title,
       Level level,
-      ReportType reportType});
+      ReportType reportType,
+      DateTime endAt});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$ReportSummaryCopyWithImpl<$Res, $Val extends ReportSummary>
     Object? title = null,
     Object? level = null,
     Object? reportType = null,
+    Object? endAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$ReportSummaryCopyWithImpl<$Res, $Val extends ReportSummary>
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
+      endAt: null == endAt
+          ? _value.endAt
+          : endAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$ReportSummaryImplCopyWith<$Res>
       int seq,
       String title,
       Level level,
-      ReportType reportType});
+      ReportType reportType,
+      DateTime endAt});
 }
 
 /// @nodoc
@@ -139,6 +147,7 @@ class __$$ReportSummaryImplCopyWithImpl<$Res>
     Object? title = null,
     Object? level = null,
     Object? reportType = null,
+    Object? endAt = null,
   }) {
     return _then(_$ReportSummaryImpl(
       id: null == id
@@ -165,6 +174,10 @@ class __$$ReportSummaryImplCopyWithImpl<$Res>
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
+      endAt: null == endAt
+          ? _value.endAt
+          : endAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -178,7 +191,8 @@ class _$ReportSummaryImpl implements _ReportSummary {
       required this.seq,
       required this.title,
       required this.level,
-      required this.reportType});
+      required this.reportType,
+      required this.endAt});
 
   factory _$ReportSummaryImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReportSummaryImplFromJson(json);
@@ -195,10 +209,12 @@ class _$ReportSummaryImpl implements _ReportSummary {
   final Level level;
   @override
   final ReportType reportType;
+  @override
+  final DateTime endAt;
 
   @override
   String toString() {
-    return 'ReportSummary(id: $id, week: $week, seq: $seq, title: $title, level: $level, reportType: $reportType)';
+    return 'ReportSummary(id: $id, week: $week, seq: $seq, title: $title, level: $level, reportType: $reportType, endAt: $endAt)';
   }
 
   @override
@@ -212,13 +228,14 @@ class _$ReportSummaryImpl implements _ReportSummary {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.reportType, reportType) ||
-                other.reportType == reportType));
+                other.reportType == reportType) &&
+            (identical(other.endAt, endAt) || other.endAt == endAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, week, seq, title, level, reportType);
+      Object.hash(runtimeType, id, week, seq, title, level, reportType, endAt);
 
   /// Create a copy of ReportSummary
   /// with the given fields replaced by the non-null parameter values.
@@ -243,7 +260,8 @@ abstract class _ReportSummary implements ReportSummary {
       required final int seq,
       required final String title,
       required final Level level,
-      required final ReportType reportType}) = _$ReportSummaryImpl;
+      required final ReportType reportType,
+      required final DateTime endAt}) = _$ReportSummaryImpl;
 
   factory _ReportSummary.fromJson(Map<String, dynamic> json) =
       _$ReportSummaryImpl.fromJson;
@@ -260,6 +278,8 @@ abstract class _ReportSummary implements ReportSummary {
   Level get level;
   @override
   ReportType get reportType;
+  @override
+  DateTime get endAt;
 
   /// Create a copy of ReportSummary
   /// with the given fields replaced by the non-null parameter values.

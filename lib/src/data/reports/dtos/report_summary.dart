@@ -14,6 +14,7 @@ sealed class ReportSummary with _$ReportSummary {
     required String title,
     required Level level,
     required ReportType reportType,
+    required DateTime endAt,
   }) = _ReportSummary;
 
   factory ReportSummary.fromJson(Map<String, dynamic> json) =>

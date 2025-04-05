@@ -49,7 +49,7 @@ class HomeMobileScreen extends StatelessWidget {
   /// 사이트 헤더 영역
   ///
   /// 현재는 과제 개요 텍스트가 렌더링됨.
-  Widget _header() => HomeHeaderView();
+  Widget _header() => const HomeHeaderView();
 
   /// CS 과제 목록
   ///
