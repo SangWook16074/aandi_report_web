@@ -41,12 +41,14 @@ class ReportDetailView extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      report.title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: Text(
+                        report.title,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Row(
@@ -67,10 +69,12 @@ class ReportDetailView extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
                   children: [
-                    Text(
-                      report.content,
-                      style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w600),
+                    Flexible(
+                      child: Text(
+                        report.content,
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ],
                 ),
