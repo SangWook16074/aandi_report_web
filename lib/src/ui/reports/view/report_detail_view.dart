@@ -116,7 +116,7 @@ class ReportDetailView extends ConsumerWidget {
                 child: Row(
                   children: [
                     Text(
-                      "학습정리 내용",
+                      "Slack 채널에 본인의 제출 내용을 링크로 제출해주세요!",
                       style:
                           TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                     ),
