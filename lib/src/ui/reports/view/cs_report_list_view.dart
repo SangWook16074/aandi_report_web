@@ -55,8 +55,8 @@ class CsReportListView extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: List.generate(10, (index) {
-          final reports =
-              viewModel.state.reports.getReportsAtWeek(week: index + 1);
+          final reports = csReports.getReportsAtWeek(week: index + 1);
+
           if (reports.isEmpty) {
             return Container();
           } else {
