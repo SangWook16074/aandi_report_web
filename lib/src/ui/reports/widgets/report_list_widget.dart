@@ -14,6 +14,7 @@ class ReportListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(reports);
     return Column(
       children: [_label(), _reports()],
     );
@@ -36,7 +37,7 @@ class ReportListWidget extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            ReportStatus(type: ReportStatueType.fromEndAt(reports[1].endAt)),
+            ReportStatus(type: ReportStatueType.fromEndAt(reports[0].endAt)),
           ],
         ),
       );
