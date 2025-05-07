@@ -14,7 +14,6 @@ class ReportListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(reports);
     return Column(
       children: [_label(), _reports()],
     );
