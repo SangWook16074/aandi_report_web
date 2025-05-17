@@ -73,8 +73,8 @@ class _$ReportSummaryCopyWithImpl<$Res, $Val extends ReportSummary>
     Object? week = null,
     Object? seq = null,
     Object? title = null,
-    Object? level = freezed,
-    Object? reportType = freezed,
+    Object? level = null,
+    Object? reportType = null,
     Object? endAt = null,
   }) {
     return _then(_value.copyWith(
@@ -94,11 +94,11 @@ class _$ReportSummaryCopyWithImpl<$Res, $Val extends ReportSummary>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      level: freezed == level
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as Level,
-      reportType: freezed == reportType
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
@@ -145,8 +145,8 @@ class __$$ReportSummaryImplCopyWithImpl<$Res>
     Object? week = null,
     Object? seq = null,
     Object? title = null,
-    Object? level = freezed,
-    Object? reportType = freezed,
+    Object? level = null,
+    Object? reportType = null,
     Object? endAt = null,
   }) {
     return _then(_$ReportSummaryImpl(
@@ -166,11 +166,11 @@ class __$$ReportSummaryImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      level: freezed == level
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as Level,
-      reportType: freezed == reportType
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
@@ -226,23 +226,16 @@ class _$ReportSummaryImpl implements _ReportSummary {
             (identical(other.week, week) || other.week == week) &&
             (identical(other.seq, seq) || other.seq == seq) &&
             (identical(other.title, title) || other.title == title) &&
-            const DeepCollectionEquality().equals(other.level, level) &&
-            const DeepCollectionEquality()
-                .equals(other.reportType, reportType) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.reportType, reportType) ||
+                other.reportType == reportType) &&
             (identical(other.endAt, endAt) || other.endAt == endAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      week,
-      seq,
-      title,
-      const DeepCollectionEquality().hash(level),
-      const DeepCollectionEquality().hash(reportType),
-      endAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, week, seq, title, level, reportType, endAt);
 
   /// Create a copy of ReportSummary
   /// with the given fields replaced by the non-null parameter values.

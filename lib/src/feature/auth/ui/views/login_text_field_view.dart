@@ -1,5 +1,5 @@
-import 'package:a_and_i_report_web_server/src/feature/auth/ui/models/login_event.dart';
-import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_text_field_view_model.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_event.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +9,7 @@ class LoginTextFieldView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginViewModel = ref.read(loginTextFieldViewModelProvider.notifier);
+    final loginUiViewModel = ref.read(loginUiViewModelProvider.notifier);
     final accountController = useTextEditingController();
     final passwordController = useTextEditingController();
     return Column(
@@ -31,7 +31,7 @@ class LoginTextFieldView extends HookConsumerWidget {
           ),
           onChanged: (account) {
             final event = UserAccountInput(account: account);
-            loginViewModel.onEvent(event);
+            loginUiViewModel.onEvent(event);
           },
         ),
         TextField(
@@ -51,7 +51,7 @@ class LoginTextFieldView extends HookConsumerWidget {
           ),
           onChanged: (password) {
             final event = UserPasswordInput(password: password);
-            loginViewModel.onEvent(event);
+            loginUiViewModel.onEvent(event);
           },
         ),
       ],

@@ -5,7 +5,7 @@ import '../entities/report_summary.dart';
 part 'report_summary_repository.g.dart';
 
 /// 과제 레포지토리
-@RestApi(baseUrl: "https://aandi-dev.xyz")
+@RestApi()
 abstract class ReportSummaryRepository {
   factory ReportSummaryRepository(Dio dio, {String baseUrl}) =
       _ReportSummaryRepository;

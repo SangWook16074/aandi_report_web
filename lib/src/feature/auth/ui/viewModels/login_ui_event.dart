@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-sealed class LoginEvent extends Equatable {}
+sealed class LoginUiEvent extends Equatable {}
 
-final class UserAccountInput extends LoginEvent {
+final class UserAccountInput extends LoginUiEvent {
   final String account;
 
   UserAccountInput({
@@ -15,7 +15,7 @@ final class UserAccountInput extends LoginEvent {
       ];
 }
 
-final class UserPasswordInput extends LoginEvent {
+final class UserPasswordInput extends LoginUiEvent {
   final String password;
 
   UserPasswordInput({required this.password});
@@ -25,7 +25,7 @@ final class UserPasswordInput extends LoginEvent {
       ];
 }
 
-final class Login extends LoginEvent {
+final class Login extends LoginUiEvent {
   final String account;
   final String password;
   Login({required this.account, required this.password});

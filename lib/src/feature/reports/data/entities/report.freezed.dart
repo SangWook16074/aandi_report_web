@@ -79,9 +79,9 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
     Object? requirement = null,
     Object? objects = null,
     Object? exampleIo = null,
-    Object? reportType = freezed,
+    Object? reportType = null,
     Object? week = null,
-    Object? level = freezed,
+    Object? level = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -108,7 +108,7 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
           ? _value.exampleIo
           : exampleIo // ignore: cast_nullable_to_non_nullable
               as List<ExampleIO>,
-      reportType: freezed == reportType
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
@@ -116,7 +116,7 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      level: freezed == level
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as Level,
@@ -162,9 +162,9 @@ class __$$ReportImplCopyWithImpl<$Res>
     Object? requirement = null,
     Object? objects = null,
     Object? exampleIo = null,
-    Object? reportType = freezed,
+    Object? reportType = null,
     Object? week = null,
-    Object? level = freezed,
+    Object? level = null,
   }) {
     return _then(_$ReportImpl(
       id: null == id
@@ -191,7 +191,7 @@ class __$$ReportImplCopyWithImpl<$Res>
           ? _value._exampleIo
           : exampleIo // ignore: cast_nullable_to_non_nullable
               as List<ExampleIO>,
-      reportType: freezed == reportType
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
@@ -199,7 +199,7 @@ class __$$ReportImplCopyWithImpl<$Res>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      level: freezed == level
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
               as Level,
@@ -294,10 +294,10 @@ class _$ReportImpl implements _Report {
             const DeepCollectionEquality().equals(other._objects, _objects) &&
             const DeepCollectionEquality()
                 .equals(other._exampleIo, _exampleIo) &&
-            const DeepCollectionEquality()
-                .equals(other.reportType, reportType) &&
+            (identical(other.reportType, reportType) ||
+                other.reportType == reportType) &&
             (identical(other.week, week) || other.week == week) &&
-            const DeepCollectionEquality().equals(other.level, level));
+            (identical(other.level, level) || other.level == level));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -310,9 +310,9 @@ class _$ReportImpl implements _Report {
       const DeepCollectionEquality().hash(_requirement),
       const DeepCollectionEquality().hash(_objects),
       const DeepCollectionEquality().hash(_exampleIo),
-      const DeepCollectionEquality().hash(reportType),
+      reportType,
       week,
-      const DeepCollectionEquality().hash(level));
+      level);
 
   /// Create a copy of Report
   /// with the given fields replaced by the non-null parameter values.
