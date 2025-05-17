@@ -3,11 +3,9 @@ import 'package:a_and_i_report_web_server/src/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() async {
+void main() {
   usePathUrlStrategy();
-  await dotenv.load(fileName: ".env");
   runApp(const ProviderScope(child: MyApp()));
 }
 
