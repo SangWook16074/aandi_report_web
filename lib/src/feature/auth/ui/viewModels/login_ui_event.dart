@@ -3,15 +3,15 @@ import 'package:equatable/equatable.dart';
 sealed class LoginUiEvent extends Equatable {}
 
 final class UserAccountInput extends LoginUiEvent {
-  final String account;
+  final String userId;
 
   UserAccountInput({
-    required this.account,
+    required this.userId,
   });
 
   @override
   List<Object?> get props => [
-        account,
+        userId,
       ];
 }
 

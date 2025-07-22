@@ -7,13 +7,13 @@ part 'login_ui_state.freezed.dart';
 @freezed
 sealed class LoginUiState with _$LoginUiState {
   const factory LoginUiState({
-    @Default("") String account,
+    @Default("") String userId,
     @Default("") String password,
   }) = _LoginUiState;
 
   const LoginUiState._();
 
   LoginRequestDto toDto() {
-    return LoginRequestDto(account: account, password: password);
+    return LoginRequestDto(userId: userId, password: password);
   }
 }

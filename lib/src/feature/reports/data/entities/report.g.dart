@@ -6,7 +6,7 @@ part of 'report.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
+_Report _$ReportFromJson(Map<String, dynamic> json) => _Report(
       id: json['id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
@@ -24,8 +24,7 @@ _$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
       level: $enumDecode(_$LevelEnumMap, json['level']),
     );
 
-Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ReportToJson(_Report instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,
@@ -49,26 +48,24 @@ const _$LevelEnumMap = {
   Level.LOW: 'LOW',
 };
 
-_$SeqStringImpl _$$SeqStringImplFromJson(Map<String, dynamic> json) =>
-    _$SeqStringImpl(
+_SeqString _$SeqStringFromJson(Map<String, dynamic> json) => _SeqString(
       seq: (json['seq'] as num).toInt(),
       content: json['content'] as String,
     );
 
-Map<String, dynamic> _$$SeqStringImplToJson(_$SeqStringImpl instance) =>
+Map<String, dynamic> _$SeqStringToJson(_SeqString instance) =>
     <String, dynamic>{
       'seq': instance.seq,
       'content': instance.content,
     };
 
-_$ExampleIOImpl _$$ExampleIOImplFromJson(Map<String, dynamic> json) =>
-    _$ExampleIOImpl(
+_ExampleIO _$ExampleIOFromJson(Map<String, dynamic> json) => _ExampleIO(
       seq: (json['seq'] as num).toInt(),
       input: json['input'] as String,
       output: json['output'] as String,
     );
 
-Map<String, dynamic> _$$ExampleIOImplToJson(_$ExampleIOImpl instance) =>
+Map<String, dynamic> _$ExampleIOToJson(_ExampleIO instance) =>
     <String, dynamic>{
       'seq': instance.seq,
       'input': instance.input,

@@ -1,4 +1,5 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/logout_button_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_mobile_screen.dart';
 import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,12 @@ class HomeUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [LogoutButtonView()],
+      ),
       body: SingleChildScrollView(
         child: ResponsiveLayout(
             mobile: Padding(

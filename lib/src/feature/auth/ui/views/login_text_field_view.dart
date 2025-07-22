@@ -29,8 +29,8 @@ class LoginTextFieldView extends HookConsumerWidget {
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(width: 2, color: Color(0xffd9d9d9))),
           ),
-          onChanged: (account) {
-            final event = UserAccountInput(account: account);
+          onChanged: (userId) {
+            final event = UserAccountInput(userId: userId);
             loginUiViewModel.onEvent(event);
           },
         ),

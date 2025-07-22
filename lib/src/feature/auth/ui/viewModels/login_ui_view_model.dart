@@ -17,7 +17,7 @@ class LoginUiViewModel extends _$LoginUiViewModel {
   onEvent(LoginUiEvent event) {
     switch (event) {
       case UserAccountInput():
-        state = state.copyWith(account: event.account);
+        state = state.copyWith(userId: event.userId);
         log(state.toString());
       case UserPasswordInput():
         state = state.copyWith(password: event.password);

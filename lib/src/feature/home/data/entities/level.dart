@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'level.g.dart';
+
 @JsonEnum(alwaysCreate: true)
 enum Level {
   @JsonValue("VERYHIGH")

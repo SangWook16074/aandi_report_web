@@ -6,8 +6,8 @@ part of 'report_summary.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReportSummaryImpl _$$ReportSummaryImplFromJson(Map<String, dynamic> json) =>
-    _$ReportSummaryImpl(
+_ReportSummary _$ReportSummaryFromJson(Map<String, dynamic> json) =>
+    _ReportSummary(
       id: json['id'] as String,
       week: (json['week'] as num).toInt(),
       seq: (json['seq'] as num).toInt(),
@@ -17,7 +17,7 @@ _$ReportSummaryImpl _$$ReportSummaryImplFromJson(Map<String, dynamic> json) =>
       endAt: DateTime.parse(json['endAt'] as String),
     );
 
-Map<String, dynamic> _$$ReportSummaryImplToJson(_$ReportSummaryImpl instance) =>
+Map<String, dynamic> _$ReportSummaryToJson(_ReportSummary instance) =>
     <String, dynamic>{
       'id': instance.id,
       'week': instance.week,
