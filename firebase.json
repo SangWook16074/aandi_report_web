@@ -10,7 +10,7 @@
       ]
     },
     {
-      "target": "test",
+      "target": "sub",
       "public": "build/web",
       "ignore": [
         "firebase.json",
