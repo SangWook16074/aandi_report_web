@@ -5,7 +5,10 @@
   "targets": {
     "aandi-report-web": {
       "hosting": {
-        "test": [
+        "main": [
+          "aandi-report-web"
+        ],
+        "sub": [
           "aandi-report-web-test"
         ]
       }
