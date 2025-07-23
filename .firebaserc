@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "aandi-report-web"
-  }
+  },
+  "targets": {
+    "aandi-report-web": {
+      "hosting": {
+        "test": [
+          "aandi-report-web-test"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
