@@ -11,6 +11,9 @@ abstract class RemoteAuthDatasource {
   factory RemoteAuthDatasource(Dio dio, {String baseUrl}) =
       _RemoteAuthDatasource;
 
+  /// 로그인 API
+  ///
+  ///
   @POST("/api/member/login")
   @Headers(<String, dynamic>{
     'Content-Type': 'application/json',

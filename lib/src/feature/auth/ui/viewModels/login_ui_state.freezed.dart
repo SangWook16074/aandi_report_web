@@ -14,71 +14,24 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$LoginUiState {
-  String get userId;
-  String get password;
-
-  /// Create a copy of LoginUiState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $LoginUiStateCopyWith<LoginUiState> get copyWith =>
-      _$LoginUiStateCopyWithImpl<LoginUiState>(
-          this as LoginUiState, _$identity);
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is LoginUiState &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.password, password) ||
-                other.password == password));
+        (other.runtimeType == runtimeType && other is LoginUiState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, password);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'LoginUiState(userId: $userId, password: $password)';
+    return 'LoginUiState()';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoginUiStateCopyWith<$Res> {
-  factory $LoginUiStateCopyWith(
-          LoginUiState value, $Res Function(LoginUiState) _then) =
-      _$LoginUiStateCopyWithImpl;
-  @useResult
-  $Res call({String userId, String password});
-}
-
-/// @nodoc
-class _$LoginUiStateCopyWithImpl<$Res> implements $LoginUiStateCopyWith<$Res> {
-  _$LoginUiStateCopyWithImpl(this._self, this._then);
-
-  final LoginUiState _self;
-  final $Res Function(LoginUiState) _then;
-
-  /// Create a copy of LoginUiState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-    Object? password = null,
-  }) {
-    return _then(_self.copyWith(
-      userId: null == userId
-          ? _self.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+class $LoginUiStateCopyWith<$Res> {
+  $LoginUiStateCopyWith(LoginUiState _, $Res Function(LoginUiState) __);
 }
 
 /// Adds pattern-matching-related methods to [LoginUiState].
@@ -96,14 +49,17 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_LoginUiState value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle value)? idle,
+    TResult Function(Loading value)? loading,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState() when $default != null:
-        return $default(_that);
+      case Idle() when idle != null:
+        return idle(_that);
+      case Loading() when loading != null:
+        return loading(_that);
       case _:
         return orElse();
     }
@@ -123,13 +79,16 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_LoginUiState value) $default,
-  ) {
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle value) idle,
+    required TResult Function(Loading value) loading,
+  }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState():
-        return $default(_that);
+      case Idle():
+        return idle(_that);
+      case Loading():
+        return loading(_that);
     }
   }
 
@@ -146,13 +105,16 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_LoginUiState value)? $default,
-  ) {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+  }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState() when $default != null:
-        return $default(_that);
+      case Idle() when idle != null:
+        return idle(_that);
+      case Loading() when loading != null:
+        return loading(_that);
       case _:
         return null;
     }
@@ -171,14 +133,17 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String userId, String password)? $default, {
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userId, String password, String errorMsg)? idle,
+    TResult Function()? loading,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState() when $default != null:
-        return $default(_that.userId, _that.password);
+      case Idle() when idle != null:
+        return idle(_that.userId, _that.password, _that.errorMsg);
+      case Loading() when loading != null:
+        return loading();
       case _:
         return orElse();
     }
@@ -198,13 +163,17 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String userId, String password) $default,
-  ) {
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userId, String password, String errorMsg)
+        idle,
+    required TResult Function() loading,
+  }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState():
-        return $default(_that.userId, _that.password);
+      case Idle():
+        return idle(_that.userId, _that.password, _that.errorMsg);
+      case Loading():
+        return loading();
     }
   }
 
@@ -221,13 +190,16 @@ extension LoginUiStatePatterns on LoginUiState {
   /// ```
 
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String userId, String password)? $default,
-  ) {
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userId, String password, String errorMsg)? idle,
+    TResult? Function()? loading,
+  }) {
     final _that = this;
     switch (_that) {
-      case _LoginUiState() when $default != null:
-        return $default(_that.userId, _that.password);
+      case Idle() when idle != null:
+        return idle(_that.userId, _that.password, _that.errorMsg);
+      case Loading() when loading != null:
+        return loading();
       case _:
         return null;
     }
@@ -236,71 +208,69 @@ extension LoginUiStatePatterns on LoginUiState {
 
 /// @nodoc
 
-class _LoginUiState extends LoginUiState {
-  const _LoginUiState({this.userId = "", this.password = ""}) : super._();
+class Idle implements LoginUiState {
+  const Idle({this.userId = "", this.password = "", this.errorMsg = ""});
 
-  @override
   @JsonKey()
   final String userId;
-  @override
   @JsonKey()
   final String password;
+  @JsonKey()
+  final String errorMsg;
 
   /// Create a copy of LoginUiState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$LoginUiStateCopyWith<_LoginUiState> get copyWith =>
-      __$LoginUiStateCopyWithImpl<_LoginUiState>(this, _$identity);
+  $IdleCopyWith<Idle> get copyWith =>
+      _$IdleCopyWithImpl<Idle>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoginUiState &&
+            other is Idle &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, password);
+  int get hashCode => Object.hash(runtimeType, userId, password, errorMsg);
 
   @override
   String toString() {
-    return 'LoginUiState(userId: $userId, password: $password)';
+    return 'LoginUiState.idle(userId: $userId, password: $password, errorMsg: $errorMsg)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$LoginUiStateCopyWith<$Res>
+abstract mixin class $IdleCopyWith<$Res>
     implements $LoginUiStateCopyWith<$Res> {
-  factory _$LoginUiStateCopyWith(
-          _LoginUiState value, $Res Function(_LoginUiState) _then) =
-      __$LoginUiStateCopyWithImpl;
-  @override
+  factory $IdleCopyWith(Idle value, $Res Function(Idle) _then) =
+      _$IdleCopyWithImpl;
   @useResult
-  $Res call({String userId, String password});
+  $Res call({String userId, String password, String errorMsg});
 }
 
 /// @nodoc
-class __$LoginUiStateCopyWithImpl<$Res>
-    implements _$LoginUiStateCopyWith<$Res> {
-  __$LoginUiStateCopyWithImpl(this._self, this._then);
+class _$IdleCopyWithImpl<$Res> implements $IdleCopyWith<$Res> {
+  _$IdleCopyWithImpl(this._self, this._then);
 
-  final _LoginUiState _self;
-  final $Res Function(_LoginUiState) _then;
+  final Idle _self;
+  final $Res Function(Idle) _then;
 
   /// Create a copy of LoginUiState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @pragma('vm:prefer-inline')
   $Res call({
     Object? userId = null,
     Object? password = null,
+    Object? errorMsg = null,
   }) {
-    return _then(_LoginUiState(
+    return _then(Idle(
       userId: null == userId
           ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -309,7 +279,31 @@ class __$LoginUiStateCopyWithImpl<$Res>
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      errorMsg: null == errorMsg
+          ? _self.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
+  }
+}
+
+/// @nodoc
+
+class Loading implements LoginUiState {
+  const Loading();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'LoginUiState.loading()';
   }
 }
 

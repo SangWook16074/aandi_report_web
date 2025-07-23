@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/error_message_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/login_button_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/login_text_field_view.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,10 @@ class LoginView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 40.0),
             child: LoginButtonView(),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: ErrorMessageView(),
+          )
         ],
       ),
     );

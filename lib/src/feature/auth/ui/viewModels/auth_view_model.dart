@@ -17,8 +17,8 @@ class AuthViewModel extends _$AuthViewModel {
     try {
       final accessToken =
           await ref.read(getUserAccessTokenUsecaseProvider).call();
-      log(accessToken ?? "토큰 X");
       if (accessToken == null) {
+        log("토큰이 존재하지 않습니다");
         return Unauthenticated();
       }
 
@@ -29,16 +29,27 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
-  void onEvent(AuthEvent event) {
-    event.when(signIn: (String account, String password) async {
-      final dto = LoginRequestDto(userId: account, password: password);
-      await ref.read(userLoginUsecaseProvider).call(dto);
-
-      state = AsyncData(Authenticated());
-    }, signOut: () async {
-      await ref.read(deleteUserAccessTokenUsecaseProvider).call();
-      state = AsyncData(Unauthenticated());
-    });
+  Future<void> onEvent(AuthEvent event) async {
+    switch (event) {
+      case SignIn():
+        try {
+          final dto =
+              LoginRequestDto(userId: event.account, password: event.password);
+          await ref.read(userLoginUsecaseProvider).call(dto);
+          state = AsyncData(Authenticated());
+        } catch (e) {
+          state = AsyncData(Unauthenticated());
+          rethrow;
+        }
+        break;
+      case SignOut():
+        await ref.read(deleteUserAccessTokenUsecaseProvider).call();
+        state = AsyncData(Unauthenticated());
+        break;
+      default:
+        // 다른 이벤트는 현재 처리하지 않음
+        break;
+    }
     log(state.toString());
   }
 }

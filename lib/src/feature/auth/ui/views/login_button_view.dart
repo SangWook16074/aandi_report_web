@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_event.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_view_model.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_event.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_state.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginButtonView extends ConsumerWidget {
   const LoginButtonView({super.key});
@@ -12,14 +14,21 @@ class LoginButtonView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginUiState = ref.watch(loginUiViewModelProvider);
+    final loginUiViewModel = ref.read(loginUiViewModelProvider.notifier);
     final authViewModel = ref.read(authViewModelProvider.notifier);
     return InkWell(
       onTap: () async {
-        final account = loginUiState.userId;
-        final password = loginUiState.password;
-        authViewModel.onEvent(SignIn(account: account, password: password));
-        if (context.mounted) {
-          context.go('/report');
+        /// 버튼 탭 시
+        /// 로그인 진행
+        try {
+          final account = (loginUiState as Idle).userId;
+          final password = loginUiState.password;
+          loginUiViewModel.onEvent(Login());
+          await authViewModel
+              .onEvent(SignIn(account: account, password: password));
+        } catch (e) {
+          log(e.toString());
+          loginUiViewModel.onEvent(LoginFail(errorMsg: e.toString()));
         }
       },
       child: Container(
