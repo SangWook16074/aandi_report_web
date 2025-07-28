@@ -1,1 +1,1 @@
-const baseUrl = "https://aandi-dev.xyz";
+const baseUrl = String.fromEnvironment("API_URL");
