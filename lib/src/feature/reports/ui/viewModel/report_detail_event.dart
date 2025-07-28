@@ -7,6 +7,5 @@ final class ReadReportDatail extends ReportDetailEvent {
 
   ReadReportDatail({required this.id});
   @override
-  // TODO: implement props
   List<Object?> get props => [id];
 }

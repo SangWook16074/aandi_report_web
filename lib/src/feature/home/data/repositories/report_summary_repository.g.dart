@@ -18,13 +18,22 @@ class _ReportSummaryRepository implements ReportSummaryRepository {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<ReportSummary>> getReportSummaries() async {
+  Future<List<ReportSummary>> getReportSummaries(String authorization) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': authorization,
+    };
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<List<ReportSummary>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+      Options(
+        method: 'GET',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/json',
+      )
           .compose(
             _dio.options,
             '/api/report',

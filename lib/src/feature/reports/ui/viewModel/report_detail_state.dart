@@ -1,27 +1,11 @@
 import 'package:a_and_i_report_web_server/src/feature/reports/data/entities/report.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-sealed class ReportDetailState extends Equatable {}
+part 'report_detail_state.freezed.dart';
 
-final class LoadingState extends ReportDetailState {
-  @override
-  List<Object?> get props => [];
-}
-
-final class ErrorState extends ReportDetailState {
-  final String errorMsg;
-  ErrorState({required this.errorMsg});
-  @override
-  List<Object?> get props => [
-        errorMsg,
-      ];
-}
-
-final class LoadedState extends ReportDetailState {
-  final Report report;
-
-  LoadedState({required this.report});
-
-  @override
-  List<Object?> get props => [report];
+@freezed
+sealed class ReportDatailState with _$ReportDatailState {
+  const factory ReportDatailState(
+      {required Report report,
+      @Default("") String errorMsg}) = _ReportDatailState;
 }

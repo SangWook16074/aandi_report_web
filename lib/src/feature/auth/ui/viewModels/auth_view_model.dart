@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:a_and_i_report_web_server/src/core/providers/delete_user_access_token_usecase_provider.dart';
-import 'package:a_and_i_report_web_server/src/core/providers/get_user_access_token_usecase_provider.dart';
-import 'package:a_and_i_report_web_server/src/core/providers/user_login_usecase_provider.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/providers/get_user_access_token_usecase_provider.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/providers/delete_user_access_token_usecase_provider.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/providers/user_login_usecase_provider.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/data/dtos/login_request_dto.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_event.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_state.dart';
