@@ -1,26 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_view_model.dart';
+part of 'local_auth_datasource_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authViewModelHash() => r'8388949104b174bd7fed32ea335feb2f9281cdb7';
+String _$localAuthDatasourceHash() =>
+    r'ccc0f433c606f042e9e916e2173736e3784d745f';
 
-/// See also [AuthViewModel].
-@ProviderFor(AuthViewModel)
-final authViewModelProvider =
-    AsyncNotifierProvider<AuthViewModel, AuthState>.internal(
-  AuthViewModel.new,
-  name: r'authViewModelProvider',
+/// See also [localAuthDatasource].
+@ProviderFor(localAuthDatasource)
+final localAuthDatasourceProvider =
+    AutoDisposeProvider<LocalAuthDatasource>.internal(
+  localAuthDatasource,
+  name: r'localAuthDatasourceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authViewModelHash,
+      : _$localAuthDatasourceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthViewModel = AsyncNotifier<AuthState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef LocalAuthDatasourceRef = AutoDisposeProviderRef<LocalAuthDatasource>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

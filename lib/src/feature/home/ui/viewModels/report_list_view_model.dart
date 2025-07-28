@@ -1,28 +1,19 @@
+import 'package:a_and_i_report_web_server/src/feature/home/providers/get_report_summary_usecase_provider.dart';
 import 'package:a_and_i_report_web_server/src/feature/home/ui/viewModels/report_list_state.dart';
-import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/repositories/report_summary_repository.dart';
+part 'report_list_view_model.g.dart';
 
-// 과제 목록 뷰 모델
-class ReportListViewModel with ChangeNotifier {
-  final ReportSummaryRepository reportSummaryRepository;
-
-  // 생성 시 목록 패치
-  ReportListViewModel(this.reportSummaryRepository) {
-    _fetchData();
-  }
-
-  var _state = const ReportListState();
-
-  ReportListState get state => _state;
-
-  void _fetchData() async {
+/// 과제 목록 뷰 모델
+@riverpod
+class ReportListViewModel extends _$ReportListViewModel {
+  @override
+  Future<ReportListState> build() async {
     try {
-      _state = _state.copyWith(
-          reports: await reportSummaryRepository.getReportSummaries());
-    } on Exception catch (e) {
-      _state = _state.copyWith(errorMsg: e.toString());
+      final reports = await ref.read(getReportSummaryUsecaseProvider).call();
+      return ReportListState(reports: reports);
+    } catch (e) {
+      return ReportListState(errorMsg: e.toString());
     }
-    notifyListeners();
   }
 }

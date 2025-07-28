@@ -1,28 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'secure_storage_provider.dart';
+part of 'get_report_summary_usecase_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$secureStorageHash() => r'b7a4a266bf06b2c459e0ca745006f6ccb08d71c0';
+String _$getReportSummaryUsecaseHash() =>
+    r'773ceaaa877f7f11fabe6d7d75cd5ad6303905bd';
 
-/// See also [secureStorage].
-@ProviderFor(secureStorage)
-final secureStorageProvider =
-    AutoDisposeProvider<FlutterSecureStorageWeb>.internal(
-  secureStorage,
-  name: r'secureStorageProvider',
+/// See also [getReportSummaryUsecase].
+@ProviderFor(getReportSummaryUsecase)
+final getReportSummaryUsecaseProvider =
+    AutoDisposeProvider<GetReportSummaryUsecase>.internal(
+  getReportSummaryUsecase,
+  name: r'getReportSummaryUsecaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$secureStorageHash,
+      : _$getReportSummaryUsecaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef SecureStorageRef = AutoDisposeProviderRef<FlutterSecureStorageWeb>;
+typedef GetReportSummaryUsecaseRef
+    = AutoDisposeProviderRef<GetReportSummaryUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,27 +1,16 @@
-import 'package:a_and_i_report_web_server/src/feature/reports/data/repositories/report_repository.dart';
+import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/login_ui_state.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/providers/get_report_detail_usecase_provider.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/viewModel/report_detail_event.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/viewModel/report_detail_state.dart';
-import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ReportDetailViewModel extends ChangeNotifier {
-  final ReportRepository reportRepository;
+part 'report_detail_view_model.g.dart';
 
-  ReportDetailViewModel(this.reportRepository);
-
-  ReportDetailState _state = LoadingState();
-
-  ReportDetailState get state => _state;
-
-  void onEvent(ReportDetailEvent event) async {
-    switch (event) {
-      case ReadReportDatail():
-        try {
-          _state = LoadedState(
-              report: await reportRepository.getReportDetailById(event.id));
-        } on Exception catch (e) {
-          _state = ErrorState(errorMsg: e.toString());
-        }
-    }
-    notifyListeners();
+@riverpod
+class ReportDetailViewModel extends _$ReportDetailViewModel {
+  @override
+  Future<ReportDatailState> build(String id) async {
+    final report = await ref.read(getReportDetailUsecaseProvider).call(id);
+    return ReportDatailState(report: report);
   }
 }

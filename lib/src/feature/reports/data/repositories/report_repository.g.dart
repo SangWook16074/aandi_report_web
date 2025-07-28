@@ -18,13 +18,22 @@ class _ReportRepository implements ReportRepository {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<Report> getReportDetailById(String id) async {
+  Future<Report> getReportDetailById(String id, String authorization) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': authorization,
+    };
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<Report>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+      Options(
+        method: 'GET',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/json',
+      )
           .compose(
             _dio.options,
             '/api/report/${id}',

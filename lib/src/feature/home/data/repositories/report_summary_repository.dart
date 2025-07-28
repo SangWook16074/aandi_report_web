@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import '../entities/report_summary.dart';
 
@@ -12,5 +12,9 @@ abstract class ReportSummaryRepository {
 
   // 과제 목록 GET 요청
   @GET("/api/report")
-  Future<List<ReportSummary>> getReportSummaries();
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<List<ReportSummary>> getReportSummaries(
+      @Header("Authorization") String authorization);
 }

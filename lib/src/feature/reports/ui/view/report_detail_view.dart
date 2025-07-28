@@ -1,7 +1,6 @@
-import 'package:a_and_i_report_web_server/src/core/providers/report_detail_view_model_provider.dart';
-import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/bottom_logo.dart';
-import 'package:a_and_i_report_web_server/src/feature/reports/ui/viewModel/report_detail_state.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/data/entities/report.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/content_io_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/content_list_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/sub_title_view.dart';
@@ -10,14 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ReportDetailView extends ConsumerWidget {
-  const ReportDetailView({
-    super.key,
-  });
+  final Report report;
+  const ReportDetailView({super.key, required this.report});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(reportDetailViewModelProvider);
-    final report = (viewModel.state as LoadedState).report;
     return Column(
       children: [
         Container(

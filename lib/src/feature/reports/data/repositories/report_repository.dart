@@ -1,6 +1,5 @@
-import 'package:a_and_i_report_web_server/src/feature/home/data/entities/report_summary.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/data/entities/report.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 part 'report_repository.g.dart';
@@ -11,5 +10,9 @@ abstract class ReportRepository {
   factory ReportRepository(Dio dio, {String baseUrl}) = _ReportRepository;
 
   @GET("/api/report/{id}")
-  Future<Report> getReportDetailById(@Path("id") String id);
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<Report> getReportDetailById(
+      @Path("id") String id, @Header("Authorization") String authorization);
 }
