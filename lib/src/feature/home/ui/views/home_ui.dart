@@ -10,28 +10,41 @@ class HomeUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [LogoutButtonView()],
+        toolbarHeight: 56,
       ),
       body: SingleChildScrollView(
         child: ResponsiveLayout(
             mobile: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 20,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top +
+                    66, // status bar + app bar + extra
+                left: 20,
+                right: 20,
+                bottom: 10,
               ),
               child: HomeMobileScreen(),
             ),
             tablet: Padding(
-              padding:
-                  EdgeInsets.only(right: 100, left: 100, top: 100, bottom: 15),
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 76,
+                right: 100,
+                left: 100,
+                bottom: 15,
+              ),
               child: HomeScreen(),
             ),
             desktop: Padding(
-              padding:
-                  EdgeInsets.only(right: 200, left: 200, top: 100, bottom: 15),
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 76,
+                right: 200,
+                left: 200,
+                bottom: 15,
+              ),
               child: HomeScreen(),
             )),
       ),
