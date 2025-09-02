@@ -9,7 +9,7 @@ final class LocalAuthDatasourceImpl implements LocalAuthDatasource {
   ///
   @override
   Future<void> saveUserToken(String token) async {
-    window.localStorage.setItem(_tokenKey, token);
+    window.sessionStorage.setItem(_tokenKey, token);
   }
 
   /// 로컬 스토리지로부터 jwt 읽어오기
@@ -17,7 +17,7 @@ final class LocalAuthDatasourceImpl implements LocalAuthDatasource {
   ///
   @override
   Future<String?> getUserToken() async {
-    return window.localStorage.getItem(_tokenKey);
+    return window.sessionStorage.getItem(_tokenKey);
   }
 
   /// 로컬 스토리지로부터 jwt 삭제
@@ -25,6 +25,6 @@ final class LocalAuthDatasourceImpl implements LocalAuthDatasource {
   ///
   @override
   Future<void> deleteUserToken() async {
-    window.localStorage.removeItem(_tokenKey);
+    window.sessionStorage.removeItem(_tokenKey);
   }
 }
