@@ -14,7 +14,7 @@ Flutter로 제작되어 Firebase Hosting으로 배포되었습니다. 실제 멘
 
 ## 🛠 기술 스택
 
-- 프레임워크 : Flutter / Dart
+- 프레임워크 : Flutter
 - 상태관리 : Riverpod
 - 아키텍처 : MVVMClean Architecture
 - 백엔드 : Spring Boot + MongoDB + JWT
