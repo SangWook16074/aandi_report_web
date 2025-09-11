@@ -106,8 +106,7 @@ Flutter Web 환경에서는 기본적으로 텍스트 복사 기능을 지원하
 <img width="654" height="338" alt="스크린샷 2025-07-29 오전 11 58 57" src="https://github.com/user-attachments/assets/d5b989cf-aeed-4a20-b50c-39dc9d68da78" />
 
 
-사용자가 로그인을 시도하면 서버로부터 AccessToken을 발급받게 되고, 클라이언트는 Session Storage에 토큰을 저장하고, 
-이후 스토리지에서 토큰을 가져와 여러 API를 수행할 수 있도록 구성했습니다.
+사용자가 로그인하면 서버에서 Access Token을 발급받아 클라이언트의 Session Storage에 저장하고, 이후 해당 토큰을 참조하여 API 요청을 수행할 수 있도록 구성했습니다.
 
 #### Refresh Token 도입을 안한 계기
 
