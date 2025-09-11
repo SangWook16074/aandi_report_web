@@ -16,7 +16,7 @@ Flutter로 제작되어 Firebase Hosting으로 배포되었습니다. 실제 멘
 
 - 프레임워크 : Flutter
 - 상태관리 : Riverpod
-- 아키텍처 : MVVMClean Architecture
+- 아키텍처 : MVVM + Clean Architecture
 - 백엔드 : Spring Boot + MongoDB + JWT
 - 기타 : Freezed / Equatable / Go_Router
 
