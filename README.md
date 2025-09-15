@@ -201,5 +201,8 @@ Flutter Web 프로젝트를 Firebase Hosting에 배포할 때, 브라우저 캐�
 - [ ] 주요 UI 업데이트 및 UX 개선
 - [ ] 관리자 페이지 제작으로 운영 고도화
 - [ ] Refresh Token 도입으로 안정성 강화
+<<<<<<< HEAD
 ---
 **문의**: A&I 운영진 개발팀
+=======
+>>>>>>> da89174 (Update README.md)
