@@ -13,9 +13,15 @@ class HomeUI extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xffffffff),
         actions: [LogoutButtonView()],
         toolbarHeight: 56,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.0),
+          child: Container(
+            color: Theme.of(context).dividerColor,
+            height: 1.0,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: ResponsiveLayout(
