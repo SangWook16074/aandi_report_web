@@ -120,6 +120,63 @@ Flutter Web 환경에서는 기본적으로 텍스트 복사 기능을 지원하
 
 이는 브라우저 종료 시 자동 삭제되어 XSS 위험을 줄여주지만, 로그인 유지가 어려운 한계가 있어 추후 쿠키 기반 HttpOnly 전략으로 확장할 계획입니다.
 
+## 🤔 트러블 슈팅
+### 웹 환경에서 경로에 #이 붙는 문제
+Flutter Web 프로젝트를 배포했을 때, 기본 탐색 방식이 해시(#) 기반 라우팅이라 URL에 # 문자가 항상 포함되는 문제가 있었습니다. 이는 사용자에게 이질감을 줄 수 있는 요소였습니다.
+
+이를 해결하기 위해 flutter_web_plugins의 usePathUrlStrategy를 적용하여 경로 기반 라우팅으로 전환했습니다.
+
+```yaml
+// pubspec.yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+```
+
+```dart
+void main() {
+  usePathUrlStrategy(); // 경로 기반 탐색 지정
+  ...
+}
+```
+
+그 결과, URL에서 # 문자를 제거하고 보다 자연스러운 웹 탐색 경험을 제공할 수 있었습니다.
+
+### 웹 캐싱 문제
+Flutter Web 프로젝트를 Firebase Hosting에 배포할 때, 브라우저 캐시와 서비스워커 때문에 새 UI가 즉시 반영되지 않는 문제가 있었습니다.
+이를 해결하기 위해 다음과 같이 CI/CD를 최적화했습니다.
+
+- 서비스워커 제거 (--pwa-strategy=none): 브라우저가 이전 빌드를 캐싱하지 않도록 설정
+- Firebase Hosting 캐시 정책 설정: index.html은 항상 최신 로드, JS 파일은 해시 기반 캐싱으로 자동 갱신
+- GitHub Actions 워크플로우 최적화: 중복 checkout 제거, release 모드 빌드 적용
+
+```yml
+     - name: Build Flutter Web (no service worker, release mode)
+        run: flutter build web --release --dart-define=API_URL=${{ secrets.BASE_URL }} --pwa-strategy=none
+```
+
+```json
+      ...
+      "headers": [
+        {
+          "source": "/index.html",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        },
+        {
+          "source": "/main.dart.js",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache" }
+          ]
+        }
+      ]
+```
+
+그 결과, 배포 즉시 최신 UI가 반영되며, 강력 새로고침 없이도 사용자에게 항상 최신 화면을 제공할 수 있었습니다.
+
 ## 📌 TODO
 
 출시하면서 아쉬웠던 점 및 향후 계획에 대해서 투두리스트를 만들었습니다. 추후 해당 투두리스트를 모두 체크할 수 있도록 틈틈히 개선할 예정입니다.
