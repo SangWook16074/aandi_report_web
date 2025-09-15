@@ -15,27 +15,19 @@ class LogoutButtonView extends ConsumerWidget {
       data: (authState) {
         if (authState is Authenticated) {
           final authViewModel = ref.read(authViewModelProvider.notifier);
-          return Container(
-            constraints: BoxConstraints(
-              minWidth: 48,
-              minHeight: 48,
-              maxWidth: 56,
-              maxHeight: 56,
+          return IconButton(
+            onPressed: () async {
+              /// 버튼 탭시
+              /// 로그아웃됨
+              await authViewModel.onEvent(SignOut());
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Color(0xffff0000),
+              size: 24,
             ),
-            child: IconButton(
-              onPressed: () async {
-                /// 버튼 탭시
-                /// 로그아웃됨
-                await authViewModel.onEvent(SignOut());
-              },
-              icon: Icon(
-                Icons.exit_to_app,
-                color: Color(0xffff0000),
-                size: 24,
-              ),
-              tooltip: '로그아웃',
-              padding: EdgeInsets.all(8),
-            ),
+            tooltip: '로그아웃',
+            padding: EdgeInsets.all(8),
           );
         } else {
           // 인증되지 않은 상태에서는 빈 컨테이너 반환

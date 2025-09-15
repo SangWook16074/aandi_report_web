@@ -13,7 +13,7 @@ class HomeUI extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xffffffff),
         actions: [LogoutButtonView()],
         toolbarHeight: 56,
       ),
