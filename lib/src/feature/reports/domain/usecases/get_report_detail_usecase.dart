@@ -2,6 +2,11 @@ import 'package:a_and_i_report_web_server/src/feature/auth/domain/repositories/a
 import 'package:a_and_i_report_web_server/src/feature/reports/data/entities/report.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/data/repositories/report_repository.dart';
 
+/// 과제 상세 정보를 조회하는 UseCase 구현체입니다.
+///
+/// **동작 순서:**
+/// 1. 인증 토큰 존재 여부를 확인합니다.
+/// 2. [id]에 해당하는 과제 정보를 [ReportRepository]를 통해 요청합니다.
 final class GetReportDetailUsecaseImpl implements GetReportDetailUsecase {
   final ReportRepository reportRepository;
   final AuthRepository authRepository;
@@ -26,6 +31,7 @@ final class GetReportDetailUsecaseImpl implements GetReportDetailUsecase {
   }
 }
 
+/// 과제 상세 정보 조회 UseCase 인터페이스입니다.
 abstract class GetReportDetailUsecase {
   Future<Report> call(String id);
 }
