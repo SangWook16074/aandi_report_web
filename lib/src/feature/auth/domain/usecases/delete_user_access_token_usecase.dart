@@ -1,6 +1,7 @@
 import 'package:a_and_i_report_web_server/src/feature/auth/data/datasources/local/local_auth_datasource.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/domain/repositories/auth_repository.dart';
 
+/// 사용자 액세스 토큰을 삭제(로그아웃)하는 UseCase 구현체입니다.
 final class DeleteUserAccessTokenUsecaseImpl
     implements DeleteUserAccessTokenUsecase {
   final AuthRepository authRepository;
@@ -13,6 +14,7 @@ final class DeleteUserAccessTokenUsecaseImpl
   }
 }
 
+/// 사용자 액세스 토큰을 삭제하는 UseCase 인터페이스입니다.
 abstract class DeleteUserAccessTokenUsecase {
   Future<void> call();
 }

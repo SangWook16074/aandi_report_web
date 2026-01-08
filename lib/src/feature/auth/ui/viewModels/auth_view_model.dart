@@ -10,8 +10,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_view_model.g.dart';
 
+/// 앱 전반의 인증 상태를 관리하는 ViewModel입니다.
+///
+/// [AsyncNotifier]를 상속받아 인증 상태([AuthState])를 비동기적으로 관리합니다.
+/// `keepAlive: true`로 설정되어 있어, 앱 실행 중 상태가 유지됩니다.
 @Riverpod(keepAlive: true)
 class AuthViewModel extends _$AuthViewModel {
+  /// 초기 상태를 설정합니다.
+  ///
+  /// 앱 실행 시 로컬 저장소에 저장된 액세스 토큰의 존재 여부를 확인합니다.
+  /// - 토큰 존재: [Authenticated] (로그인 상태)
+  /// - 토큰 없음: [Unauthenticated] (비로그인 상태)
   @override
   Future<AuthState> build() async {
     try {
@@ -29,6 +38,10 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  /// UI에서 발생한 인증 관련 이벤트를 처리합니다.
+  ///
+  /// - [SignIn]: 로그인 요청을 처리합니다. UseCase를 호출하고 성공 시 [Authenticated]로 상태를 변경합니다.
+  /// - [SignOut]: 로그아웃 요청을 처리합니다. 토큰을 삭제하고 [Unauthenticated]로 상태를 변경합니다.
   Future<void> onEvent(AuthEvent event) async {
     switch (event) {
       case SignIn():
