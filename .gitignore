@@ -45,3 +45,8 @@ app.*.map.json
 
 # 프로젝트 빌드 관련
 .env
+GEMINI.md
+PLAN.md
+PRD.md
+TASK.md
+.gemini/
