@@ -5,6 +5,7 @@ import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_st
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/login_ui.dart';
 import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_ui.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/report_detail_ui.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/promotion_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'route_config.g.dart';
@@ -17,12 +18,14 @@ part 'route_config.g.dart';
 /// **리다이렉션 규칙:**
 /// - 로그인되지 않은 사용자가 보호된 페이지(`/report` 등)에 접근하면 `/sign-in`으로 이동합니다.
 /// - 이미 로그인된 사용자가 로그인 페이지(`/sign-in`)에 접근하면 `/report`로 이동합니다.
+/// - `/promotion` 페이지는 로그인 여부와 관계없이 접근 가능합니다.
 ///
 /// **정의된 라우트:**
 /// - `/`: 루트 경로. 인증 상태에 따라 `/report` 또는 `/sign-in`으로 리다이렉트합니다.
 /// - `/sign-in`: 로그인 화면 ([LoginUI]).
 /// - `/report`: 과제 목록 화면 ([HomeUI]).
 ///   - `/report/:id`: 과제 상세 화면 ([ReportDetailUI]).
+/// - `/promotion`: 홍보 포스터 화면 ([PromotionPage]).
 @riverpod
 GoRouter goRouter(Ref ref) {
   final authStateAsync = ref.watch(authViewModelProvider);
@@ -33,10 +36,12 @@ GoRouter goRouter(Ref ref) {
         data: (authState) {
           final isLoggedIn = authState is Authenticated;
           final isAtLogin = state.matchedLocation == '/sign-in';
-          final isAtReport = state.matchedLocation.startsWith('/report');
+          // final isAtReport = state.matchedLocation.startsWith('/report'); // Unused
+          final isAtPromotion = state.matchedLocation == '/promotion';
 
           // 로그인되지 않은 상태에서 보호된 페이지 접근 시 로그인 페이지로 리다이렉트
-          if (!isLoggedIn && !isAtLogin) return '/sign-in';
+          // 단, 프로모션 페이지는 제외
+          if (!isLoggedIn && !isAtLogin && !isAtPromotion) return '/sign-in';
 
           // 로그인된 상태에서 로그인 페이지 접근 시 메인 페이지로 리다이렉트
           if (isLoggedIn && isAtLogin) return '/report';
@@ -62,6 +67,10 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/sign-in',
         builder: (context, state) => const LoginUI(),
+      ),
+      GoRoute(
+        path: '/promotion',
+        builder: (context, state) => const PromotionPage(),
       ),
       GoRoute(
         path: '/report',
