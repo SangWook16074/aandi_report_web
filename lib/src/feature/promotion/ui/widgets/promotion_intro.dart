@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -6,13 +7,14 @@ class PromotionIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveLayout.isMobile(context);
     return Container(
       width: double.infinity,
       height: double.infinity, // 전체 화면 높이 채움
 
       color: Colors.white,
 
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 80),
       child: Center(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1000), // 최대 너비 제한 축소
@@ -24,7 +26,7 @@ class PromotionIntro extends StatelessWidget {
                   'A&I는 개발을 좋아하는 사람들이 모여\n지식을 공유하고 함께 성장하는 문화를 만들어갑니다.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 32, // 축소
+                    fontSize: isMobile ? 20 : 32, // 축소
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                     height: 1.4,
@@ -41,7 +43,8 @@ class PromotionIntro extends StatelessWidget {
                   '동아리를 빛내주실 분을 찾고 있습니다!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20, // 축소
+                    fontSize: isMobile ? 12 : 20, // 축소
+                    fontWeight: FontWeight.w700,
                     color: Colors.black54,
                     height: 1.6,
                   ),

@@ -1,13 +1,63 @@
+import 'dart:async';
+
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 
-class PromotionCurriculum extends StatelessWidget {
+class PromotionCurriculum extends StatefulWidget {
   const PromotionCurriculum({super.key});
+
+  @override
+  State<PromotionCurriculum> createState() => _PromotionCurriculumState();
+}
+
+class _PromotionCurriculumState extends State<PromotionCurriculum> {
+  int _currentPage = 0;
+  late final PageController _pageController;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+    _startAutoSwipe();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoSwipe() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (_currentPage < 2) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  void _stopAutoSwipe() {
+    _timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveLayout.isMobile(context);
+    final isTablet = MediaQuery.of(context).size.width <= 1200;
 
     return Container(
       width: double.infinity,
@@ -49,44 +99,95 @@ class PromotionCurriculum extends StatelessWidget {
 
                   const SizedBox(height: 50),
 
-                  // 반응형 배치 (Column vs Row)
-                  if (isMobile)
+                  // 반응형 배치 (Carousel vs Row)
+                  if (isTablet)
                     Column(
                       children: [
-                        _buildCurriculumStage(
-                          context,
-                          '1차 과정',
-                          '코딩 입문 및 기초',
-                          '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
-                          [
-                            '코딩 문법 입문\n- 학습 원동력 부여',
-                            '기초 알고리즘\n- 문제 해결 능력 배양',
-                          ],
+                        SizedBox(
+                          height: 480, // 카드 높이 확보
+                          child: Listener(
+                            onPointerDown: (_) => _stopAutoSwipe(),
+                            onPointerUp: (_) => _startAutoSwipe(),
+                            onPointerCancel: (_) => _startAutoSwipe(),
+                            child: PageView(
+                              controller: _pageController,
+                              onPageChanged: (index) {
+                                setState(() {
+                                  _currentPage = index;
+                                });
+                              },
+                              children: [
+                                _buildCurriculumStage(
+                                  context,
+                                  '1차 과정',
+                                  '코딩 입문 및 기초',
+                                  '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                                  [
+                                    '코딩 문법 입문\n- 학습 원동력 부여',
+                                    '기초 알고리즘\n- 문제 해결 능력 배양',
+                                  ],
+                                  isMobile: isMobile,
+                                ),
+                                _buildCurriculumStage(
+                                  context,
+                                  '2차 과정',
+                                  '심화 분야 학습 (택1)',
+                                  '배우고 싶은 내용을\n자세하게 알려드립니다!',
+                                  [
+                                    'Flutter (Dart)\n- 크로스플랫폼 앱 제작\n- MVVM, 상태관리, API',
+                                    'Spring Boot (Kotlin)\n- 서버 개발 및 MVC 패턴\n- AWS, Docker 배포',
+                                    'AI (PyTorch)\n- AI 핵심 원리 및 구현',
+                                  ],
+                                  isMobile: isMobile,
+                                ),
+                                _buildCurriculumStage(
+                                  context,
+                                  '3차 과정',
+                                  '팀 프로젝트',
+                                  '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
+                                  [
+                                    '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
+                                  ],
+                                  isMobile: isMobile,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 24),
-                        _buildCurriculumStage(
-                          context,
-                          '2차 과정',
-                          '심화 분야 학습 (택1)',
-                          '배우고 싶은 내용을\n자세하게 알려드립니다!',
-                          [
-                            'Flutter (Dart)\n- 크로스플랫폼 앱 제작\n- MVVM, 상태관리, API',
-                            'Spring Boot (Kotlin)\n- 서버 개발 및 MVC 패턴\n- AWS, Docker 배포',
-                            'AI (PyTorch)\n- AI 핵심 원리 및 구현',
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        _buildCurriculumStage(
-                          context,
-                          '3차 과정',
-                          '팀 프로젝트',
-                          '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
-                          [
-                            '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
-                          ],
+                        // 인디케이터
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(3, (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                _pageController.animateToPage(
+                                  index,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width: _currentPage == index ? 24 : 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: _currentPage == index
+                                      ? Colors.black87
+                                      : Colors.black26,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            );
+                          }),
                         ),
                       ],
-                    ).animate().fadeIn(duration: 1000.ms, delay: 500.ms)
+                    )
+                        .animate()
+                        .fadeIn(duration: 1000.ms, delay: 500.ms)
+                        .moveY(begin: 30, end: 0)
                   else
                     SizedBox(
                       height: 550,
@@ -104,6 +205,7 @@ class PromotionCurriculum extends StatelessWidget {
                                 '코딩 문법 입문\n- 학습 원동력 부여',
                                 '기초 알고리즘\n- 문제 해결 능력 배양',
                               ],
+                              isMobile: false, // Desktop, not mobile
                               // Colors.blue.shade600, // 색상 제거
                             ),
                           ),
@@ -121,6 +223,7 @@ class PromotionCurriculum extends StatelessWidget {
                                 'Spring Boot (Kotlin)\n- 서버 개발 및 MVC 패턴\n- AWS, Docker 배포',
                                 'AI (PyTorch)\n- AI 핵심 원리 및 구현',
                               ],
+                              isMobile: false, // Desktop, not mobile
                               // Colors.green.shade600, // 색상 제거
                             ),
                           ),
@@ -136,6 +239,7 @@ class PromotionCurriculum extends StatelessWidget {
                               [
                                 '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
                               ],
+                              isMobile: false, // Desktop, not mobile
                               // Colors.purple.shade600, // 색상 제거
                             ),
                           ),
@@ -157,9 +261,10 @@ class PromotionCurriculum extends StatelessWidget {
     String stage,
     String title,
     String description,
-    List<String> items,
+    List<String> items, {
     // Color color, // 색상 파라미터 제거
-  ) {
+    required bool isMobile, // Add this
+  }) {
     // 흑백 테마를 위한 색상 정의
     final Color iconColor = Colors.grey.shade700;
     final Color stageTitleColor = Colors.grey.shade600;
@@ -167,7 +272,7 @@ class PromotionCurriculum extends StatelessWidget {
     final Color stageBgColor = Colors.grey.shade100;
 
     return Container(
-      padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(isMobile ? 16 : 32), // Responsive padding
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
@@ -185,29 +290,32 @@ class PromotionCurriculum extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding:
+                    EdgeInsets.all(isMobile ? 8 : 12), // Responsive padding
                 decoration: BoxDecoration(
                   color: stageBgColor, // 흑백 톤 배경
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.school_rounded, color: iconColor, size: 28),
+                child: Icon(Icons.school_rounded,
+                    color: iconColor,
+                    size: isMobile ? 24 : 28), // Responsive icon size
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: isMobile ? 12 : 16), // Responsive spacing
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     stage,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: isMobile ? 12 : 14, // Responsive font size
                       fontWeight: FontWeight.bold,
                       color: stageTitleColor, // 흑백 톤 제목
                     ),
                   ),
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: isMobile ? 18 : 20, // Responsive font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
@@ -216,52 +324,52 @@ class PromotionCurriculum extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
           Text(
             description,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: isMobile ? 14 : 16, // Responsive font size
               color: Colors.black54,
               fontWeight: FontWeight.w600,
               height: 1.5,
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
           const Divider(height: 1, color: Colors.black12),
-          const SizedBox(height: 24),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: items
-                    .map(
-                      (item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(Icons.check_circle_rounded,
-                                size: 20, color: checkIconColor), // 흑백 톤 체크 아이콘
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black87,
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: items
+                .map(
+                  (item) => Padding(
+                    padding: EdgeInsets.only(
+                        bottom: isMobile ? 8.0 : 16.0), // Responsive padding
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.check_circle_rounded,
+                            size: isMobile ? 16 : 20,
+                            color: checkIconColor), // Responsive icon size
+                        SizedBox(
+                            width: isMobile ? 8 : 12), // Responsive spacing
+                        Expanded(
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              fontSize:
+                                  isMobile ? 13 : 15, // Responsive font size
+                              color: Colors.black87,
+                              height: 1.5,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          )
         ],
       ),
     );
