@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 
 class Mentor {
   final String name;
@@ -23,7 +25,6 @@ class _PromotionMentorsState extends State<PromotionMentors>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
-  // 멘토 데이터 통합
   final List<Mentor> _allMentors = const [
     Mentor(
       name: '멘토 A',
@@ -66,10 +67,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
     ),
   ];
 
-  // 카드 하나의 너비 (마진 포함) - 1.75x
-  static const double _cardWidth = 525.0;
-  static const double _cardMargin = 28.0;
-  static const double _totalItemWidth = _cardWidth + _cardMargin;
+  static const double _cardMargin = 20.0;
 
   @override
   void initState() {
@@ -94,47 +92,48 @@ class _PromotionMentorsState extends State<PromotionMentors>
     return Icons.code_rounded;
   }
 
-  Widget _buildMentorCard(Mentor mentor) {
+  Widget _buildMentorCard(Mentor mentor, double cardWidth) {
     return Container(
-      width: _cardWidth,
-      height: 525, // 1.75x 고정 높이
+      width: cardWidth,
+      height: 380,
       margin: const EdgeInsets.only(right: _cardMargin),
       child: Card(
-        elevation: 4.0,
-        shadowColor: Colors.black26,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-        clipBehavior: Clip.antiAlias, // 배경 아이콘이 카드 밖으로 나가지 않게 자름
+        elevation: 8.0,
+        shadowColor: Colors.black54, // 더 진한 그림자
+        color: const Color(0xFF2C2C2C), // 다크 카드 배경
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            // 1. 배경 워터마크 아이콘 (디자인 요소)
+            // 1. 배경 워터마크 아이콘
             Positioned(
-              right: -30,
-              bottom: -30,
+              right: -20,
+              bottom: -20,
               child: Transform.rotate(
-                angle: -0.2, // 살짝 기울임
+                angle: -0.2,
                 child: Icon(
                   _getRoleIcon(mentor.role),
-                  size: 250, // 아주 큰 사이즈
-                  color: Colors.grey.withValues(alpha: 0.1), // 아주 연하게
+                  size: 150,
+                  color: Colors.white.withValues(alpha: 0.05), // 흰색 투명도
                 ),
               ),
             ),
 
             // 2. 실제 콘텐츠
             Padding(
-              padding: const EdgeInsets.all(42.0),
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.grey.shade200,
+                        radius: 24,
+                        backgroundColor: Colors.white10, // 어두운 배경용
                         child: Icon(_getRoleIcon(mentor.role),
-                            color: Colors.grey, size: 40),
+                            color: Colors.white70, size: 28),
                       ),
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,16 +141,16 @@ class _PromotionMentorsState extends State<PromotionMentors>
                             Text(
                               mentor.name,
                               style: const TextStyle(
-                                fontSize: 32,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black87,
+                                color: Colors.white, // 흰색 텍스트
                               ),
                             ),
                             Text(
                               mentor.role,
                               style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.blueGrey,
+                                fontSize: 16,
+                                color: Colors.white54, // 회색 텍스트
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -160,26 +159,28 @@ class _PromotionMentorsState extends State<PromotionMentors>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 20),
                   Expanded(
                     child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: mentor.achievements.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('• ',
                                   style: TextStyle(
-                                      color: Colors.blue, fontSize: 28)),
+                                      color: Colors.black,
+                                      fontSize: 18)), // 포인트 컬러
                               Expanded(
                                 child: Text(
                                   mentor.achievements[index],
                                   style: const TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black87,
+                                    fontSize: 20,
+
+                                    color: Colors.white70, // 밝은 회색 텍스트
                                     height: 1.4,
                                   ),
                                   maxLines: 2,
@@ -204,67 +205,72 @@ class _PromotionMentorsState extends State<PromotionMentors>
   @override
   Widget build(BuildContext context) {
     final infiniteMentors = [..._allMentors, ..._allMentors];
-    final totalScrollWidth = _totalItemWidth * _allMentors.length;
+    final isMobile = ResponsiveLayout.isMobile(context);
+    final cardWidth =
+        isMobile ? MediaQuery.of(context).size.width * 0.85 : 580.0;
+    final totalItemWidth = cardWidth + _cardMargin;
+    final totalScrollWidth = totalItemWidth * _allMentors.length;
 
     return Container(
-      width: double.infinity,
-      color: const Color(0xfff6f6f6),
-      padding: const EdgeInsets.symmetric(vertical: 140),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            '함께 나아갈 멘토를 소개합니다!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 18),
-          const Text(
-            '현직자 및 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 28,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 88),
+        width: double.infinity,
+        height: double.infinity,
+        color: const Color(0xFF121212), // 매우 어두운 배경 (Almost Black)
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '함께 나아갈 멘토를 소개합니다!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: isMobile ? 24 : 36, // 반응형 폰트
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // 흰색
+              ),
+            ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
+            const SizedBox(height: 12),
+            Text(
+              '현직자 및 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: isMobile ? 16 : 20, // 반응형 폰트
+                color: Colors.white54, // 회색
+              ),
+            ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
+            const SizedBox(height: 40),
 
-          // 무한 스크롤 영역
-          RepaintBoundary(
-            child: SizedBox(
-              height: 500,
-              width: double.infinity,
-              child: ClipRect(
-                child: OverflowBox(
-                  minWidth: 0,
-                  maxWidth: double.infinity,
-                  alignment: Alignment.centerLeft,
-                  child: AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, child) {
-                      final offset = -totalScrollWidth * _controller.value;
-                      return Transform.translate(
-                        offset: Offset(offset, 0),
-                        child: child,
-                      );
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: infiniteMentors
-                          .map((mentor) => _buildMentorCard(mentor))
-                          .toList(),
+            // 무한 스크롤 영역
+            RepaintBoundary(
+              child: SizedBox(
+                height: 380,
+                width: double.infinity,
+                child: ClipRect(
+                  child: OverflowBox(
+                    minWidth: 0,
+                    maxWidth: double.infinity,
+                    alignment: Alignment.centerLeft,
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        final offset = -totalScrollWidth * _controller.value;
+                        return Transform.translate(
+                          offset: Offset(offset, 0),
+                          child: child,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: infiniteMentors
+                            .map(
+                                (mentor) => _buildMentorCard(mentor, cardWidth))
+                            .toList(),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ).animate().fadeIn(duration: 600.ms, delay: 500.ms));
   }
 }
