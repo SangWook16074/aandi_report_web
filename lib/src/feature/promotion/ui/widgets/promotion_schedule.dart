@@ -15,7 +15,7 @@ class PromotionSchedule extends StatelessWidget {
       color: Colors.black,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
-        vertical: isMobile ? 40 : 60,
+        vertical: 40,
       ),
       child: Center(
         child: ConstrainedBox(
