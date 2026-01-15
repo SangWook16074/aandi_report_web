@@ -27,6 +27,25 @@ class _PromotionPageState extends State<PromotionPage> {
     PromotionSchedule(),
   ];
 
+  void _onVerticalDragEnd(DragEndDetails details) {
+    if (_isAnimating) return;
+
+    // 감도 조절 (속도가 일정 수준 이상일 때만 페이지 전환)
+    if (details.primaryVelocity == null) return;
+
+    if (details.primaryVelocity! < -300) {
+      // 위로 스와이프 (다음 페이지)
+      if (_currentIndex < _pages.length - 1) {
+        _changePage(_currentIndex + 1);
+      }
+    } else if (details.primaryVelocity! > 300) {
+      // 아래로 스와이프 (이전 페이지)
+      if (_currentIndex > 0) {
+        _changePage(_currentIndex - 1);
+      }
+    }
+  }
+
   void _onScroll(PointerSignalEvent event) {
     if (_isAnimating) return;
 
@@ -75,21 +94,24 @@ class _PromotionPageState extends State<PromotionPage> {
       body: Stack(
         children: [
           // 메인 콘텐츠
-          Listener(
-            onPointerSignal: _onScroll,
-            child: AnimatedSwitcher(
-              duration: _transitionDuration,
-              switchInCurve: Curves.easeInOut,
-              switchOutCurve: Curves.easeInOut,
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              child: SizedBox.expand(
-                key: ValueKey<int>(_currentIndex),
-                child: _pages[_currentIndex],
+          GestureDetector(
+            onVerticalDragEnd: _onVerticalDragEnd,
+            child: Listener(
+              onPointerSignal: _onScroll,
+              child: AnimatedSwitcher(
+                duration: _transitionDuration,
+                switchInCurve: Curves.easeInOut,
+                switchOutCurve: Curves.easeInOut,
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                child: SizedBox.expand(
+                  key: ValueKey<int>(_currentIndex),
+                  child: _pages[_currentIndex],
+                ),
               ),
             ),
           ),
