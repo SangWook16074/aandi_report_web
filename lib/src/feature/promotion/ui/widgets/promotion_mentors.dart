@@ -84,9 +84,10 @@ class _PromotionMentorsState extends State<PromotionMentors>
   }
 
   Widget _buildMentorCard(Mentor mentor, double cardWidth) {
+    final isMobile = ResponsiveLayout.isMobile(context);
     return Container(
       width: cardWidth,
-      height: 380,
+      height: 280,
       margin: const EdgeInsets.only(right: _cardMargin),
       child: Card(
         elevation: 8.0,
@@ -131,16 +132,16 @@ class _PromotionMentorsState extends State<PromotionMentors>
                           children: [
                             Text(
                               mentor.name,
-                              style: const TextStyle(
-                                fontSize: 24,
+                              style: TextStyle(
+                                fontSize: isMobile ? 18 : 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white, // 흰색 텍스트
                               ),
                             ),
                             Text(
                               mentor.role,
-                              style: const TextStyle(
-                                fontSize: 16,
+                              style: TextStyle(
+                                fontSize: isMobile ? 12 : 16,
                                 color: Colors.white54, // 회색 텍스트
                                 fontWeight: FontWeight.w600,
                               ),
@@ -163,7 +164,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
                             children: [
                               const Text('• ',
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 18)), // 포인트 컬러
                               Expanded(
                                 child: Text(
