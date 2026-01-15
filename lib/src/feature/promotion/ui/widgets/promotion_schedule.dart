@@ -1,124 +1,187 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class PromotionSchedule extends StatelessWidget {
   const PromotionSchedule({super.key});
-
-  Widget _buildScheduleItem(String date, String event) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 21.0), // 1.75x
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 245, // 1.75x
-            child: Text(
-              date,
-              style: const TextStyle(
-                fontSize: 28, // 1.75x
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-          const SizedBox(width: 42), // 1.75x
-          Expanded(
-            child: Text(
-              event,
-              style: const TextStyle(
-                fontSize: 28, // 1.75x
-                color: Colors.black54,
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: const Color(0xfff6f6f6),
-      padding: const EdgeInsets.symmetric(vertical: 105, horizontal: 42), // 1.75x
+      height: double.infinity,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1400),
+          constraints: const BoxConstraints(maxWidth: 1200),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Center(
-                child: const Text(
-                  '동아리 모집 및 활동 일정',
-                  style: TextStyle(
-                    fontSize: 50, // 1.75x
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+              // 1. 헤더 섹션
+              Column(
+                children: [
+                  const Text(
+                    '동아리 모집 및 활동 일정',
+                    style: TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: -0.5,
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(duration: 600.ms, delay: 500.ms)
+                      .moveY(begin: 30, end: 0),
+                  const SizedBox(height: 16),
+                  const Text(
+                    '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white60,
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(duration: 600.ms, delay: 500.ms)
+                      .moveY(begin: 30, end: 0),
+                ],
+              ),
+
+              // 2. 메인 컨텐츠 섹션 (상하 배치)
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0, vertical: 20.0),
+                constraints: BoxConstraints(
+                  maxWidth: 800,
                 ),
-              ),
-              const SizedBox(height: 70),
-              _buildScheduleItem(
-                '모집 기간',
-                '2026년 2월 16일 (월) ~ 3월 15일 (일)',
-              ),
-              _buildScheduleItem(
-                '지원 방법',
-                '첨부된 구글 폼을 통해 지원하실 수 있습니다!\n(지원서 링크는 Hero 섹션의 "지금 지원하기" 버튼 참조)',
-              ),
-              _buildScheduleItem(
-                '선발 과정',
-                '지원양식 작성 → 대면 인터뷰 → 개별 문자 메시지로 합격 여부 발표',
-              ),
-              _buildScheduleItem(
-                '대면 인터뷰',
-                '2026년 3월 18일 (수)',
-              ),
-              _buildScheduleItem(
-                '최종 합류 발표',
-                '2026년 3월 19일 (목) 12:00 예정',
-              ),
-              _buildScheduleItem(
-                '신입생 환영회',
-                '2026년 3월 20일 (금)',
-              ),
-              _buildScheduleItem(
-                '신입생 OT',
-                '2026년 3월 21일 (토)',
-              ),
-              _buildScheduleItem(
-                '첫 대면 활동',
-                '2026년 3월 21일 (토) 13:00 - 14:00 (약 1시간 예정)',
-              ),
-              const SizedBox(height: 105),
-              Center(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF111111),
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(color: Colors.white10),
+                ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      '지원서를 작성해주시면 저희 멘토진이 하나하나 다 읽어보며 기대감을 키웁니다!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 28, color: Colors.black54), // 1.75x
+                      '상세 일정',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                    const SizedBox(height: 14),
-                    const Text(
-                      '직접 만나 간단한 인터뷰를 통해 여러분들의 열정을 확인합니다!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 28, color: Colors.black54), // 1.75x
+
+                    const SizedBox(height: 32),
+
+                    // 일정 아이템들
+
+                    _buildTimelineItem(
+                      date: '모집 기간',
+                      content: '2026. 02. 16 (월) ~ 03. 15 (일)',
+                      icon: Icons.calendar_month_rounded,
+                      color: Colors.purpleAccent,
                     ),
-                    const SizedBox(height: 14),
-                    const Text(
-                      '앞으로의 여정에 함께하고 싶은 분들에게 직접 문자를 보내드립니다!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 28, color: Colors.black54), // 1.75x
+
+                    const SizedBox(height: 24),
+
+                    _buildTimelineItem(
+                      date: '선발 과정',
+                      content: '서류 접수 → 대면 인터뷰 → 최종 합격',
+                      icon: Icons.playlist_add_check_circle,
+                      color: Colors.blueAccent,
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    _buildTimelineItem(
+                      date: '03. 18 (수)',
+                      content: '대면 인터뷰 진행',
+                      icon: Icons.people_alt_rounded,
+                      color: Colors.lightBlueAccent,
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    _buildTimelineItem(
+                      date: '03. 19 (목)',
+                      content: '최종 합격자 발표 (12:00)',
+                      icon: Icons.notifications_active_rounded,
+                      color: Colors.greenAccent,
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    _buildTimelineItem(
+                      date: '03. 20 (금)',
+                      content: '신입생 환영회',
+                      icon: Icons.celebration_rounded,
+                      color: Colors.orangeAccent,
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    _buildTimelineItem(
+                      date: '03. 21 (토)',
+                      content: 'OT 및 첫 대면 활동 (13:00)',
+                      icon: Icons.school_rounded,
                     ),
                   ],
                 ),
               ),
+              const SizedBox(height: 40),
             ],
-          ),
+          )
+              .animate()
+              .fadeIn(duration: 800.ms, delay: 500.ms)
+              .moveY(begin: 30, end: 0),
         ),
       ),
+    );
+  }
+
+  Widget _buildTimelineItem({
+    required String date,
+    required String content,
+    required IconData icon,
+    Color? color,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: (color ?? Colors.white).withValues(alpha: 0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            size: 20,
+            color: color ?? Colors.white70,
+          ),
+        ),
+        const SizedBox(width: 20),
+        SizedBox(
+          width: 100,
+          child: Text(
+            date,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: color ?? Colors.white70,
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: Text(
+            content,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.white60,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
