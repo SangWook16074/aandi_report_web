@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 
 class PromotionSchedule extends StatelessWidget {
   const PromotionSchedule({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveLayout.isMobile(context);
+
     return Container(
       width: double.infinity,
       height: double.infinity,
       color: Colors.black,
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 20 : 40,
+        vertical: isMobile ? 40 : 60,
+      ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
@@ -20,25 +26,27 @@ class PromotionSchedule extends StatelessWidget {
               // 1. 헤더 섹션
               Column(
                 children: [
-                  const Text(
+                  Text(
                     '동아리 모집 및 활동 일정',
                     style: TextStyle(
-                      fontSize: 42,
+                      fontSize: isMobile ? 32 : 42,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       letterSpacing: -0.5,
                     ),
+                    textAlign: TextAlign.center,
                   )
                       .animate()
                       .fadeIn(duration: 600.ms, delay: 500.ms)
                       .moveY(begin: 30, end: 0),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: isMobile ? 14 : 18,
                       color: Colors.white60,
                     ),
+                    textAlign: TextAlign.center,
                   )
                       .animate()
                       .fadeIn(duration: 600.ms, delay: 500.ms)
@@ -49,9 +57,9 @@ class PromotionSchedule extends StatelessWidget {
               // 2. 메인 컨텐츠 섹션 (상하 배치)
 
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0, vertical: 20.0),
-                constraints: BoxConstraints(
+                padding: EdgeInsets.symmetric(
+                    horizontal: isMobile ? 20.0 : 40.0, vertical: 20.0),
+                constraints: const BoxConstraints(
                   maxWidth: 800,
                 ),
                 decoration: BoxDecoration(
@@ -62,10 +70,10 @@ class PromotionSchedule extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       '상세 일정',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: isMobile ? 20 : 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -76,6 +84,7 @@ class PromotionSchedule extends StatelessWidget {
                     // 일정 아이템들
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '모집 기간',
                       content: '2026. 02. 16 (월) ~ 03. 15 (일)',
                       icon: Icons.calendar_month_rounded,
@@ -85,6 +94,7 @@ class PromotionSchedule extends StatelessWidget {
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '선발 과정',
                       content: '서류 접수 → 대면 인터뷰 → 최종 합격',
                       icon: Icons.playlist_add_check_circle,
@@ -94,6 +104,7 @@ class PromotionSchedule extends StatelessWidget {
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '03. 18 (수)',
                       content: '대면 인터뷰 진행',
                       icon: Icons.people_alt_rounded,
@@ -103,6 +114,7 @@ class PromotionSchedule extends StatelessWidget {
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '03. 19 (목)',
                       content: '최종 합격자 발표 (12:00)',
                       icon: Icons.notifications_active_rounded,
@@ -112,6 +124,7 @@ class PromotionSchedule extends StatelessWidget {
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '03. 20 (금)',
                       content: '신입생 환영회',
                       icon: Icons.celebration_rounded,
@@ -121,6 +134,7 @@ class PromotionSchedule extends StatelessWidget {
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
+                      isMobile: isMobile,
                       date: '03. 21 (토)',
                       content: 'OT 및 첫 대면 활동 (13:00)',
                       icon: Icons.school_rounded,
@@ -140,6 +154,7 @@ class PromotionSchedule extends StatelessWidget {
   }
 
   Widget _buildTimelineItem({
+    required bool isMobile,
     required String date,
     required String content,
     required IconData icon,
@@ -148,35 +163,35 @@ class PromotionSchedule extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(isMobile ? 8 : 12),
           decoration: BoxDecoration(
             color: (color ?? Colors.white).withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(
             icon,
-            size: 20,
+            size: isMobile ? 16 : 20,
             color: color ?? Colors.white70,
           ),
         ),
-        const SizedBox(width: 20),
+        SizedBox(width: isMobile ? 12 : 20),
         SizedBox(
-          width: 100,
+          width: isMobile ? 80 : 100,
           child: Text(
             date,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: isMobile ? 14 : 18,
               fontWeight: FontWeight.bold,
               color: color ?? Colors.white70,
             ),
           ),
         ),
-        const SizedBox(width: 20),
+        SizedBox(width: isMobile ? 12 : 20),
         Expanded(
           child: Text(
             content,
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: isMobile ? 14 : 18,
               color: Colors.white60,
             ),
           ),
