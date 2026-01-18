@@ -63,7 +63,7 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
       width: double.infinity,
       height: double.infinity,
       color: Color(0xff000000), // 부드러운 쿨 그레이 배경 유지
-      padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 40 : 40),
       child: Center(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1400),
@@ -107,7 +107,7 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                           context,
                           'Foundation',
                           '코딩 입문 및 기초',
-                          '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                          '본인이 선택한 프로그래밍 언어 문법과 기초적인 구현 방법에 대해서 학습합니다.',
                           [
                             '코딩 문법 입문',
                             '기초 알고리즘',
@@ -115,14 +115,16 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                           isMobile: isMobile,
                           color: Colors.white24,
                         ),
-                        SizedBox(
+                        Container(
+                          width: 2.0,
                           height: 10,
+                          decoration: BoxDecoration(color: Colors.white70),
                         ),
                         _buildCurriculumStage(
                           context,
                           'CS Deep Dive',
-                          '심화 컴퓨터 공학 학습',
-                          '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                          '심화 컴퓨터 공학',
+                          '개발자라면 반드시 알아야 될 컴퓨터 공학, 소프트웨어의 기본 원리를 직접 구현하며 학습합니다.\n\n제한된 환경에서 끊임없이 도전합니다.',
                           [
                             '코딩 문법 입문',
                             '기초 알고리즘',
@@ -130,14 +132,16 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                           isMobile: isMobile,
                           color: Colors.white24,
                         ),
-                        SizedBox(
+                        Container(
+                          width: 2.0,
                           height: 10,
+                          decoration: BoxDecoration(color: Colors.white70),
                         ),
                         _buildCurriculumStage(
                           context,
                           'Framework',
-                          '프레임워크 학습 (택1)',
-                          '배우고 싶은 내용을\n자세하게 알려드립니다!',
+                          '프레임워크',
+                          '크로스플랫폼 앱(Flutter), 서버(Spring Boot) 중 1가지 선택하여 멘토와 함께 학습합니다.\n\n또한, AI 기술도 함께 습득합니다.',
                           [
                             '크로스플랫폼 앱 개발(Flutter)',
                             '서버 개발(Spring Boot)',
@@ -146,14 +150,16 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                           isMobile: isMobile,
                           color: Colors.white54,
                         ),
-                        SizedBox(
+                        Container(
+                          width: 2.0,
                           height: 10,
+                          decoration: BoxDecoration(color: Colors.white70),
                         ),
                         _buildCurriculumStage(
                           context,
                           'Team Project',
                           '팀 프로젝트',
-                          '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
+                          '각 분야를 학습한 여러분들이 팀이 되어 스스로 정의한 문제에 대해서 프로젝트를 수행합니다.',
                           [
                             '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
                           ],
@@ -329,7 +335,7 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
           description,
           style: TextStyle(
             fontSize: isMobile ? 14 : 16, // Responsive font size
-            color: Colors.white,
+            color: Colors.white70,
             fontWeight: FontWeight.w600,
             height: 1.5,
           ),
