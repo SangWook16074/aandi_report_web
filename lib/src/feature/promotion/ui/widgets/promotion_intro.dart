@@ -58,7 +58,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "A&I",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 70 : 100, // 축소
+                                    fontSize: isMobile ? 50 : 100, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -67,7 +67,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "는\n",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 70 : 100, // 축소
+                                    fontSize: isMobile ? 50 : 100, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -76,7 +76,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "개발을 좋아하는 사람들",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 30 : 58, // 축소
+                                    fontSize: isMobile ? 25 : 58, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -85,7 +85,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "이 모여\n",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 30 : 58, // 축소
+                                    fontSize: isMobile ? 25 : 58, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -94,7 +94,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "지식을 공유하고 ",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 30 : 58, // 축소
+                                    fontSize: isMobile ? 25 : 58, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -103,7 +103,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "함께 성장",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 30 : 58, // 축소
+                                    fontSize: isMobile ? 25 : 58, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,
@@ -112,7 +112,7 @@ class PromotionIntro extends StatelessWidget {
                                 TextSpan(
                                   text: "합니다.",
                                   style: TextStyle(
-                                    fontSize: isMobile ? 30 : 58, // 축소
+                                    fontSize: isMobile ? 25 : 58, // 축소
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.4,

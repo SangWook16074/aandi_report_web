@@ -113,12 +113,12 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                             '기초 알고리즘',
                           ],
                           isMobile: isMobile,
-                          color: Colors.white24,
+                          color: Colors.black87,
                         ),
                         Container(
-                          width: 2.0,
+                          width: 4.0,
                           height: 10,
-                          decoration: BoxDecoration(color: Colors.white70),
+                          decoration: BoxDecoration(color: Color(0xff242424)),
                         ),
                         _buildCurriculumStage(
                           context,
@@ -130,12 +130,12 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                             '기초 알고리즘',
                           ],
                           isMobile: isMobile,
-                          color: Colors.white24,
+                          color: Colors.black87,
                         ),
                         Container(
-                          width: 2.0,
+                          width: 4.0,
                           height: 10,
-                          decoration: BoxDecoration(color: Colors.white70),
+                          decoration: BoxDecoration(color: Color(0xff242424)),
                         ),
                         _buildCurriculumStage(
                           context,
@@ -148,12 +148,12 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                             'AI (PyTorch)\n- AI 핵심 원리 및 구현',
                           ],
                           isMobile: isMobile,
-                          color: Colors.white54,
+                          color: Colors.black87,
                         ),
                         Container(
-                          width: 2.0,
+                          width: 4.0,
                           height: 10,
-                          decoration: BoxDecoration(color: Colors.white70),
+                          decoration: BoxDecoration(color: Color(0xff242424)),
                         ),
                         _buildCurriculumStage(
                           context,

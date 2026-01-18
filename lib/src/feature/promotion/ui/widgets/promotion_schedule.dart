@@ -81,7 +81,7 @@ class PromotionSchedule extends StatelessWidget {
                     _buildTimelineItem(
                       isMobile: isMobile,
                       date: '모집 기간',
-                      content: '2026.02.16 (월) - 2026.03.15 (일)',
+                      content: '2026.01.16 (월) - 2026.03.15 (일)',
                       icon: Icons.calendar_month_rounded,
                       color: Colors.white,
                     ),
