@@ -7,6 +7,7 @@ import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_ui.dart
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/report_detail_ui.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/promotion_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:web/web.dart' as html;
 
 part 'route_config.g.dart';
 
@@ -68,17 +69,26 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/sign-in',
         name: "A&I 로그인",
-        builder: (context, state) => const LoginUI(),
+        builder: (context, state) {
+          html.document.title = "A&I 로그인";
+          return const LoginUI();
+        },
       ),
       GoRoute(
         path: '/promotion',
         name: "2026 팀 A&I 모집안내",
-        builder: (context, state) => const PromotionPage(),
+        builder: (context, state) {
+          html.document.title = "2026 팀 A&I 모집안내";
+          return const PromotionPage();
+        },
       ),
       GoRoute(
         path: '/report',
         name: "A&I 과제",
-        builder: (context, state) => const HomeUI(),
+        builder: (context, state) {
+          html.document.title = "A&I 과제";
+          return const HomeUI();
+        },
         routes: [
           GoRoute(
             path: ':id',
