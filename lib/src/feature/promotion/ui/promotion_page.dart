@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_hero.dart';
@@ -84,11 +85,11 @@ class _PromotionPageState extends State<PromotionPage> {
   @override
   Widget build(BuildContext context) {
     // 0(Hero), 2(Mentors), 4(Schedule)은 어두운 배경, 1(Intro), 3(Curriculum)은 밝은 배경
-    final bool isDarkBackground =
-        _currentIndex == 0 || _currentIndex == 2 || _currentIndex == 4;
+    final bool isDarkBackground = true;
     final Color activeColor = isDarkBackground ? Colors.white : Colors.black87;
     final Color inactiveColor =
         isDarkBackground ? Colors.white38 : Colors.black26;
+    final bool isTablet = ResponsiveLayout.isTablet(context);
 
     return Scaffold(
       body: Stack(
@@ -118,7 +119,7 @@ class _PromotionPageState extends State<PromotionPage> {
 
           // 우측 인디케이터
           Positioned(
-            right: 30,
+            right: isTablet ? 10 : 30,
             top: 0,
             bottom: 0,
             child: Center(

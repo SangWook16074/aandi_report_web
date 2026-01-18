@@ -47,7 +47,7 @@ class PromotionHero extends StatelessWidget {
                   '2026 A&I 신규 동아리원 모집',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: isMobile ? 32 : 48, // 반응형 폰트 크기
+                    fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     height: 1.3,
@@ -64,6 +64,7 @@ class PromotionHero extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isMobile ? 20 : 30, // 반응형 폰트 크기
+                    fontWeight: FontWeight.w700,
                     color: Colors.white70,
                   ),
                 )
@@ -74,11 +75,11 @@ class PromotionHero extends StatelessWidget {
 
                 // 모집 기간
                 Text(
-                  '2026.02.16 (월) ~ 03.15 (일)',
+                  '2026.02.16 - 2026.03.15',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isMobile ? 18 : 24, // 반응형 폰트 크기
-                    color: Colors.white,
+                    color: Colors.white70,
                     fontWeight: FontWeight.w500,
                   ),
                 ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
