@@ -55,6 +55,7 @@ GoRouter goRouter(Ref ref) {
     routes: [
       GoRoute(
         path: '/',
+        name: "A&I",
         redirect: (context, state) {
           return authStateAsync.when(
             data: (authState) =>
@@ -66,14 +67,17 @@ GoRouter goRouter(Ref ref) {
       ),
       GoRoute(
         path: '/sign-in',
+        name: "A&I 로그인",
         builder: (context, state) => const LoginUI(),
       ),
       GoRoute(
         path: '/promotion',
+        name: "2026 팀 A&I 모집안내",
         builder: (context, state) => const PromotionPage(),
       ),
       GoRoute(
         path: '/report',
+        name: "A&I 과제",
         builder: (context, state) => const HomeUI(),
         routes: [
           GoRoute(
