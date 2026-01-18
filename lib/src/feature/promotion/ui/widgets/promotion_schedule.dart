@@ -29,7 +29,7 @@ class PromotionSchedule extends StatelessWidget {
                   Text(
                     '동아리 모집 및 활동 일정',
                     style: TextStyle(
-                      fontSize: isMobile ? 32 : 42,
+                      fontSize: isMobile ? 32 : 58,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       letterSpacing: -0.5,
@@ -63,32 +63,21 @@ class PromotionSchedule extends StatelessWidget {
                   maxWidth: 800,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF111111),
+                  color: const Color(0xff161616),
                   borderRadius: BorderRadius.circular(32),
-                  border: Border.all(color: Colors.white10),
+                  // border: Border.all(color: Colors.white10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      '상세 일정',
-                      style: TextStyle(
-                        fontSize: isMobile ? 20 : 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                    const SizedBox(height: 32),
-
                     // 일정 아이템들
 
                     _buildTimelineItem(
                       isMobile: isMobile,
                       date: '모집 기간',
-                      content: '2026. 02. 16 (월) ~ 03. 15 (일)',
+                      content: '2026.02.16 (월) - 2026.03.15 (일)',
                       icon: Icons.calendar_month_rounded,
-                      color: Colors.purpleAccent,
+                      color: Colors.white,
                     ),
 
                     const SizedBox(height: 24),
@@ -98,46 +87,47 @@ class PromotionSchedule extends StatelessWidget {
                       date: '선발 과정',
                       content: '서류 접수 → 대면 인터뷰 → 최종 합격',
                       icon: Icons.playlist_add_check_circle,
-                      color: Colors.blueAccent,
+                      color: Colors.white,
                     ),
 
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
                       isMobile: isMobile,
-                      date: '03. 18 (수)',
-                      content: '대면 인터뷰 진행',
+                      date: '인터뷰',
+                      content: '2026.03.18 (수)',
                       icon: Icons.people_alt_rounded,
-                      color: Colors.lightBlueAccent,
+                      color: Colors.white,
                     ),
 
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
                       isMobile: isMobile,
-                      date: '03. 19 (목)',
-                      content: '최종 합격자 발표 (12:00)',
+                      date: '합격자 발표',
+                      content: '2026.03.19 (목)',
                       icon: Icons.notifications_active_rounded,
-                      color: Colors.greenAccent,
+                      color: Colors.white,
                     ),
 
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
                       isMobile: isMobile,
-                      date: '03. 20 (금)',
-                      content: '신입생 환영회',
+                      date: '네트워킹',
+                      content: '2026.03.20 (금)',
                       icon: Icons.celebration_rounded,
-                      color: Colors.orangeAccent,
+                      color: Colors.white,
                     ),
 
                     const SizedBox(height: 24),
 
                     _buildTimelineItem(
                       isMobile: isMobile,
-                      date: '03. 21 (토)',
-                      content: 'OT 및 첫 대면 활동 (13:00)',
+                      date: '오리엔테이션',
+                      content: '2026.03.21 (토)',
                       icon: Icons.school_rounded,
+                      color: Colors.white,
                     ),
                   ],
                 ),
@@ -165,13 +155,13 @@ class PromotionSchedule extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(isMobile ? 8 : 12),
           decoration: BoxDecoration(
-            color: (color ?? Colors.white).withValues(alpha: 0.1),
+            color: Colors.black87,
             shape: BoxShape.circle,
           ),
           child: Icon(
             icon,
             size: isMobile ? 16 : 20,
-            color: color ?? Colors.white70,
+            color: Color(0xff9929EA),
           ),
         ),
         SizedBox(width: isMobile ? 12 : 20),
