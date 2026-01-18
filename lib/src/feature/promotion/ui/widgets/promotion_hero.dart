@@ -64,7 +64,7 @@ class PromotionHero extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isMobile ? 20 : 30, // 반응형 폰트 크기
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: Colors.white70,
                   ),
                 )
