@@ -75,7 +75,7 @@ class PromotionHero extends StatelessWidget {
 
                 // 모집 기간
                 Text(
-                  '2026.02.16 - 2026.03.15',
+                  '2026.01.16 - 2026.03.15',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isMobile ? 18 : 24, // 반응형 폰트 크기
