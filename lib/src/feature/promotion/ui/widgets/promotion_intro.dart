@@ -123,7 +123,7 @@ class PromotionIntro extends StatelessWidget {
                           .fadeIn(duration: 600.ms, delay: 600.ms)
                           .moveY(begin: 20, end: 0),
                       Container(
-                        width: isMobile ? 325.0 : 630.0,
+                        width: isMobile ? 270.0 : 630.0,
                         height: 2.0,
                         decoration: BoxDecoration(color: Color(0xffffffff)),
                       )
