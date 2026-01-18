@@ -21,42 +21,48 @@ class PromotionSchedule extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // 1. 헤더 섹션
-              Column(
-                children: [
-                  Text(
-                    '동아리 모집 및 활동 일정',
-                    style: TextStyle(
-                      fontSize: isMobile ? 32 : 58,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: -0.5,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                      .animate()
-                      .fadeIn(duration: 600.ms, delay: 500.ms)
-                      .moveY(begin: 30, end: 0),
-                  const SizedBox(height: 16),
-                  Text(
-                    '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
-                    style: TextStyle(
-                      fontSize: isMobile ? 14 : 18,
-                      color: Colors.white60,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                      .animate()
-                      .fadeIn(duration: 600.ms, delay: 500.ms)
-                      .moveY(begin: 30, end: 0),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    Text(
+                      '동아리 모집 및 활동 일정',
+                      style: TextStyle(
+                        fontSize: isMobile ? 32 : 58,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: -0.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 500.ms)
+                        .moveY(begin: 30, end: 0),
+                    const SizedBox(height: 16),
+                    Text(
+                      '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
+                      style: TextStyle(
+                        fontSize: isMobile ? 14 : 18,
+                        color: Colors.white60,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 500.ms)
+                        .moveY(begin: 30, end: 0),
+                  ],
+                ),
               ),
 
               // 2. 메인 컨텐츠 섹션 (상하 배치)
-
+              SizedBox(
+                height: 20,
+              ),
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.0),
                 padding: EdgeInsets.symmetric(
                     horizontal: isMobile ? 20.0 : 40.0, vertical: 20.0),
                 constraints: const BoxConstraints(
@@ -181,9 +187,9 @@ class PromotionSchedule extends StatelessWidget {
           child: Text(
             content,
             style: TextStyle(
-              fontSize: isMobile ? 14 : 18,
-              color: Colors.white60,
-            ),
+                fontSize: isMobile ? 14 : 18,
+                color: Colors.white60,
+                fontWeight: FontWeight.w600),
           ),
         ),
       ],
