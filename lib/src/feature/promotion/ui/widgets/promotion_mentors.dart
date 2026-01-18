@@ -27,16 +27,6 @@ class _PromotionMentorsState extends State<PromotionMentors>
 
   final List<Mentor> _allMentors = const [
     Mentor(
-      name: '멘토 A',
-      role: '프론트엔드',
-      achievements: [
-        '1년차 모바일 엔지니어',
-        '네이버 커넥트재단 부스트캠프 Web/Mobile 9기 수료',
-        'Flutter Seoul 바이브코딩 해커톤 3위',
-        '1000명 이상이 활용 중인 오픈소스 운영',
-      ],
-    ),
-    Mentor(
       name: '멘토 B',
       role: '프론트엔드',
       achievements: ['노원구 스타트업 창업 대회 대상', 'A&I 3기 프론트엔드과정'],
@@ -58,6 +48,16 @@ class _PromotionMentorsState extends State<PromotionMentors>
         '네이버 커넥트재단 부스트캠프 AI Tech 8기 수료',
         '교육 과정 내 프로젝트 결과 순위 1위 달성',
         'A&I 3기 백엔드과정'
+      ],
+    ),
+    Mentor(
+      name: '멘토 A',
+      role: '프론트엔드',
+      achievements: [
+        '1년차 모바일 엔지니어',
+        '네이버 커넥트재단 부스트캠프 Web/Mobile 9기 수료',
+        'Flutter Seoul 바이브코딩 해커톤 3위',
+        '1000명 이상이 활용 중인 오픈소스 운영',
       ],
     ),
   ];
@@ -95,7 +95,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
       child: Card(
         elevation: 8.0,
         shadowColor: Colors.black54, // 더 진한 그림자
-        color: const Color(0xFF2C2C2C), // 다크 카드 배경
+        color: const Color(0xff161616), // 다크 카드 배경
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         clipBehavior: Clip.antiAlias,
         child: Stack(
@@ -162,7 +162,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
                   const SizedBox(height: 20),
                   Container(
                     height: 1.0,
-                    decoration: BoxDecoration(color: Colors.white70),
+                    decoration: BoxDecoration(color: Colors.white12),
                   ),
                   const SizedBox(height: 20),
                   Expanded(
@@ -173,18 +173,37 @@ class _PromotionMentorsState extends State<PromotionMentors>
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Row(
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                mentor.achievements[index],
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white, // 밝은 회색 텍스트
-                                  height: 1.4,
+                              SizedBox(
+                                height: 21,
+                                child: Center(
+                                  child: Container(
+                                    width: 6,
+                                    height: 6,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffFAEB92),
+                                        shape: BoxShape.circle),
+                                  ),
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  mentor.achievements[index],
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white, // 밝은 회색 텍스트
+                                    height: 1.4,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
@@ -220,7 +239,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '함께 나아갈 멘토를 소개합니다!',
+            '멘토 및 운영진 소개',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: isMobile ? 24 : 58, // 반응형 폰트

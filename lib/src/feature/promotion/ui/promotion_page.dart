@@ -20,13 +20,24 @@ class _PromotionPageState extends State<PromotionPage> {
   static const double _scrollThreshold = 10.0;
   static const Duration _transitionDuration = Duration(milliseconds: 800);
 
-  final List<Widget> _pages = const [
-    PromotionHero(),
-    PromotionIntro(),
-    PromotionMentors(),
-    PromotionCurriculum(),
-    PromotionSchedule(),
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      const PromotionHero(),
+      const PromotionIntro(),
+      const PromotionMentors(),
+      PromotionCurriculum(
+        onNextPage: () => _changePage(4),
+        onPrevPage: () => _changePage(2),
+      ),
+      PromotionSchedule(
+        onPrevPage: () => _changePage(3),
+      ),
+    ];
+  }
 
   void _onVerticalDragEnd(DragEndDetails details) {
     if (_isAnimating) return;
