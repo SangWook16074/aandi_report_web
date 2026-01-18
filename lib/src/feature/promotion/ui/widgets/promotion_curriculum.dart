@@ -56,13 +56,13 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = ResponsiveLayout.isMobile(context);
-    final isTablet = MediaQuery.of(context).size.width <= 1200;
+    final isMobile = ResponsiveLayout.isTablet(context);
+    // final isTablet = MediaQuery.of(context).size.width <= 1200;
 
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: const Color(0xFFF9FAFB), // 부드러운 쿨 그레이 배경 유지
+      color: Color(0xff000000), // 부드러운 쿨 그레이 배경 유지
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
       child: Center(
         child: ConstrainedBox(
@@ -73,12 +73,12 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    '앞으로 여정에서 함께 배울 내용을 소개합니다!',
+                    '함께할 여정을 소개합니다!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: isMobile ? 24 : 36, // 반응형 폰트
+                      fontSize: isMobile ? 24 : 58, // 반응형 폰트
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.white,
                       letterSpacing: -0.5,
                     ),
                   )
@@ -89,99 +89,76 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                   Text(
                     '체계적인 커리큘럼으로 여러분의 성장을 확실하게 지원합니다.',
                     style: TextStyle(
-                      fontSize: isMobile ? 16 : 18, // 반응형 폰트
-                      color: Colors.black54,
+                      fontSize: isMobile ? 16 : 24, // 반응형 폰트
+                      color: Colors.white70,
                     ),
                   )
                       .animate()
                       .fadeIn(duration: 800.ms, delay: 500.ms)
                       .moveY(begin: 30, end: 0),
 
-                  const SizedBox(height: 50),
+                  SizedBox(height: isMobile ? 20 : 50),
 
                   // 반응형 배치 (Carousel vs Row)
-                  if (isTablet)
+                  if (isMobile)
                     Column(
                       children: [
-                        SizedBox(
-                          height: 480, // 카드 높이 확보
-                          child: Listener(
-                            onPointerDown: (_) => _stopAutoSwipe(),
-                            onPointerUp: (_) => _startAutoSwipe(),
-                            onPointerCancel: (_) => _startAutoSwipe(),
-                            child: PageView(
-                              controller: _pageController,
-                              onPageChanged: (index) {
-                                setState(() {
-                                  _currentPage = index;
-                                });
-                              },
-                              children: [
-                                _buildCurriculumStage(
-                                  context,
-                                  '1차 과정',
-                                  '코딩 입문 및 기초',
-                                  '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
-                                  [
-                                    '코딩 문법 입문\n- 학습 원동력 부여',
-                                    '기초 알고리즘\n- 문제 해결 능력 배양',
-                                  ],
-                                  isMobile: isMobile,
-                                ),
-                                _buildCurriculumStage(
-                                  context,
-                                  '2차 과정',
-                                  '심화 분야 학습 (택1)',
-                                  '배우고 싶은 내용을\n자세하게 알려드립니다!',
-                                  [
-                                    'Flutter (Dart)\n- 크로스플랫폼 앱 제작\n- MVVM, 상태관리, API',
-                                    'Spring Boot (Kotlin)\n- 서버 개발 및 MVC 패턴\n- AWS, Docker 배포',
-                                    'AI (PyTorch)\n- AI 핵심 원리 및 구현',
-                                  ],
-                                  isMobile: isMobile,
-                                ),
-                                _buildCurriculumStage(
-                                  context,
-                                  '3차 과정',
-                                  '팀 프로젝트',
-                                  '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
-                                  [
-                                    '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
-                                  ],
-                                  isMobile: isMobile,
-                                ),
-                              ],
-                            ),
-                          ),
+                        _buildCurriculumStage(
+                          context,
+                          'Foundation',
+                          '코딩 입문 및 기초',
+                          '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                          [
+                            '코딩 문법 입문',
+                            '기초 알고리즘',
+                          ],
+                          isMobile: isMobile,
+                          color: Colors.white24,
                         ),
-                        const SizedBox(height: 24),
-                        // 인디케이터
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(3, (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                _pageController.animateToPage(
-                                  index,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                width: _currentPage == index ? 24 : 8,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                  color: _currentPage == index
-                                      ? Colors.black87
-                                      : Colors.black26,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            );
-                          }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildCurriculumStage(
+                          context,
+                          'CS Deep Dive',
+                          '심화 컴퓨터 공학 학습',
+                          '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                          [
+                            '코딩 문법 입문',
+                            '기초 알고리즘',
+                          ],
+                          isMobile: isMobile,
+                          color: Colors.white24,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildCurriculumStage(
+                          context,
+                          'Framework',
+                          '프레임워크 학습 (택1)',
+                          '배우고 싶은 내용을\n자세하게 알려드립니다!',
+                          [
+                            '크로스플랫폼 앱 개발(Flutter)',
+                            '서버 개발(Spring Boot)',
+                            'AI (PyTorch)\n- AI 핵심 원리 및 구현',
+                          ],
+                          isMobile: isMobile,
+                          color: Colors.white54,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildCurriculumStage(
+                          context,
+                          'Team Project',
+                          '팀 프로젝트',
+                          '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
+                          [
+                            '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
+                          ],
+                          isMobile: isMobile,
+                          color: Colors.white70,
                         ),
                       ],
                     )
@@ -189,66 +166,87 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                         .fadeIn(duration: 1000.ms, delay: 500.ms)
                         .moveY(begin: 30, end: 0)
                   else
-                    SizedBox(
-                      height: 550,
+                    IntrinsicHeight(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // 1차 과정
-                          Expanded(
+                          Flexible(
+                            fit: FlexFit.tight,
                             child: _buildCurriculumStage(
                               context,
-                              '1차 과정',
+                              'Foundation',
                               '코딩 입문 및 기초',
-                              '코딩을 몰라도 열정만 있다면\n참여할 수 있습니다!',
+                              '본인이 선택한 프로그래밍 언어 문법과 기초적인 구현 방법에 대해서 학습합니다.',
                               [
-                                '코딩 문법 입문\n- 학습 원동력 부여',
-                                '기초 알고리즘\n- 문제 해결 능력 배양',
+                                '코딩 문법 입문',
+                                '기초 알고리즘',
                               ],
-                              isMobile: false, // Desktop, not mobile
-                              // Colors.blue.shade600, // 색상 제거
+                              isMobile: false,
+                              color: Colors.white24,
                             ),
                           ),
-                          const SizedBox(width: 24),
-
-                          // 2차 과정
-                          Expanded(
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Flexible(
+                            fit: FlexFit.tight,
                             child: _buildCurriculumStage(
                               context,
-                              '2차 과정',
-                              '심화 분야 학습 (택1)',
-                              '배우고 싶은 내용을\n자세하게 알려드립니다!',
+                              'CS Deep Dive',
+                              '심화 컴퓨터 공학',
+                              '개발자라면 반드시 알아야 될 컴퓨터 공학, 소프트웨어의 기본 원리를 직접 구현하며 학습합니다.\n\n제한된 환경에서 끊임없이 도전합니다.',
                               [
-                                'Flutter (Dart)\n- 크로스플랫폼 앱 제작\n- MVVM, 상태관리, API',
-                                'Spring Boot (Kotlin)\n- 서버 개발 및 MVC 패턴\n- AWS, Docker 배포',
-                                'AI (PyTorch)\n- AI 핵심 원리 및 구현',
+                                '코딩 문법 입문',
+                                '기초 알고리즘',
                               ],
-                              isMobile: false, // Desktop, not mobile
-                              // Colors.green.shade600, // 색상 제거
+                              isMobile: false,
+                              color: Colors.white24,
                             ),
                           ),
-                          const SizedBox(width: 24),
-
-                          // 3차 과정
-                          Expanded(
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Flexible(
+                            fit: FlexFit.tight,
                             child: _buildCurriculumStage(
                               context,
-                              '3차 과정',
+                              'Framework',
+                              '프레임워크',
+                              '크로스플랫폼 앱(Flutter), 서버(Spring Boot) 중 1가지 선택하여 멘토와 함께 학습합니다.\n\n또한, AI 기술도 함께 습득합니다.',
+                              [
+                                '크로스플랫폼 앱 개발(Flutter)',
+                                '서버 개발(Spring Boot)',
+                                'AI (PyTorch)',
+                              ],
+                              isMobile: false,
+                              color: Colors.white54,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: _buildCurriculumStage(
+                              context,
+                              'Team Project',
                               '팀 프로젝트',
-                              '각 분야를 학습한 여러분들이\n팀이 되어 프로젝트를 만듭니다!',
+                              '각 분야를 학습한 여러분들이 팀이 되어 스스로 정의한 문제에 대해서 프로젝트를 수행합니다.',
                               [
                                 '풍부한 경험의 멘토진이\n프로젝트 완성을 돕습니다.',
                               ],
-                              isMobile: false, // Desktop, not mobile
-                              // Colors.purple.shade600, // 색상 제거
+                              isMobile: false,
+                              color: Colors.white70,
                             ),
                           ),
                         ],
-                      )
-                          .animate()
-                          .fadeIn(duration: 1000.ms, delay: 500.ms)
-                          .moveY(begin: 30, end: 0),
-                    ),
+                      ),
+                    )
+                        .animate()
+                        .fadeIn(duration: 1000.ms, delay: 500.ms)
+                        .moveY(begin: 30, end: 0),
                 ],
               ),
             )),
@@ -262,20 +260,20 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
     String title,
     String description,
     List<String> items, {
-    // Color color, // 색상 파라미터 제거
+    required Color color, // 색상 파라미터 제거
     required bool isMobile, // Add this
   }) {
     // 흑백 테마를 위한 색상 정의
-    final Color iconColor = Colors.grey.shade700;
-    final Color stageTitleColor = Colors.grey.shade600;
-    final Color checkIconColor = Colors.grey.shade500;
-    final Color stageBgColor = Colors.grey.shade100;
+    final Color iconColor = Color(0xff9929EA);
+    final Color stageTitleColor = Colors.white;
+    final Color subTitleColor = Colors.white70;
+    final Color stageBgColor = Colors.black87;
 
     return Container(
       padding: EdgeInsets.all(isMobile ? 16 : 32), // Responsive padding
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        color: Color(0xff242424),
+        borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -284,94 +282,59 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding:
-                    EdgeInsets.all(isMobile ? 8 : 12), // Responsive padding
-                decoration: BoxDecoration(
-                  color: stageBgColor, // 흑백 톤 배경
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.school_rounded,
-                    color: iconColor,
-                    size: isMobile ? 24 : 28), // Responsive icon size
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.all(isMobile ? 8 : 12), // Responsive padding
+              decoration: BoxDecoration(
+                color: stageBgColor, // 흑백 톤 배경
+                shape: BoxShape.circle,
               ),
-              SizedBox(width: isMobile ? 12 : 16), // Responsive spacing
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    stage,
-                    style: TextStyle(
-                      fontSize: isMobile ? 12 : 14, // Responsive font size
-                      fontWeight: FontWeight.bold,
-                      color: stageTitleColor, // 흑백 톤 제목
-                    ),
-                  ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: isMobile ? 18 : 20, // Responsive font size
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: isMobile ? 14 : 16, // Responsive font size
-              color: Colors.black54,
-              fontWeight: FontWeight.w600,
-              height: 1.5,
+              child: Icon(Icons.school_rounded,
+                  color: iconColor,
+                  size: isMobile ? 24 : 28), // Responsive icon size
             ),
-          ),
-          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
-          const Divider(height: 1, color: Colors.black12),
-          SizedBox(height: isMobile ? 16 : 24), // Responsive spacing
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: items
-                .map(
-                  (item) => Padding(
-                    padding: EdgeInsets.only(
-                        bottom: isMobile ? 8.0 : 16.0), // Responsive padding
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.check_circle_rounded,
-                            size: isMobile ? 16 : 20,
-                            color: checkIconColor), // Responsive icon size
-                        SizedBox(
-                            width: isMobile ? 8 : 12), // Responsive spacing
-                        Expanded(
-                          child: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize:
-                                  isMobile ? 13 : 15, // Responsive font size
-                              color: Colors.black87,
-                              height: 1.5,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+            SizedBox(width: isMobile ? 12 : 16), // Responsive spacing
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  stage,
+                  style: TextStyle(
+                    fontSize: isMobile ? 12 : 16, // Responsive font size
+                    fontWeight: FontWeight.bold,
+                    color: subTitleColor, // 흑백 톤 제목
                   ),
-                )
-                .toList(),
-          )
-        ],
-      ),
+                ),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: isMobile ? 16 : 20, // Responsive font size
+                    fontWeight: FontWeight.bold,
+                    color: stageTitleColor, // 흑백 톤 제목
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: isMobile ? 4 : 24), // Responsive spacing
+
+        const Divider(height: 1, color: Colors.black12),
+        SizedBox(height: isMobile ? 4 : 24), // Responsive spacing
+        Text(
+          description,
+          style: TextStyle(
+            fontSize: isMobile ? 14 : 16, // Responsive font size
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            height: 1.5,
+          ),
+        ),
+      ]),
     );
   }
 }
