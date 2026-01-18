@@ -233,7 +233,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
               .moveY(begin: 30, end: 0),
           const SizedBox(height: 12),
           Text(
-            '현직자 및 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
+            '현직자 및 국내 유명 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: isMobile ? 16 : 30, // 반응형 폰트
