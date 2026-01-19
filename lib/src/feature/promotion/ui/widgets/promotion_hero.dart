@@ -16,6 +16,12 @@ class PromotionHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+        AssetImage(
+          "assets/intro_bg.webp",
+        ),
+        context);
+
     final isMobile = ResponsiveLayout.isMobile(context);
 
     return Container(
@@ -28,7 +34,7 @@ class PromotionHero extends StatelessWidget {
               // colorFilter: ColorFilter.mode(
               //     Color(0xff000000).withAlpha(150), BlendMode.darken),
               image: AssetImage(
-                "assets/intro_bg.png",
+                "assets/intro_bg.webp",
               ),
               fit: BoxFit.cover)),
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),

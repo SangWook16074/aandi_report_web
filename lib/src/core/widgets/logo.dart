@@ -27,7 +27,7 @@ class Logo extends StatelessWidget {
           alignment: Alignment.center,
           child: SizedBox(
             width: 200,
-            child: Image.asset("assets/logo.png"),
+            child: Image.asset("assets/logo.webp"),
           )),
     );
   }

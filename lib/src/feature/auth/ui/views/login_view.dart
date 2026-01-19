@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
         children: [
           SizedBox(
             width: 120,
-            child: Image.asset("assets/logo.png"),
+            child: Image.asset("assets/logo.webp"),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 40.0),

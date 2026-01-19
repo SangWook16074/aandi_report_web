@@ -15,7 +15,7 @@ class BottomLogo extends StatelessWidget {
         children: [
           SizedBox(
             width: ResponsiveLayout.isMobile(context) ? 90 : 120,
-            child: Image.asset("assets/logo.png"),
+            child: Image.asset("assets/logo.webp"),
           ),
           const Text(
             "이 사이트는 A&I 회원들을 위한 과제 사이트입니다. ",
