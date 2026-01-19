@@ -7,6 +7,8 @@ class PromotionIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage("assets/growth_step.webp"), context);
+
     final isMobile = ResponsiveLayout.isTablet(context);
     return Container(
       width: double.infinity,
@@ -36,7 +38,7 @@ class PromotionIntro extends StatelessWidget {
               },
               blendMode: BlendMode.dstIn,
               child: Image.asset(
-                "assets/growth_step.jpeg",
+                "assets/growth_step.webp",
                 fit: BoxFit.cover,
                 alignment: Alignment.centerRight,
               ),
