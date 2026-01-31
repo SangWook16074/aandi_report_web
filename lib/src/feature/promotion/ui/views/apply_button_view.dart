@@ -1,26 +1,18 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/apply_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ApplyButtonView extends StatelessWidget {
-  const ApplyButtonView({super.key});
-
-  bool get isEnable {
-    final now = DateTime.now();
-    if (now.isBefore(DateTime(
-          2026,
-          1,
-          16,
-        )) &&
-        now.isAfter(DateTime(2026, 3, 15))) {
-      return false;
-    }
-    return true;
-  }
+class ApplyButtonView extends ConsumerWidget {
+  const ApplyButtonView({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEnable = ref.watch(applyViewProvider);
     final isMobile = ResponsiveLayout.isMobile(context);
 
     return ElevatedButton(

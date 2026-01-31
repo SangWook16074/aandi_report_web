@@ -1,5 +1,6 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/domain/entities/faq_list_filter.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/apply_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/faq_list_view_event.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/faq_list_view_model.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/faq_list_view_state.dart';
@@ -108,6 +109,7 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
   Widget build(BuildContext context) {
     final isMobile = ResponsiveLayout.isMobile(context);
     final faqListViewModel = ref.watch(faqListViewModelProvider);
+    final isEnable = ref.watch(applyViewProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -268,47 +270,48 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                         height: 40,
                       ),
                       // 하단 배너 (스크롤 감지 대상)
-                      Opacity(
-                        opacity: _isBannerVisible ? 1.0 : 0.0,
-                        child: Container(
-                          key: _bannerKey,
-                          margin: EdgeInsets.symmetric(
-                              vertical: isMobile ? 20.0 : 30.0),
-                          child: Center(
-                            child: Container(
-                              // margin: EdgeInsets.symmetric(horizontal: 20.0),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 20.0 : 40.0,
-                                  vertical: 10.0),
-                              constraints: const BoxConstraints(
-                                maxWidth: 600,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black87,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "A&I 4기 모집 중",
-                                    style: TextStyle(
-                                      fontSize: isMobile ? 16 : 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                      if (isEnable)
+                        Opacity(
+                          opacity: _isBannerVisible ? 1.0 : 0.0,
+                          child: Container(
+                            key: _bannerKey,
+                            margin: EdgeInsets.symmetric(
+                                vertical: isMobile ? 20.0 : 30.0),
+                            child: Center(
+                              child: Container(
+                                // margin: EdgeInsets.symmetric(horizontal: 20.0),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: isMobile ? 20.0 : 40.0,
+                                    vertical: 10.0),
+                                constraints: const BoxConstraints(
+                                  maxWidth: 600,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "A&I 4기 모집 중",
+                                      style: TextStyle(
+                                        fontSize: isMobile ? 16 : 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  ApplyButtonView().animate().shimmer(
-                                      delay: 1500.ms, duration: 1000.ms),
-                                ],
+                                    ApplyButtonView().animate().shimmer(
+                                        delay: 1500.ms, duration: 1000.ms),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
                       SizedBox(
-                        height: isMobile ? 50 : 100,
+                        height: 50,
                       ),
                     ],
                   ),
@@ -318,59 +321,61 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
           ),
 
           // Floating Bottom Banner
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            bottom: 20, // 항상 하단 20px 위치에 고정
-            left: 0,
-            right: 0,
-            child: Opacity(
-              opacity: _isBannerVisible
-                  ? 0.0
-                  : 1.0, // _isBannerVisible이 true면 (스크롤된 배너가 보이면) 투명하게
-              // duration: const Duration(milliseconds: 300),
-              // curve: Curves.easeInOut,
-              child: Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 20.0 : 40.0, vertical: 10.0),
-                  constraints: const BoxConstraints(
-                    maxWidth: 600,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max, // 내용물 크기에 맞게
-                    children: [
-                      Text(
-                        "A&I 4기 모집 중",
-                        style: TextStyle(
-                          fontSize: isMobile ? 16 : 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+          if (isEnable)
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              bottom: 20, // 항상 하단 20px 위치에 고정
+              left: 0,
+              right: 0,
+              child: Opacity(
+                opacity: _isBannerVisible
+                    ? 0.0
+                    : 1.0, // _isBannerVisible이 true면 (스크롤된 배너가 보이면) 투명하게
+                // duration: const Duration(milliseconds: 300),
+                // curve: Curves.easeInOut,
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 20.0 : 30.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 20.0 : 40.0, vertical: 10.0),
+                    constraints: const BoxConstraints(
+                      maxWidth: 600,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black87,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
                         ),
-                      ),
-                      const SizedBox(width: 20),
-                      ApplyButtonView()
-                          .animate()
-                          .shimmer(delay: 1500.ms, duration: 1000.ms),
-                    ],
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max, // 내용물 크기에 맞게
+                      children: [
+                        Text(
+                          "A&I 4기 모집 중",
+                          style: TextStyle(
+                            fontSize: isMobile ? 16 : 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        ApplyButtonView()
+                            .animate()
+                            .shimmer(delay: 1500.ms, duration: 1000.ms),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

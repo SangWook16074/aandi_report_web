@@ -2,6 +2,7 @@ import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_b
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PromotionSchedule extends StatelessWidget {
@@ -185,6 +186,23 @@ class PromotionSchedule extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      context.go("/faq");
+                    },
+                    child: Text(
+                      "자주 묻는 질문",
+                      style: TextStyle(
+                        fontSize: isMobile ? 14 : 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white60,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white60,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 100),
                 ],
               )
                   .animate()
