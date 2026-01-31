@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/faq_light_page.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/faq_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -88,7 +89,7 @@ GoRouter goRouter(Ref ref) {
         name: "자주 묻는 질문 | A&I",
         builder: (context, state) {
           html.document.title = "자주 묻는 질문 | A&I";
-          return const FAQPage();
+          return const FAQLightPage();
         },
       ),
       GoRoute(
