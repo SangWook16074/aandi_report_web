@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'login_response_dto.dart';
+part of 'faq_list_view_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,75 +13,77 @@ part of 'login_response_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$LoginResponseDto {
-  /// 인증에 성공하여 발급된 액세스 토큰 (JWT 등)
-  String get accessToken;
+mixin _$FaqListViewState {
+  List<FaqItem> get items;
+  FaqListFilter get filter;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqListViewState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $LoginResponseDtoCopyWith<LoginResponseDto> get copyWith =>
-      _$LoginResponseDtoCopyWithImpl<LoginResponseDto>(
-          this as LoginResponseDto, _$identity);
-
-  /// Serializes this LoginResponseDto to a JSON map.
-  Map<String, dynamic> toJson();
+  $FaqListViewStateCopyWith<FaqListViewState> get copyWith =>
+      _$FaqListViewStateCopyWithImpl<FaqListViewState>(
+          this as FaqListViewState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LoginResponseDto &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken));
+            other is FaqListViewState &&
+            const DeepCollectionEquality().equals(other.items, items) &&
+            (identical(other.filter, filter) || other.filter == filter));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(items), filter);
 
   @override
   String toString() {
-    return 'LoginResponseDto(accessToken: $accessToken)';
+    return 'FaqListViewState(items: $items, filter: $filter)';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoginResponseDtoCopyWith<$Res> {
-  factory $LoginResponseDtoCopyWith(
-          LoginResponseDto value, $Res Function(LoginResponseDto) _then) =
-      _$LoginResponseDtoCopyWithImpl;
+abstract mixin class $FaqListViewStateCopyWith<$Res> {
+  factory $FaqListViewStateCopyWith(
+          FaqListViewState value, $Res Function(FaqListViewState) _then) =
+      _$FaqListViewStateCopyWithImpl;
   @useResult
-  $Res call({String accessToken});
+  $Res call({List<FaqItem> items, FaqListFilter filter});
 }
 
 /// @nodoc
-class _$LoginResponseDtoCopyWithImpl<$Res>
-    implements $LoginResponseDtoCopyWith<$Res> {
-  _$LoginResponseDtoCopyWithImpl(this._self, this._then);
+class _$FaqListViewStateCopyWithImpl<$Res>
+    implements $FaqListViewStateCopyWith<$Res> {
+  _$FaqListViewStateCopyWithImpl(this._self, this._then);
 
-  final LoginResponseDto _self;
-  final $Res Function(LoginResponseDto) _then;
+  final FaqListViewState _self;
+  final $Res Function(FaqListViewState) _then;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqListViewState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = null,
+    Object? items = null,
+    Object? filter = null,
   }) {
     return _then(_self.copyWith(
-      accessToken: null == accessToken
-          ? _self.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
+      items: null == items
+          ? _self.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<FaqItem>,
+      filter: null == filter
+          ? _self.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as FaqListFilter,
     ));
   }
 }
 
-/// Adds pattern-matching-related methods to [LoginResponseDto].
-extension LoginResponseDtoPatterns on LoginResponseDto {
+/// Adds pattern-matching-related methods to [FaqListViewState].
+extension FaqListViewStatePatterns on FaqListViewState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -96,12 +98,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_LoginResponseDto value)? $default, {
+    TResult Function(_FaqListViewState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
+      case _FaqListViewState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -123,11 +125,11 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_LoginResponseDto value) $default,
+    TResult Function(_FaqListViewState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto():
+      case _FaqListViewState():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -148,11 +150,11 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_LoginResponseDto value)? $default,
+    TResult? Function(_FaqListViewState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
+      case _FaqListViewState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -173,13 +175,13 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String accessToken)? $default, {
+    TResult Function(List<FaqItem> items, FaqListFilter filter)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
-        return $default(_that.accessToken);
+      case _FaqListViewState() when $default != null:
+        return $default(_that.items, _that.filter);
       case _:
         return orElse();
     }
@@ -200,12 +202,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String accessToken) $default,
+    TResult Function(List<FaqItem> items, FaqListFilter filter) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto():
-        return $default(_that.accessToken);
+      case _FaqListViewState():
+        return $default(_that.items, _that.filter);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -225,12 +227,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String accessToken)? $default,
+    TResult? Function(List<FaqItem> items, FaqListFilter filter)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
-        return $default(_that.accessToken);
+      case _FaqListViewState() when $default != null:
+        return $default(_that.items, _that.filter);
       case _:
         return null;
     }
@@ -238,81 +240,88 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 }
 
 /// @nodoc
-@JsonSerializable()
-class _LoginResponseDto implements LoginResponseDto {
-  const _LoginResponseDto({required this.accessToken});
-  factory _LoginResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseDtoFromJson(json);
 
-  /// 인증에 성공하여 발급된 액세스 토큰 (JWT 등)
+class _FaqListViewState implements FaqListViewState {
+  const _FaqListViewState(
+      {final List<FaqItem> items = const [], this.filter = FaqListFilter.all})
+      : _items = items;
+
+  final List<FaqItem> _items;
   @override
-  final String accessToken;
+  @JsonKey()
+  List<FaqItem> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
 
-  /// Create a copy of LoginResponseDto
+  @override
+  @JsonKey()
+  final FaqListFilter filter;
+
+  /// Create a copy of FaqListViewState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$LoginResponseDtoCopyWith<_LoginResponseDto> get copyWith =>
-      __$LoginResponseDtoCopyWithImpl<_LoginResponseDto>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$LoginResponseDtoToJson(
-      this,
-    );
-  }
+  _$FaqListViewStateCopyWith<_FaqListViewState> get copyWith =>
+      __$FaqListViewStateCopyWithImpl<_FaqListViewState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoginResponseDto &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken));
+            other is _FaqListViewState &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.filter, filter) || other.filter == filter));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_items), filter);
 
   @override
   String toString() {
-    return 'LoginResponseDto(accessToken: $accessToken)';
+    return 'FaqListViewState(items: $items, filter: $filter)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$LoginResponseDtoCopyWith<$Res>
-    implements $LoginResponseDtoCopyWith<$Res> {
-  factory _$LoginResponseDtoCopyWith(
-          _LoginResponseDto value, $Res Function(_LoginResponseDto) _then) =
-      __$LoginResponseDtoCopyWithImpl;
+abstract mixin class _$FaqListViewStateCopyWith<$Res>
+    implements $FaqListViewStateCopyWith<$Res> {
+  factory _$FaqListViewStateCopyWith(
+          _FaqListViewState value, $Res Function(_FaqListViewState) _then) =
+      __$FaqListViewStateCopyWithImpl;
   @override
   @useResult
-  $Res call({String accessToken});
+  $Res call({List<FaqItem> items, FaqListFilter filter});
 }
 
 /// @nodoc
-class __$LoginResponseDtoCopyWithImpl<$Res>
-    implements _$LoginResponseDtoCopyWith<$Res> {
-  __$LoginResponseDtoCopyWithImpl(this._self, this._then);
+class __$FaqListViewStateCopyWithImpl<$Res>
+    implements _$FaqListViewStateCopyWith<$Res> {
+  __$FaqListViewStateCopyWithImpl(this._self, this._then);
 
-  final _LoginResponseDto _self;
-  final $Res Function(_LoginResponseDto) _then;
+  final _FaqListViewState _self;
+  final $Res Function(_FaqListViewState) _then;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqListViewState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? accessToken = null,
+    Object? items = null,
+    Object? filter = null,
   }) {
-    return _then(_LoginResponseDto(
-      accessToken: null == accessToken
-          ? _self.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_FaqListViewState(
+      items: null == items
+          ? _self._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<FaqItem>,
+      filter: null == filter
+          ? _self.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as FaqListFilter,
     ));
   }
 }

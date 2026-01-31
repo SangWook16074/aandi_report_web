@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -93,30 +94,9 @@ class PromotionHero extends StatelessWidget {
                 SizedBox(height: isMobile ? 50 : 20),
 
                 // CTA 버튼
-                ElevatedButton(
-                  onPressed: _launchUrl,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 30 : 40,
-                        vertical: isMobile ? 16 : 20), // 반응형 패딩
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    '지금 지원하기',
-                    style: TextStyle(
-                      fontSize: isMobile ? 16 : 20, // 반응형 폰트 크기
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
+                ApplyButtonView()
                     .animate()
                     .fadeIn(delay: 1000.ms, duration: 600.ms)
-                    .shimmer(delay: 1500.ms, duration: 1000.ms),
               ],
             ),
           ),

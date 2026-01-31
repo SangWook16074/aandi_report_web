@@ -8,7 +8,12 @@ part of 'auth_view_model.dart';
 
 String _$authViewModelHash() => r'8388949104b174bd7fed32ea335feb2f9281cdb7';
 
-/// See also [AuthViewModel].
+/// 앱 전반의 인증 상태를 관리하는 ViewModel입니다.
+///
+/// [AsyncNotifier]를 상속받아 인증 상태([AuthState])를 비동기적으로 관리합니다.
+/// `keepAlive: true`로 설정되어 있어, 앱 실행 중 상태가 유지됩니다.
+///
+/// Copied from [AuthViewModel].
 @ProviderFor(AuthViewModel)
 final authViewModelProvider =
     AsyncNotifierProvider<AuthViewModel, AuthState>.internal(

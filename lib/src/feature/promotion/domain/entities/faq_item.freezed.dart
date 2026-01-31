@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'login_response_dto.dart';
+part of 'faq_item.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,75 +13,81 @@ part of 'login_response_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$LoginResponseDto {
-  /// 인증에 성공하여 발급된 액세스 토큰 (JWT 등)
-  String get accessToken;
+mixin _$FaqItem {
+  FaqType get type;
+  String get question;
+  String get answer;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqItem
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $LoginResponseDtoCopyWith<LoginResponseDto> get copyWith =>
-      _$LoginResponseDtoCopyWithImpl<LoginResponseDto>(
-          this as LoginResponseDto, _$identity);
-
-  /// Serializes this LoginResponseDto to a JSON map.
-  Map<String, dynamic> toJson();
+  $FaqItemCopyWith<FaqItem> get copyWith =>
+      _$FaqItemCopyWithImpl<FaqItem>(this as FaqItem, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LoginResponseDto &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken));
+            other is FaqItem &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
+            (identical(other.answer, answer) || other.answer == answer));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken);
+  int get hashCode => Object.hash(runtimeType, type, question, answer);
 
   @override
   String toString() {
-    return 'LoginResponseDto(accessToken: $accessToken)';
+    return 'FaqItem(type: $type, question: $question, answer: $answer)';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoginResponseDtoCopyWith<$Res> {
-  factory $LoginResponseDtoCopyWith(
-          LoginResponseDto value, $Res Function(LoginResponseDto) _then) =
-      _$LoginResponseDtoCopyWithImpl;
+abstract mixin class $FaqItemCopyWith<$Res> {
+  factory $FaqItemCopyWith(FaqItem value, $Res Function(FaqItem) _then) =
+      _$FaqItemCopyWithImpl;
   @useResult
-  $Res call({String accessToken});
+  $Res call({FaqType type, String question, String answer});
 }
 
 /// @nodoc
-class _$LoginResponseDtoCopyWithImpl<$Res>
-    implements $LoginResponseDtoCopyWith<$Res> {
-  _$LoginResponseDtoCopyWithImpl(this._self, this._then);
+class _$FaqItemCopyWithImpl<$Res> implements $FaqItemCopyWith<$Res> {
+  _$FaqItemCopyWithImpl(this._self, this._then);
 
-  final LoginResponseDto _self;
-  final $Res Function(LoginResponseDto) _then;
+  final FaqItem _self;
+  final $Res Function(FaqItem) _then;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqItem
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = null,
+    Object? type = null,
+    Object? question = null,
+    Object? answer = null,
   }) {
     return _then(_self.copyWith(
-      accessToken: null == accessToken
-          ? _self.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FaqType,
+      question: null == question
+          ? _self.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      answer: null == answer
+          ? _self.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
 }
 
-/// Adds pattern-matching-related methods to [LoginResponseDto].
-extension LoginResponseDtoPatterns on LoginResponseDto {
+/// Adds pattern-matching-related methods to [FaqItem].
+extension FaqItemPatterns on FaqItem {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -96,12 +102,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_LoginResponseDto value)? $default, {
+    TResult Function(_FaqItem value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
+      case _FaqItem() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -123,11 +129,11 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_LoginResponseDto value) $default,
+    TResult Function(_FaqItem value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto():
+      case _FaqItem():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -148,11 +154,11 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_LoginResponseDto value)? $default,
+    TResult? Function(_FaqItem value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
+      case _FaqItem() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -173,13 +179,13 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String accessToken)? $default, {
+    TResult Function(FaqType type, String question, String answer)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
-        return $default(_that.accessToken);
+      case _FaqItem() when $default != null:
+        return $default(_that.type, _that.question, _that.answer);
       case _:
         return orElse();
     }
@@ -200,12 +206,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String accessToken) $default,
+    TResult Function(FaqType type, String question, String answer) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto():
-        return $default(_that.accessToken);
+      case _FaqItem():
+        return $default(_that.type, _that.question, _that.answer);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -225,12 +231,12 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String accessToken)? $default,
+    TResult? Function(FaqType type, String question, String answer)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginResponseDto() when $default != null:
-        return $default(_that.accessToken);
+      case _FaqItem() when $default != null:
+        return $default(_that.type, _that.question, _that.answer);
       case _:
         return null;
     }
@@ -238,80 +244,83 @@ extension LoginResponseDtoPatterns on LoginResponseDto {
 }
 
 /// @nodoc
-@JsonSerializable()
-class _LoginResponseDto implements LoginResponseDto {
-  const _LoginResponseDto({required this.accessToken});
-  factory _LoginResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseDtoFromJson(json);
 
-  /// 인증에 성공하여 발급된 액세스 토큰 (JWT 등)
+class _FaqItem implements FaqItem {
+  const _FaqItem(
+      {required this.type, required this.question, required this.answer});
+
   @override
-  final String accessToken;
+  final FaqType type;
+  @override
+  final String question;
+  @override
+  final String answer;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqItem
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$LoginResponseDtoCopyWith<_LoginResponseDto> get copyWith =>
-      __$LoginResponseDtoCopyWithImpl<_LoginResponseDto>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$LoginResponseDtoToJson(
-      this,
-    );
-  }
+  _$FaqItemCopyWith<_FaqItem> get copyWith =>
+      __$FaqItemCopyWithImpl<_FaqItem>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoginResponseDto &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken));
+            other is _FaqItem &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
+            (identical(other.answer, answer) || other.answer == answer));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken);
+  int get hashCode => Object.hash(runtimeType, type, question, answer);
 
   @override
   String toString() {
-    return 'LoginResponseDto(accessToken: $accessToken)';
+    return 'FaqItem(type: $type, question: $question, answer: $answer)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$LoginResponseDtoCopyWith<$Res>
-    implements $LoginResponseDtoCopyWith<$Res> {
-  factory _$LoginResponseDtoCopyWith(
-          _LoginResponseDto value, $Res Function(_LoginResponseDto) _then) =
-      __$LoginResponseDtoCopyWithImpl;
+abstract mixin class _$FaqItemCopyWith<$Res> implements $FaqItemCopyWith<$Res> {
+  factory _$FaqItemCopyWith(_FaqItem value, $Res Function(_FaqItem) _then) =
+      __$FaqItemCopyWithImpl;
   @override
   @useResult
-  $Res call({String accessToken});
+  $Res call({FaqType type, String question, String answer});
 }
 
 /// @nodoc
-class __$LoginResponseDtoCopyWithImpl<$Res>
-    implements _$LoginResponseDtoCopyWith<$Res> {
-  __$LoginResponseDtoCopyWithImpl(this._self, this._then);
+class __$FaqItemCopyWithImpl<$Res> implements _$FaqItemCopyWith<$Res> {
+  __$FaqItemCopyWithImpl(this._self, this._then);
 
-  final _LoginResponseDto _self;
-  final $Res Function(_LoginResponseDto) _then;
+  final _FaqItem _self;
+  final $Res Function(_FaqItem) _then;
 
-  /// Create a copy of LoginResponseDto
+  /// Create a copy of FaqItem
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? accessToken = null,
+    Object? type = null,
+    Object? question = null,
+    Object? answer = null,
   }) {
-    return _then(_LoginResponseDto(
-      accessToken: null == accessToken
-          ? _self.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
+    return _then(_FaqItem(
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FaqType,
+      question: null == question
+          ? _self.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      answer: null == answer
+          ? _self.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

@@ -14,7 +14,10 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$LoginRequestDto implements DiagnosticableTreeMixin {
+  /// 사용자 아이디
   String get userId;
+
+  /// 사용자 비밀번호
   String get password;
 
   /// Create a copy of LoginRequestDto
@@ -258,9 +261,12 @@ class _LoginRequestDto with DiagnosticableTreeMixin implements LoginRequestDto {
   factory _LoginRequestDto.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestDtoFromJson(json);
 
+  /// 사용자 아이디
   @override
   @JsonKey()
   final String userId;
+
+  /// 사용자 비밀번호
   @override
   @JsonKey()
   final String password;

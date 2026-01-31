@@ -1,3 +1,4 @@
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/faq_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/viewModels/auth_view_model.dart';
@@ -37,12 +38,12 @@ GoRouter goRouter(Ref ref) {
         data: (authState) {
           final isLoggedIn = authState is Authenticated;
           final isAtLogin = state.matchedLocation == '/sign-in';
-          // final isAtReport = state.matchedLocation.startsWith('/report'); // Unused
-          final isAtPromotion = state.matchedLocation == '/promotion';
+
+          final isAtReport = state.matchedLocation == "/report";
 
           // 로그인되지 않은 상태에서 보호된 페이지 접근 시 로그인 페이지로 리다이렉트
           // 단, 프로모션 페이지는 제외
-          if (!isLoggedIn && !isAtLogin && !isAtPromotion) return '/sign-in';
+          if (!isLoggedIn && isAtReport) return '/sign-in';
 
           // 로그인된 상태에서 로그인 페이지 접근 시 메인 페이지로 리다이렉트
           if (isLoggedIn && isAtLogin) return '/report';
@@ -80,6 +81,14 @@ GoRouter goRouter(Ref ref) {
         builder: (context, state) {
           html.document.title = "2026 팀 A&I 모집안내";
           return const PromotionPage();
+        },
+      ),
+      GoRoute(
+        path: '/faq',
+        name: "자주 묻는 질문 | A&I",
+        builder: (context, state) {
+          html.document.title = "자주 묻는 질문 | A&I";
+          return const FAQPage();
         },
       ),
       GoRoute(

@@ -9,7 +9,10 @@ part of 'report_list_view_model.dart';
 String _$reportListViewModelHash() =>
     r'7ed5a7a4dcfde6772e27a9d68a4ef3c89bc75f14';
 
-/// 과제 목록 뷰 모델
+/// 과제 목록 화면의 상태를 관리하는 ViewModel입니다.
+///
+/// [AutoDisposeAsyncNotifier]를 상속받아 구현되었습니다.
+/// 화면 진입 시 [build] 메서드가 실행되어 과제 목록을 자동으로 로드합니다.
 ///
 /// Copied from [ReportListViewModel].
 @ProviderFor(ReportListViewModel)

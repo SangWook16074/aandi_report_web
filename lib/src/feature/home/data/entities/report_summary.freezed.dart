@@ -14,12 +14,25 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ReportSummary {
+  /// 과제 ID (UUID)
   String get id;
+
+  /// 주차 (예: 1주차, 2주차)
   int get week;
+
+  /// 정렬 순서
   int get seq;
+
+  /// 과제 제목
   String get title;
+
+  /// 난이도 (Basic, Advanced 등)
   Level get level;
+
+  /// 과제 유형 (CS, Algorithm 등)
   ReportType get reportType;
+
+  /// 제출 마감일
   DateTime get endAt;
 
   /// Create a copy of ReportSummary
@@ -305,18 +318,31 @@ class _ReportSummary implements ReportSummary {
   factory _ReportSummary.fromJson(Map<String, dynamic> json) =>
       _$ReportSummaryFromJson(json);
 
+  /// 과제 ID (UUID)
   @override
   final String id;
+
+  /// 주차 (예: 1주차, 2주차)
   @override
   final int week;
+
+  /// 정렬 순서
   @override
   final int seq;
+
+  /// 과제 제목
   @override
   final String title;
+
+  /// 난이도 (Basic, Advanced 등)
   @override
   final Level level;
+
+  /// 과제 유형 (CS, Algorithm 등)
   @override
   final ReportType reportType;
+
+  /// 제출 마감일
   @override
   final DateTime endAt;
 
