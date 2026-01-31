@@ -8,7 +8,12 @@ part of 'dio_provider.dart';
 
 String _$dioHash() => r'a03da399b44b3740dc4fcfc6716203041d66ff01';
 
-/// See also [dio].
+/// HTTP 통신을 위한 [Dio] 인스턴스를 제공하는 Provider입니다.
+///
+/// 애플리케이션 전반에서 API 호출 시 이 Provider를 통해 Dio 클라이언트를 주입받아 사용합니다.
+/// 필요한 경우 Interceptor나 기본 옵션(BaseOptions)을 이곳에서 설정할 수 있습니다.
+///
+/// Copied from [dio].
 @ProviderFor(dio)
 final dioProvider = AutoDisposeProvider<Dio>.internal(
   dio,

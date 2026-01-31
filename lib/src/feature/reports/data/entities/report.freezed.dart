@@ -14,15 +14,31 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Report {
-// 과제 UUID
-  String get id; // 과제 제목
-  String get title; // 과제 내용
-  String get content; // 과제 요구 사항
-  List<SeqString> get requirement; // 과제 목표
-  List<SeqString> get objects; // 예제 입출력
-  List<ExampleIO> get exampleIo; // 과제 분류
-  ReportType get reportType; // 과제 주차
-  int get week; // 과제 난이도
+  /// 과제 고유 ID (UUID)
+  String get id;
+
+  /// 과제 제목
+  String get title;
+
+  /// 과제 본문 내용
+  String get content;
+
+  /// 과제 요구 사항 목록
+  List<SeqString> get requirement;
+
+  /// 과제 학습 목표 목록
+  List<SeqString> get objects;
+
+  /// 예제 입출력 케이스 목록
+  List<ExampleIO> get exampleIo;
+
+  /// 과제 유형 (CS, Algorithm 등)
+  ReportType get reportType;
+
+  /// 과제 주차
+  int get week;
+
+  /// 과제 난이도
   Level get level;
 
   /// Create a copy of Report
@@ -381,18 +397,22 @@ class _Report implements Report {
         _exampleIo = exampleIo;
   factory _Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
 
-// 과제 UUID
+  /// 과제 고유 ID (UUID)
   @override
   final String id;
-// 과제 제목
+
+  /// 과제 제목
   @override
   final String title;
-// 과제 내용
+
+  /// 과제 본문 내용
   @override
   final String content;
-// 과제 요구 사항
+
+  /// 과제 요구 사항 목록
   final List<SeqString> _requirement;
-// 과제 요구 사항
+
+  /// 과제 요구 사항 목록
   @override
   List<SeqString> get requirement {
     if (_requirement is EqualUnmodifiableListView) return _requirement;
@@ -400,9 +420,10 @@ class _Report implements Report {
     return EqualUnmodifiableListView(_requirement);
   }
 
-// 과제 목표
+  /// 과제 학습 목표 목록
   final List<SeqString> _objects;
-// 과제 목표
+
+  /// 과제 학습 목표 목록
   @override
   List<SeqString> get objects {
     if (_objects is EqualUnmodifiableListView) return _objects;
@@ -410,9 +431,10 @@ class _Report implements Report {
     return EqualUnmodifiableListView(_objects);
   }
 
-// 예제 입출력
+  /// 예제 입출력 케이스 목록
   final List<ExampleIO> _exampleIo;
-// 예제 입출력
+
+  /// 예제 입출력 케이스 목록
   @override
   List<ExampleIO> get exampleIo {
     if (_exampleIo is EqualUnmodifiableListView) return _exampleIo;
@@ -420,13 +442,15 @@ class _Report implements Report {
     return EqualUnmodifiableListView(_exampleIo);
   }
 
-// 과제 분류
+  /// 과제 유형 (CS, Algorithm 등)
   @override
   final ReportType reportType;
-// 과제 주차
+
+  /// 과제 주차
   @override
   final int week;
-// 과제 난이도
+
+  /// 과제 난이도
   @override
   final Level level;
 
@@ -567,7 +591,10 @@ class __$ReportCopyWithImpl<$Res> implements _$ReportCopyWith<$Res> {
 
 /// @nodoc
 mixin _$SeqString {
+  /// 표시 순서
   int get seq;
+
+  /// 텍스트 내용
   String get content;
 
   /// Create a copy of SeqString
@@ -795,8 +822,11 @@ class _SeqString implements SeqString {
   factory _SeqString.fromJson(Map<String, dynamic> json) =>
       _$SeqStringFromJson(json);
 
+  /// 표시 순서
   @override
   final int seq;
+
+  /// 텍스트 내용
   @override
   final String content;
 
@@ -875,8 +905,13 @@ class __$SeqStringCopyWithImpl<$Res> implements _$SeqStringCopyWith<$Res> {
 
 /// @nodoc
 mixin _$ExampleIO {
+  /// 표시 순서
   int get seq;
+
+  /// 입력 예시
   String get input;
+
+  /// 출력 예시
   String get output;
 
   /// Create a copy of ExampleIO
@@ -1110,10 +1145,15 @@ class _ExampleIO implements ExampleIO {
   factory _ExampleIO.fromJson(Map<String, dynamic> json) =>
       _$ExampleIOFromJson(json);
 
+  /// 표시 순서
   @override
   final int seq;
+
+  /// 입력 예시
   @override
   final String input;
+
+  /// 출력 예시
   @override
   final String output;
 

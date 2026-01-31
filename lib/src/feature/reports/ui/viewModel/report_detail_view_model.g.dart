@@ -39,17 +39,37 @@ abstract class _$ReportDetailViewModel
   );
 }
 
-/// See also [ReportDetailViewModel].
+/// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+///
+/// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+/// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+///
+/// Copied from [ReportDetailViewModel].
 @ProviderFor(ReportDetailViewModel)
 const reportDetailViewModelProvider = ReportDetailViewModelFamily();
 
-/// See also [ReportDetailViewModel].
+/// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+///
+/// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+/// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+///
+/// Copied from [ReportDetailViewModel].
 class ReportDetailViewModelFamily
     extends Family<AsyncValue<ReportDatailState>> {
-  /// See also [ReportDetailViewModel].
+  /// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+  ///
+  /// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+  /// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+  ///
+  /// Copied from [ReportDetailViewModel].
   const ReportDetailViewModelFamily();
 
-  /// See also [ReportDetailViewModel].
+  /// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+  ///
+  /// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+  /// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+  ///
+  /// Copied from [ReportDetailViewModel].
   ReportDetailViewModelProvider call(
     String id,
   ) {
@@ -82,11 +102,21 @@ class ReportDetailViewModelFamily
   String? get name => r'reportDetailViewModelProvider';
 }
 
-/// See also [ReportDetailViewModel].
+/// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+///
+/// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+/// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+///
+/// Copied from [ReportDetailViewModel].
 class ReportDetailViewModelProvider
     extends AutoDisposeAsyncNotifierProviderImpl<ReportDetailViewModel,
         ReportDatailState> {
-  /// See also [ReportDetailViewModel].
+  /// 과제 상세 화면의 상태를 관리하는 ViewModel입니다.
+  ///
+  /// [AutoDisposeFamilyAsyncNotifier]를 상속받아 구현되었습니다.
+  /// `family` 수정자를 사용하여 [id] 파라미터를 받아 특정 과제의 상세 정보를 로드합니다.
+  ///
+  /// Copied from [ReportDetailViewModel].
   ReportDetailViewModelProvider(
     String id,
   ) : this._internal(
