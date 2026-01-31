@@ -71,39 +71,41 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/sign-in',
         name: "A&I 로그인",
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           html.document.title = "A&I 로그인";
-          return const LoginUI();
+          return NoTransitionPage(child: const LoginUI());
         },
       ),
       GoRoute(
         path: '/promotion',
         name: "2026 팀 A&I 모집안내",
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           html.document.title = "2026 팀 A&I 모집안내";
-          return const PromotionPage();
+          return NoTransitionPage(child: const PromotionPage());
         },
       ),
       GoRoute(
         path: '/faq',
         name: "자주 묻는 질문 | A&I",
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           html.document.title = "자주 묻는 질문 | A&I";
-          return const FAQLightPage();
+          return NoTransitionPage(child: const FAQLightPage());
         },
       ),
       GoRoute(
         path: '/report',
         name: "A&I 과제",
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           html.document.title = "A&I 과제";
-          return const HomeUI();
+          return NoTransitionPage(child: const HomeUI());
         },
         routes: [
           GoRoute(
             path: ':id',
-            builder: (context, state) => ReportDetailUI(
-              id: state.pathParameters['id']!,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: ReportDetailUI(
+                id: state.pathParameters['id']!,
+              ),
             ),
           ),
         ],
