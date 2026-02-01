@@ -202,7 +202,7 @@ class PromotionSchedule extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 20),
                 ],
               )
                   .animate()
