@@ -10,32 +10,16 @@ class PromotionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black, // 전체 배경색 통일
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: screenHeight,
-              child: const PromotionHero(),
-            ),
-            SizedBox(
-              height: screenHeight,
-              child: const PromotionIntro(),
-            ),
-            SizedBox(
-              height: screenHeight,
-              child: const PromotionMentors(),
-            ),
-            SizedBox(
-              height: screenHeight,
-              child: const PromotionCurriculum(),
-            ),
-            SizedBox(
-              height: screenHeight,
-              child: const PromotionSchedule(),
-            ),
+            const PromotionHero(),
+            const PromotionIntro(),
+            const PromotionMentors(),
+            const PromotionCurriculum(),
+            const PromotionSchedule(),
           ],
         ),
       ),
