@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:visibility_detector/visibility_detector.dart';
 
 class GrowthTogetherWidget extends StatefulWidget {
   final Color primaryColor;
@@ -29,6 +30,8 @@ class _GrowthTogetherWidgetState extends State<GrowthTogetherWidget>
   late AnimationController _secondaryController;
   late Animation<double> _primaryAnimation;
   late Animation<double> _secondaryAnimation;
+  bool _hasAnimated = false;
+  final Key _visibilityKey = UniqueKey();
 
   @override
   void initState() {
@@ -54,17 +57,23 @@ class _GrowthTogetherWidgetState extends State<GrowthTogetherWidget>
       curve: Curves.easeInOut,
     );
 
-    if (widget.enableAnimation) {
-      _primaryController.forward();
-      Future.delayed(widget.secondaryDelay, () {
-        if (mounted) {
-          _secondaryController.forward();
-        }
-      });
-    } else {
+    if (!widget.enableAnimation) {
       _primaryController.value = 1.0;
       _secondaryController.value = 1.0;
     }
+  }
+
+  void _startAnimation() {
+    if (_hasAnimated) return;
+    setState(() {
+      _hasAnimated = true;
+    });
+    _primaryController.forward();
+    Future.delayed(widget.secondaryDelay, () {
+      if (mounted) {
+        _secondaryController.forward();
+      }
+    });
   }
 
   @override
@@ -76,22 +85,32 @@ class _GrowthTogetherWidgetState extends State<GrowthTogetherWidget>
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: AnimatedBuilder(
-        animation: Listenable.merge([_primaryAnimation, _secondaryAnimation]),
-        builder: (context, child) {
-          return CustomPaint(
-            painter: GrowthTogetherPainter(
-              primaryColor: widget.primaryColor,
-              secondaryColor: widget.secondaryColor,
-              primaryProgress: _primaryAnimation.value,
-              secondaryProgress: _secondaryAnimation.value,
-              primaryStrokeWidth: widget.primaryStrokeWidth,
-              secondaryStrokeWidth: widget.secondaryStrokeWidth,
-            ),
-          );
-        },
+    return VisibilityDetector(
+      key: _visibilityKey,
+      onVisibilityChanged: (info) {
+        if (widget.enableAnimation &&
+            !_hasAnimated &&
+            info.visibleFraction == 1.0) {
+          _startAnimation();
+        }
+      },
+      child: AspectRatio(
+        aspectRatio: 1.25,
+        child: AnimatedBuilder(
+          animation: Listenable.merge([_primaryAnimation, _secondaryAnimation]),
+          builder: (context, child) {
+            return CustomPaint(
+              painter: GrowthTogetherPainter(
+                primaryColor: widget.primaryColor,
+                secondaryColor: widget.secondaryColor,
+                primaryProgress: _primaryAnimation.value,
+                secondaryProgress: _secondaryAnimation.value,
+                primaryStrokeWidth: widget.primaryStrokeWidth,
+                secondaryStrokeWidth: widget.secondaryStrokeWidth,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -127,6 +146,15 @@ class GrowthTogetherPainter extends CustomPainter {
     final double offY = size.height * 0.08;
 
     // First pass: draw blur shadows for all graphs (no clipping)
+    canvas.save();
+    canvas.clipRect(Rect.fromLTWH(0, 0, size.width, size.height));
+    _drawGraphBlur(
+        canvas, size, secondaryColor, secondaryProgress, secondaryStrokeWidth,
+        offsetX: -offX, offsetY: offY, extraLastRise: offY);
+    _drawGraphBlur(
+        canvas, size, primaryColor, primaryProgress, primaryStrokeWidth,
+        offsetX: 0, offsetY: 0);
+    canvas.restore();
 
     // Second pass: draw all lines with sectioned z-order
     for (int i = 0; i < sections; i++) {
@@ -154,36 +182,24 @@ class GrowthTogetherPainter extends CustomPainter {
 
       if (primaryOnTop) {
         // 1. 보조선(흰색) 세트 (뒤에 깔림)
-        _drawGraphBlur(canvas, size, secondaryColor, secondaryProgress,
-            secondaryStrokeWidth,
-            offsetX: -offX, offsetY: offY);
         _drawGraphLine(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -offX, offsetY: offY);
+            offsetX: -offX, offsetY: offY, extraLastRise: offY);
 
         // 2. 주선(파란색) 세트 (위에 덮음)
-        _drawGraphBlur(
-            canvas, size, primaryColor, primaryProgress, primaryStrokeWidth,
-            offsetX: 0, offsetY: 0);
         _drawGraphLine(
             canvas, size, primaryColor, primaryProgress, primaryStrokeWidth,
             offsetX: 0, offsetY: 0);
       } else {
         // 1. 주선(파란색) 세트 (뒤에 깔림)
-        _drawGraphBlur(
-            canvas, size, primaryColor, primaryProgress, primaryStrokeWidth,
-            offsetX: 0, offsetY: 0);
         _drawGraphLine(
             canvas, size, primaryColor, primaryProgress, primaryStrokeWidth,
             offsetX: 0, offsetY: 0);
 
         // 2. 보조선(흰색) 세트 (위에 덮음)
-        _drawGraphBlur(canvas, size, secondaryColor, secondaryProgress,
-            secondaryStrokeWidth,
-            offsetX: -offX, offsetY: offY);
         _drawGraphLine(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -offX, offsetY: offY);
+            offsetX: -offX, offsetY: offY, extraLastRise: offY);
       }
 
       canvas.restore();
@@ -201,6 +217,7 @@ class GrowthTogetherPainter extends CustomPainter {
     double strokeWidth, {
     required double offsetX,
     required double offsetY,
+    double extraLastRise = 0.0,
   }) {
     if (progress <= 0) return;
 
@@ -209,7 +226,7 @@ class GrowthTogetherPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.square
-      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 4);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
 
     final path = Path();
 
@@ -240,7 +257,7 @@ class GrowthTogetherPainter extends CustomPainter {
       // Vertical movement
       double verticalMove = stepHeight;
       if (i == repetitions - 1) {
-        verticalMove = stepHeight * 0.5;
+        verticalMove = stepHeight * 0.5 + extraLastRise;
       }
 
       currentY -= verticalMove;
@@ -269,6 +286,7 @@ class GrowthTogetherPainter extends CustomPainter {
     double strokeWidth, {
     required double offsetX,
     required double offsetY,
+    double extraLastRise = 0.0,
   }) {
     if (progress <= 0) return;
 
@@ -307,7 +325,7 @@ class GrowthTogetherPainter extends CustomPainter {
       // Vertical movement
       double verticalMove = stepHeight;
       if (i == repetitions - 1) {
-        verticalMove = stepHeight * 0.5;
+        verticalMove = stepHeight * 0.5 + extraLastRise;
       }
 
       currentY -= verticalMove;
@@ -352,6 +370,7 @@ class GrowthTogetherPainter extends CustomPainter {
       secondaryStrokeWidth,
       offsetX: -offX,
       offsetY: offY,
+      extraLastRise: offY,
     );
   }
 
@@ -363,6 +382,7 @@ class GrowthTogetherPainter extends CustomPainter {
     double strokeWidth, {
     required double offsetX,
     required double offsetY,
+    double extraLastRise = 0.0,
   }) {
     if (progress <= 0) return;
 
@@ -395,7 +415,7 @@ class GrowthTogetherPainter extends CustomPainter {
       // Vertical movement
       double verticalMove = stepHeight;
       if (i == repetitions - 1) {
-        verticalMove = stepHeight * 0.5;
+        verticalMove = stepHeight * 0.5 + extraLastRise;
       }
 
       currentY -= verticalMove;

@@ -104,6 +104,9 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
             child: Column(
               children: [
                 const PromotionHero(),
+                SizedBox(
+                  height: 100,
+                ),
                 const PromotionIntro(),
                 const PromotionMentors(),
                 const PromotionCurriculum(),

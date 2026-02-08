@@ -54,7 +54,7 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
             ),
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1152), // max-w-6xl
+                constraints: const BoxConstraints(maxWidth: 1200), // max-w-6xl
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
