@@ -1,10 +1,13 @@
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-class PromotionHero extends StatelessWidget {
+class PromotionHero extends ConsumerWidget {
   const PromotionHero({super.key});
 
   Future<void> _launchUrl() async {
@@ -16,7 +19,7 @@ class PromotionHero extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     precacheImage(
         AssetImage(
           "assets/intro_bg.png",
@@ -68,7 +71,7 @@ class PromotionHero extends StatelessWidget {
                       style: TextStyle(
                         fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF3B82F6),
+                        color: Color(0xffffffff),
                         height: 1.3,
                       ),
                     ),
@@ -117,9 +120,24 @@ class PromotionHero extends StatelessWidget {
                 SizedBox(height: isMobile ? 50 : 20),
 
                 // CTA 버튼
-                ApplyButtonView()
-                    .animate()
-                    .fadeIn(delay: 1000.ms, duration: 600.ms)
+                VisibilityDetector(
+                  key: const Key('hero-apply-button'),
+                  onVisibilityChanged: (info) {
+                    final visiblePercentage = info.visibleFraction * 100;
+                    if (visiblePercentage == 0) {
+                      ref
+                          .read(heroApplyButtonVisibilityProvider.notifier)
+                          .setVisible(false);
+                    } else {
+                      ref
+                          .read(heroApplyButtonVisibilityProvider.notifier)
+                          .setVisible(true);
+                    }
+                  },
+                  child: ApplyButtonView()
+                      .animate()
+                      .fadeIn(delay: 1000.ms, duration: 600.ms),
+                )
               ],
             ),
           ),

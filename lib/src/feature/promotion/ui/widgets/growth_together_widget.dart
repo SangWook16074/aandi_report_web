@@ -77,7 +77,7 @@ class _GrowthTogetherWidgetState extends State<GrowthTogetherWidget>
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1,
+      aspectRatio: 1.3,
       child: AnimatedBuilder(
         animation: Listenable.merge([_primaryAnimation, _secondaryAnimation]),
         builder: (context, child) {
@@ -123,6 +123,8 @@ class GrowthTogetherPainter extends CustomPainter {
   void _drawInterleavedGraphs(Canvas canvas, Size size) {
     // Divide the graph into 4 sections and alternate z-order
     const int sections = 4;
+    final double offX = size.width * 0.08;
+    final double offY = size.height * 0.08;
 
     // First pass: draw blur shadows for all graphs (no clipping)
 
@@ -154,10 +156,10 @@ class GrowthTogetherPainter extends CustomPainter {
         // 1. 보조선(흰색) 세트 (뒤에 깔림)
         _drawGraphBlur(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -40, offsetY: 40);
+            offsetX: -offX, offsetY: offY);
         _drawGraphLine(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -40, offsetY: 40);
+            offsetX: -offX, offsetY: offY);
 
         // 2. 주선(파란색) 세트 (위에 덮음)
         _drawGraphBlur(
@@ -178,10 +180,10 @@ class GrowthTogetherPainter extends CustomPainter {
         // 2. 보조선(흰색) 세트 (위에 덮음)
         _drawGraphBlur(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -40, offsetY: 40);
+            offsetX: -offX, offsetY: offY);
         _drawGraphLine(canvas, size, secondaryColor, secondaryProgress,
             secondaryStrokeWidth,
-            offsetX: -40, offsetY: 40);
+            offsetX: -offX, offsetY: offY);
       }
 
       canvas.restore();
@@ -214,10 +216,10 @@ class GrowthTogetherPainter extends CustomPainter {
     // Configuration
     const int repetitions = 4;
     double startX = size.width * 0.05 + offsetX;
-    double startY = size.height * 0.9 + offsetY;
+    double startY = size.height * 0.85 + offsetY;
 
     double stepWidth = (size.width * 0.9) / repetitions;
-    double stepHeight = size.height * 0.15;
+    double stepHeight = size.height * 0.22;
 
     // Build complete path
     path.moveTo(startX, startY);
@@ -281,10 +283,10 @@ class GrowthTogetherPainter extends CustomPainter {
     // Configuration
     const int repetitions = 4;
     double startX = size.width * 0.05 + offsetX;
-    double startY = size.height * 0.9 + offsetY;
+    double startY = size.height * 0.85 + offsetY;
 
     double stepWidth = (size.width * 0.9) / repetitions;
-    double stepHeight = size.height * 0.15;
+    double stepHeight = size.height * 0.22;
 
     // Build complete path
     path.moveTo(startX, startY);
@@ -327,6 +329,9 @@ class GrowthTogetherPainter extends CustomPainter {
   }
 
   void _drawArrowHeads(Canvas canvas, Size size) {
+    final double offX = size.width * 0.08;
+    final double offY = size.height * 0.08;
+
     // Draw primary arrow head
     _drawSingleArrowHead(
       canvas,
@@ -345,8 +350,8 @@ class GrowthTogetherPainter extends CustomPainter {
       secondaryColor,
       secondaryProgress,
       secondaryStrokeWidth,
-      offsetX: -40,
-      offsetY: 40,
+      offsetX: -offX,
+      offsetY: offY,
     );
   }
 
@@ -366,10 +371,10 @@ class GrowthTogetherPainter extends CustomPainter {
     // Configuration
     const int repetitions = 4;
     double startX = size.width * 0.05 + offsetX;
-    double startY = size.height * 0.9 + offsetY;
+    double startY = size.height * 0.85 + offsetY;
 
     double stepWidth = (size.width * 0.9) / repetitions;
-    double stepHeight = size.height * 0.15;
+    double stepHeight = size.height * 0.22;
 
     // Build complete path
     path.moveTo(startX, startY);

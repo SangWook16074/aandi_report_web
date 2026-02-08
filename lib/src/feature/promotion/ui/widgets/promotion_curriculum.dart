@@ -25,13 +25,8 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
       // height: double.infinity,
       color: Colors.black, // bg-black
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          // Background Stars
-          Positioned.fill(
-            child: CustomPaint(
-              painter: StarFieldPainter(),
-            ),
-          ),
           // Blurred Blobs (Blue Glows)
           Positioned(
             top: 0,
@@ -45,24 +40,6 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                   height: 600,
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Transform.translate(
-              offset: const Offset(-250, 250),
-              child: ImageFiltered(
-                imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                child: Container(
-                  width: 500,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF172554).withOpacity(0.2), // blue-950
                     shape: BoxShape.circle,
                   ),
                 ),

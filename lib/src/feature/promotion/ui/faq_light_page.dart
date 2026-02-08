@@ -5,6 +5,7 @@ import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/fa
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/faq_list_view_model.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/faq_list_view_state.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -196,7 +197,7 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                                       color: Colors.grey[200]),
                                   child: Icon(
                                     Icons.question_answer_outlined,
-                                    color: Color(0xff9929EA),
+                                    color: Color(0xff3B83F6),
                                     size: isMobile ? 20 : 25,
                                   ),
                                 ),
@@ -223,9 +224,9 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                                   ),
                                   textAlign: TextAlign.start,
                                 ),
-                                collapsedIconColor: Color(0xff9929EA),
+                                collapsedIconColor: Color(0xff3B83F6),
                                 shape: Border.all(color: Colors.transparent),
-                                iconColor: Color(0xff9929EA),
+                                iconColor: Color(0xff3B83F6),
                                 expandedAlignment: Alignment.centerLeft,
                                 expansionAnimationStyle: AnimationStyle(
                                     duration: Duration(
@@ -278,35 +279,7 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                             margin: EdgeInsets.symmetric(
                                 vertical: isMobile ? 20.0 : 30.0),
                             child: Center(
-                              child: Container(
-                                // margin: EdgeInsets.symmetric(horizontal: 20.0),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: isMobile ? 20.0 : 40.0,
-                                    vertical: 10.0),
-                                constraints: const BoxConstraints(
-                                  maxWidth: 600,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.black87,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "A&I 4기 모집 중",
-                                      style: TextStyle(
-                                        fontSize: isMobile ? 16 : 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    ApplyButtonView().animate().shimmer(
-                                        delay: 1500.ms, duration: 1000.ms),
-                                  ],
-                                ),
-                              ),
+                              child: PromotionBottomBar(),
                             ),
                           ),
                         ),
@@ -335,44 +308,7 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                 // duration: const Duration(milliseconds: 300),
                 // curve: Curves.easeInOut,
                 child: Center(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 20.0 : 30.0),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 20.0 : 40.0, vertical: 10.0),
-                    constraints: const BoxConstraints(
-                      maxWidth: 600,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.black87,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max, // 내용물 크기에 맞게
-                      children: [
-                        Text(
-                          "A&I 4기 모집 중",
-                          style: TextStyle(
-                            fontSize: isMobile ? 16 : 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        ApplyButtonView()
-                            .animate()
-                            .shimmer(delay: 1500.ms, duration: 1000.ms),
-                      ],
-                    ),
-                  ),
+                  child: PromotionBottomBar(),
                 ),
               ),
             ),
