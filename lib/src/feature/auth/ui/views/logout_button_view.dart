@@ -9,33 +9,42 @@ class LogoutButtonView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authStateAsync = ref.watch(authViewModelProvider);
-
-    return authStateAsync.when(
-      data: (authState) {
-        if (authState is Authenticated) {
-          final authViewModel = ref.read(authViewModelProvider.notifier);
-          return IconButton(
-            onPressed: () async {
-              /// 버튼 탭시
-              /// 로그아웃됨
-              await authViewModel.onEvent(SignOut());
-            },
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Color(0xffff0000),
-              size: 24,
-            ),
-            tooltip: '로그아웃',
-            padding: EdgeInsets.all(8),
-          );
-        } else {
-          // 인증되지 않은 상태에서는 빈 컨테이너 반환
-          return SizedBox.shrink();
-        }
-      },
-      loading: () => SizedBox.shrink(), // 로딩 중에는 빈 공간
-      error: (_, __) => SizedBox.shrink(), // 에러 시에도 빈 공간
-    );
+    final authState = ref.watch(authViewModelProvider);
+    final authViewModel = ref.read(authViewModelProvider.notifier);
+    final status = authState.status;
+    return switch (status) {
+      AuthenticationStatus.authenticated => IconButton(
+          onPressed: () async {
+            /// 버튼 탭시
+            /// 로그아웃됨
+            await authViewModel.onEvent(SignOut());
+          },
+          icon: Icon(
+            Icons.exit_to_app,
+            color: Color(0xffff0000),
+            size: 24,
+          ),
+          tooltip: '로그아웃',
+          padding: EdgeInsets.all(8),
+        ),
+      _ => SizedBox.shrink()
+    };
+    // return authStateAsync.when(
+    //   data: (authState) {
+    //     final status = authStateAsync.
+    //     return switch (auth) {
+    //       pattern => value,
+    //     }
+    //     if (authState) {
+    //       final authViewModel = ref.read(authViewModelProvider.notifier);
+    //
+    //     } else {
+    //       // 인증되지 않은 상태에서는 빈 컨테이너 반환
+    //       return SizedBox.shrink();
+    //     }
+    //   },
+    //   loading: () => SizedBox.shrink(), // 로딩 중에는 빈 공간
+    //   error: (_, __) => SizedBox.shrink(), // 에러 시에도 빈 공간
+    // );
   }
 }

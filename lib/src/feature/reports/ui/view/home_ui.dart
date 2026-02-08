@@ -1,7 +1,7 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/feature/auth/ui/views/logout_button_view.dart';
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_mobile_screen.dart';
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_screen.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/home_mobile_screen.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeUI extends StatelessWidget {

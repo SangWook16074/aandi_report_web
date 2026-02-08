@@ -22,19 +22,27 @@ class AuthViewModel extends _$AuthViewModel {
   /// - 토큰 존재: [Authenticated] (로그인 상태)
   /// - 토큰 없음: [Unauthenticated] (비로그인 상태)
   @override
-  Future<AuthState> build() async {
+  AuthState build() {
+    _init();
+    return AuthState(status: AuthenticationStatus.loading);
+  }
+
+  void _init() async {
     try {
       final accessToken =
           await ref.read(getUserAccessTokenUsecaseProvider).call();
       if (accessToken == null) {
         log("토큰이 존재하지 않습니다");
-        return Unauthenticated();
+        state = AuthState(status: AuthenticationStatus.unauthenticated);
+        return;
       }
 
-      return Authenticated();
+      state = AuthState(status: AuthenticationStatus.authenticated);
     } catch (e) {
       log(e.toString()); // TODO
-      return Unauthenticated();
+      state = AuthState(
+        status: AuthenticationStatus.unauthenticated,
+      );
     }
   }
 
@@ -49,18 +57,15 @@ class AuthViewModel extends _$AuthViewModel {
           final dto =
               LoginRequestDto(userId: event.account, password: event.password);
           await ref.read(userLoginUsecaseProvider).call(dto);
-          state = AsyncData(Authenticated());
+          state = state.copyWith(status: AuthenticationStatus.authenticated);
         } catch (e) {
-          state = AsyncData(Unauthenticated());
+          state = state.copyWith(status: AuthenticationStatus.unauthenticated);
           rethrow;
         }
         break;
       case SignOut():
         await ref.read(deleteUserAccessTokenUsecaseProvider).call();
-        state = AsyncData(Unauthenticated());
-        break;
-      default:
-        // 다른 이벤트는 현재 처리하지 않음
+        state = state.copyWith(status: AuthenticationStatus.unauthenticated);
         break;
     }
     log(state.toString());

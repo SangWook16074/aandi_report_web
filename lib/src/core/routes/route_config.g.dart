@@ -6,7 +6,7 @@ part of 'route_config.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'5b0ec2e91e94654916c14c700054c7149af0a7f2';
+String _$goRouterHash() => r'5c878125e9a68af84bb9de7f110d8148dfb321a1';
 
 /// 앱의 라우팅 설정을 관리하는 Provider입니다.
 ///
