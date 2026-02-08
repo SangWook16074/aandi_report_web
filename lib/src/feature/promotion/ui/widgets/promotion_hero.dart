@@ -19,7 +19,7 @@ class PromotionHero extends StatelessWidget {
   Widget build(BuildContext context) {
     precacheImage(
         AssetImage(
-          "assets/intro_bg.webp",
+          "assets/intro_bg.png",
         ),
         context);
 
@@ -27,7 +27,8 @@ class PromotionHero extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: double.infinity, // 전체 화면
+      constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height), // 전체 화면
       // color: Colors.black, // 강렬한 배경
       decoration: BoxDecoration(
           color: Color(0xff000000),
@@ -35,7 +36,7 @@ class PromotionHero extends StatelessWidget {
               // colorFilter: ColorFilter.mode(
               //     Color(0xff000000).withAlpha(150), BlendMode.darken),
               image: AssetImage(
-                "assets/intro_bg.webp",
+                "assets/intro_bg.png",
               ),
               fit: BoxFit.cover)),
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
@@ -50,15 +51,37 @@ class PromotionHero extends StatelessWidget {
                 const SizedBox(height: 400),
 
                 // 메인 타이틀
-                Text(
-                  '2026 A&I 신규 동아리원 모집',
+                RichText(
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 1.3,
-                  ),
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: '2026 ',
+                      style: TextStyle(
+                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        height: 1.3,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'A&I',
+                      style: TextStyle(
+                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF3B82F6),
+                        height: 1.3,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' 신규 동아리원 모집',
+                      style: TextStyle(
+                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        height: 1.3,
+                      ),
+                    ),
+                  ]),
                 )
                     .animate()
                     .fadeIn(delay: 400.ms, duration: 600.ms)

@@ -101,9 +101,11 @@ class _PromotionMentorsState extends State<PromotionMentors>
 
     return Container(
       width: double.infinity,
-      height: double.infinity,
+      constraints:
+          BoxConstraints(minHeight: MediaQuery.of(context).size.height),
       color: const Color(0xff000000), // 매우 어두운 배경 (Almost Black)
       child: Stack(
+        alignment: Alignment.center,
         children: [
           // 배경 광원 효과 (BackdropFilter 대신 RadialGradient 사용으로 성능 최적화)
           // 기존 blur 140 효과를 내기 위해 크기를 키우고 gradient spread를 활용
@@ -157,6 +159,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
                   fontSize: isMobile ? 24 : 58,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff3B83F6),
+                  letterSpacing: -1.0, // tracking
                 ),
               )
                   .animate()
@@ -170,6 +173,7 @@ class _PromotionMentorsState extends State<PromotionMentors>
                   fontSize: isMobile ? 16 : 30,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
+                  letterSpacing: -1.0, // tracking
                 ),
               )
                   .animate()

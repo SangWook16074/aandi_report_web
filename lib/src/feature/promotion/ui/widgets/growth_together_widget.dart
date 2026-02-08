@@ -13,7 +13,7 @@ class GrowthTogetherWidget extends StatefulWidget {
     super.key,
     this.primaryColor = const Color(0xff3B83F6),
     this.secondaryColor = const Color(0xffffffff),
-    this.primaryStrokeWidth = 25.0,
+    this.primaryStrokeWidth = 20.0,
     this.secondaryStrokeWidth = 15.0,
     this.enableAnimation = true,
     this.secondaryDelay = const Duration(milliseconds: 500),
@@ -76,9 +76,8 @@ class _GrowthTogetherWidgetState extends State<GrowthTogetherWidget>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 500,
-      height: 600,
+    return AspectRatio(
+      aspectRatio: 1,
       child: AnimatedBuilder(
         animation: Listenable.merge([_primaryAnimation, _secondaryAnimation]),
         builder: (context, child) {
