@@ -10,14 +10,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 class PromotionHero extends ConsumerWidget {
   const PromotionHero({super.key});
 
-  Future<void> _launchUrl() async {
-    final Uri url = Uri.parse(
-        'https://docs.google.com/forms/d/e/1FAIpQLSdIXB0FxwJaQw6f-vpf5mYBxNMlJs2PII_0UQo31n3As2PgyA/viewform?usp=header');
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     precacheImage(
