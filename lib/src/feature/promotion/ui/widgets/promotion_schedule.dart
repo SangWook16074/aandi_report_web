@@ -1,21 +1,29 @@
-import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
+import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-class PromotionSchedule extends StatefulWidget {
+class PromotionSchedule extends ConsumerStatefulWidget {
   const PromotionSchedule({
     super.key,
+    this.bottomBarKey,
+    this.isStaticBarVisible = true,
   });
 
+  final GlobalKey? bottomBarKey;
+  final bool isStaticBarVisible;
+
   @override
-  State<PromotionSchedule> createState() => _PromotionScheduleState();
+  ConsumerState<PromotionSchedule> createState() => _PromotionScheduleState();
 }
 
-class _PromotionScheduleState extends State<PromotionSchedule> {
+class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
   bool isCalled = false;
 
   @override
@@ -32,14 +40,14 @@ class _PromotionScheduleState extends State<PromotionSchedule> {
           // Blurred Blobs (Blue Glows)
           Positioned(
             top: 0,
-            right: 0,
+            left: 0,
             child: Transform.translate(
-              offset: const Offset(300, -300),
+              offset: const Offset(-300, 0),
               child: ImageFiltered(
                 imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
                 child: Container(
-                  width: 600,
-                  height: 600,
+                  width: 500,
+                  height: 500,
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
                     shape: BoxShape.circle,
@@ -48,9 +56,10 @@ class _PromotionScheduleState extends State<PromotionSchedule> {
               ),
             ),
           ),
+
           Positioned(
             bottom: 0,
-            left: 0,
+            right: 0,
             child: Transform.translate(
               offset: const Offset(-250, 250),
               child: ImageFiltered(
@@ -116,7 +125,8 @@ class _PromotionScheduleState extends State<PromotionSchedule> {
 
                     // 2. 메인 컨텐츠 섹션 (타임라인)
                     Container(
-                      constraints: const BoxConstraints(maxWidth: 450),
+                      constraints:
+                          BoxConstraints(maxWidth: isMobile ? 350 : 450),
                       child: Stack(
                         children: [
                           // Vertical Line
@@ -185,53 +195,34 @@ class _PromotionScheduleState extends State<PromotionSchedule> {
                     const SizedBox(height: 60),
 
                     // 3. 하단 액션 버튼
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 24 : 32,
-                        vertical: 24,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF3B82F6).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: const Color(0xFF3B82F6).withOpacity(0.3),
+                    Opacity(
+                      opacity: widget.isStaticBarVisible ? 1.0 : 0.0,
+                      child: Container(
+                        key: widget.bottomBarKey,
+                        child: VisibilityDetector(
+                          key: const Key('bottom-apply-button'),
+                          onVisibilityChanged: (info) {
+                            final visiblePercentage =
+                                info.visibleFraction * 100;
+                            if (visiblePercentage > 40) {
+                              ref
+                                  .read(bottomApplyButtonVisibilityProvider
+                                      .notifier)
+                                  .setVisible(true);
+                            } else {
+                              ref
+                                  .read(bottomApplyButtonVisibilityProvider
+                                      .notifier)
+                                  .setVisible(false);
+                            }
+                          },
+                          child: const PromotionBottomBar(),
                         ),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "A&I 4기 모집 중",
-                                    style: TextStyle(
-                                      fontSize: isMobile ? 18 : 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "함께 성장할 동료를 찾습니다",
-                                    style: TextStyle(
-                                      fontSize: isMobile ? 12 : 14,
-                                      color: Colors.white60,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ApplyButtonView()
-                                  .animate()
-                                  .shimmer(delay: 1500.ms, duration: 1000.ms),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ).animate().fadeIn(delay: 600.ms).moveY(begin: 20, end: 0),
+                      )
+                          .animate()
+                          .fadeIn(delay: 600.ms)
+                          .moveY(begin: 20, end: 0),
+                    ),
 
                     const SizedBox(height: 24),
 

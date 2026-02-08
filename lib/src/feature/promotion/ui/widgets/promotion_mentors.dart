@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/gradient_border.dart';
 import 'package:flutter/material.dart';
@@ -107,46 +109,6 @@ class _PromotionMentorsState extends State<PromotionMentors>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // 배경 광원 효과 (BackdropFilter 대신 RadialGradient 사용으로 성능 최적화)
-          // 기존 blur 140 효과를 내기 위해 크기를 키우고 gradient spread를 활용
-
-          Positioned(
-            top: isMobile ? -250 : -400,
-            left: isMobile ? -250 : -400,
-            child: Container(
-              width: isMobile ? 500 : 800,
-              height: isMobile ? 500 : 800,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    const Color(0xff3B83F6).withOpacity(0.15),
-                    Colors.transparent,
-                  ],
-                  stops: const [0.0, 0.7],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: isMobile ? -250 : -400,
-            right: isMobile ? -250 : -400,
-            child: Container(
-              width: isMobile ? 500 : 800,
-              height: isMobile ? 500 : 800,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    const Color(0xff3B83F6).withOpacity(0.2),
-                    Colors.transparent,
-                  ],
-                  stops: const [0.0, 0.8],
-                ),
-              ),
-            ),
-          ),
-
           // 메인 콘텐츠
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
