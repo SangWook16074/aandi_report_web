@@ -1,5 +1,6 @@
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_bottom_bar.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/animate_on_visible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
@@ -43,14 +44,16 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
             left: 0,
             child: Transform.translate(
               offset: const Offset(-300, 0),
-              child: ImageFiltered(
-                imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                child: Container(
-                  width: 500,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
-                    shape: BoxShape.circle,
+              child: RepaintBoundary(
+                child: ImageFiltered(
+                  imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: Container(
+                    width: 500,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
               ),
@@ -62,14 +65,16 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
             right: 0,
             child: Transform.translate(
               offset: const Offset(-250, 250),
-              child: ImageFiltered(
-                imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                child: Container(
-                  width: 500,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF172554).withOpacity(0.2), // blue-950
-                    shape: BoxShape.circle,
+              child: RepaintBoundary(
+                child: ImageFiltered(
+                  imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: Container(
+                    width: 500,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF172554).withOpacity(0.2), // blue-950
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
               ),
@@ -91,33 +96,35 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                     // 1. 헤더 섹션
                     Column(
                       children: [
-                        Text(
-                          '동아리 모집 일정',
-                          style: TextStyle(
-                            fontSize: isMobile ? 24 : 58,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xff3B83F6),
-                            letterSpacing: -1.0, // tracking
+                        AnimateOnVisible(
+                          uniqueKey: 'schedule_title',
+                          delay: 500.ms,
+                          child: Text(
+                            '동아리 모집 일정',
+                            style: TextStyle(
+                              fontSize: isMobile ? 24 : 58,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xff3B83F6),
+                              letterSpacing: -1.0, // tracking
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        )
-                            .animate()
-                            .fadeIn(duration: 600.ms, delay: 500.ms)
-                            .moveY(begin: 30, end: 0),
+                        ),
                         const SizedBox(height: 16),
-                        Text(
-                          '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
-                          style: TextStyle(
-                            fontSize: isMobile ? 16 : 30,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            letterSpacing: -1.0, // tracking
+                        AnimateOnVisible(
+                          uniqueKey: 'schedule_subtitle',
+                          delay: 500.ms,
+                          child: Text(
+                            '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
+                            style: TextStyle(
+                              fontSize: isMobile ? 16 : 30,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: -1.0, // tracking
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        )
-                            .animate()
-                            .fadeIn(duration: 600.ms, delay: 500.ms)
-                            .moveY(begin: 30, end: 0),
+                        ),
                       ],
                     ),
 
@@ -218,38 +225,39 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                           },
                           child: const PromotionBottomBar(),
                         ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 600.ms)
-                          .moveY(begin: 20, end: 0),
+                      ),
                     ),
 
                     const SizedBox(height: 24),
 
-                    TextButton(
-                      onPressed: () {
-                        context.go("/faq");
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "자주 묻는 질문",
-                            style: TextStyle(
-                              fontSize: isMobile ? 14 : 16,
-                              fontWeight: FontWeight.w600,
+                    AnimateOnVisible(
+                      uniqueKey: 'schedule_faq',
+                      delay: 800.ms,
+                      child: TextButton(
+                        onPressed: () {
+                          context.go("/faq");
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "자주 묻는 질문",
+                              style: TextStyle(
+                                fontSize: isMobile ? 14 : 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white60,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 12,
                               color: Colors.white60,
                             ),
-                          ),
-                          const SizedBox(width: 4),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 12,
-                            color: Colors.white60,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ).animate().fadeIn(delay: 800.ms),
+                    ),
 
                     const SizedBox(height: 20),
                   ],
@@ -270,7 +278,7 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
     required int delay,
     bool isLast = false,
   }) {
-    return Container(
+    final timelineStep = Container(
       margin: EdgeInsets.only(bottom: isLast ? 0 : 32),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,10 +342,25 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
           ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn(duration: 600.ms, delay: Duration(milliseconds: 500 + delay))
-        .moveX(begin: 30, end: 0);
+    );
+
+    return AnimateOnVisible(
+      uniqueKey: 'timeline_$date',
+      delay: Duration(milliseconds: 500 + delay),
+      effects: [
+        FadeEffect(
+          delay: Duration(milliseconds: 500 + delay),
+          duration: 600.ms,
+        ),
+        MoveEffect(
+          delay: Duration(milliseconds: 500 + delay),
+          duration: 600.ms,
+          begin: const Offset(30, 0),
+          end: Offset.zero,
+        ),
+      ],
+      child: timelineStep,
+    );
   }
 }
 

@@ -23,7 +23,7 @@ class ApplyButtonView extends ConsumerWidget {
         disabledBackgroundColor: Colors.white,
         disabledForegroundColor: Colors.grey,
         padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 30 : 40,
+            horizontal: isMobile ? 20 : 40,
             vertical: isMobile ? 16 : 20), // 반응형 패딩
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

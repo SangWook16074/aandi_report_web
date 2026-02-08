@@ -20,7 +20,7 @@ class PromotionBottomBar extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 600),
           padding: EdgeInsets.symmetric(
             horizontal: isMobile ? 24 : 32,
-            vertical: 24,
+            vertical: 12,
           ),
           decoration: BoxDecoration(
             color: Colors.black

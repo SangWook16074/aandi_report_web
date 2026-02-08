@@ -1,4 +1,5 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/animate_on_visible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'dart:math' as math;
@@ -33,14 +34,16 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
             right: 0,
             child: Transform.translate(
               offset: const Offset(300, -300),
-              child: ImageFiltered(
-                imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                child: Container(
-                  width: 600,
-                  height: 600,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
-                    shape: BoxShape.circle,
+              child: RepaintBoundary(
+                child: ImageFiltered(
+                  imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: Container(
+                    width: 600,
+                    height: 600,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
               ),
@@ -59,35 +62,36 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Header
-                    Text(
-                      'A&I 4기 커리큘럼',
-                      style: TextStyle(
-                        fontSize: isMobile ? 24 : 58,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff3B83F6),
-                        letterSpacing: -1.0, // tracking-tight
+                    AnimateOnVisible(
+                      uniqueKey: 'curriculum_title',
+                      child: Text(
+                        'A&I 4기 커리큘럼',
+                        style: TextStyle(
+                          fontSize: isMobile ? 24 : 58,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xff3B83F6),
+                          letterSpacing: -1.0, // tracking-tight
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    )
-                        .animate()
-                        .fadeIn(duration: 600.ms)
-                        .moveY(begin: 20, end: 0),
+                    ),
 
                     const SizedBox(height: 8),
 
-                    Text(
-                      '멘토진이 설계한 성장의 로드맵을 한 눈에 확인하세요.',
-                      style: TextStyle(
-                        fontSize: isMobile ? 16 : 30,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        letterSpacing: -1.0, // tracking
+                    AnimateOnVisible(
+                      uniqueKey: 'curriculum_subtitle',
+                      delay: 200.ms,
+                      child: Text(
+                        '멘토진이 설계한 성장의 로드맵을 한 눈에 확인하세요.',
+                        style: TextStyle(
+                          fontSize: isMobile ? 16 : 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: -1.0, // tracking
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    )
-                        .animate()
-                        .fadeIn(delay: 200.ms, duration: 600.ms)
-                        .moveY(begin: 20, end: 0),
+                    ),
 
                     const SizedBox(height: 60),
 
@@ -229,22 +233,26 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
           Text(
             tag.toUpperCase(),
             style: TextStyle(
-              fontSize: isMobile ? 10 : 15, // text-[9px] approx
+              fontSize: isMobile ? 9 : 15, // text-[9px] approx
               fontWeight: FontWeight.bold,
               color: Color(0xFF3B82F6),
               letterSpacing: 1.5, // tracking-widest
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
 
           // Title
           Text(
             title,
             style: TextStyle(
-              fontSize: isMobile ? 20 : 25,
+              fontSize: isMobile ? 16 : 25,
               fontWeight: FontWeight.bold,
               color: Colors.white,
               height: 1.4,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
 
           const SizedBox(height: 6),
@@ -260,12 +268,16 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
                       _buildBlueDot(),
                       const SizedBox(width: 8),
                     ],
-                    Text(
-                      item,
-                      style: TextStyle(
-                        fontSize: isMobile ? 15 : 20, // text-xs
-                        color: Color(0xffffffff), // zinc-400
-                        height: 1.4,
+                    Flexible(
+                      child: Text(
+                        item,
+                        style: TextStyle(
+                          fontSize: isMobile ? 13 : 20, // text-xs
+                          color: Color(0xffffffff), // zinc-400
+                          height: 1.4,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
                     ),
                     if (isLeft) ...[
@@ -281,55 +293,67 @@ class _PromotionCurriculumState extends State<PromotionCurriculum> {
 
     final spacer = Expanded(child: Container());
 
-    return SizedBox(
-      height: 180, // Approximate height for each section to allow spacing
-      child: Row(
-        children: [
-          if (isLeft) ...[
-            content,
-            const SizedBox(width: 48), // pr-12 equivalent spacing
-          ] else ...[
-            spacer,
-            const SizedBox(width: 48),
-          ],
+    final horizontalSpacing = isMobile ? 24.0 : 48.0;
 
-          // Center Node
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              // The central line is drawn by the parent stack, this is just the node
-              Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF3B82F6),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.black, width: 3),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(0xFF3B82F6),
-                        blurRadius: 8,
-                        spreadRadius: 0),
-                  ],
-                ),
-              ),
+    return AnimateOnVisible(
+      uniqueKey: 'roadmap_$tag',
+      delay: 200.ms,
+      effects: [
+        FadeEffect(delay: 200.ms, duration: 600.ms),
+        SlideEffect(
+          delay: 200.ms,
+          begin: const Offset(0, 0.2),
+          end: Offset.zero,
+          duration: 600.ms,
+          curve: Curves.easeOutQuad,
+        ),
+      ],
+      child: SizedBox(
+        height: isMobile ? 160 : 180, // Approximate height for each section to allow spacing
+        child: Row(
+          children: [
+            if (isLeft) ...[
+              content,
+              SizedBox(width: horizontalSpacing), // pr-12 equivalent spacing
+            ] else ...[
+              spacer,
+              SizedBox(width: horizontalSpacing),
             ],
-          ),
 
-          if (!isLeft) ...[
-            const SizedBox(width: 48), // pl-12
-            content,
-          ] else ...[
-            const SizedBox(width: 48),
-            spacer,
+            // Center Node
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                // The central line is drawn by the parent stack, this is just the node
+                Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3B82F6),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.black, width: 3),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color(0xFF3B82F6),
+                          blurRadius: 8,
+                          spreadRadius: 0),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            if (!isLeft) ...[
+              SizedBox(width: horizontalSpacing), // pl-12
+              content,
+            ] else ...[
+              SizedBox(width: horizontalSpacing),
+              spacer,
+            ],
           ],
-        ],
+        ),
       ),
-    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slide(
-        begin: Offset(0, 0.2),
-        end: Offset.zero,
-        duration: 600.ms,
-        curve: Curves.easeOutQuad);
+    );
   }
 
   Widget _buildBlueDot() {
