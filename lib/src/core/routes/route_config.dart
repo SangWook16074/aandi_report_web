@@ -50,18 +50,15 @@ GoRouter goRouter(Ref ref) {
       final isLoggedIn = status == AuthenticationStatus.authenticated;
       final isUnauthenticated = status == AuthenticationStatus.unauthenticated;
       final location = state.matchedLocation;
-      print("시작 : $location");
 
       // 1. 비로그인 상태인데 /report 하위 페이지로 접근하려 할 때
       if (isUnauthenticated && location.startsWith('/report')) {
-        print("비로그인 상태인데 : $location");
         final fromPath = state.uri.toString();
         return '/sign-in?from=${Uri.encodeComponent(fromPath)}';
       }
 
       // 2. 로그인에 성공했는데 현재 위치가 /sign-in 인 경우
       if (isLoggedIn && location == '/sign-in') {
-        print("로그인에 성공했는데 : $location");
         final from = state.uri.queryParameters['from'];
         // from 파라미터가 있으면 그곳으로, 없으면 기본 페이지로 이동
         return (from != null && from.isNotEmpty) ? from : '/report';
@@ -76,7 +73,7 @@ GoRouter goRouter(Ref ref) {
         name: "A&I",
         pageBuilder: (context, state) {
           html.document.title = "A&I";
-          return NoTransitionPage(child: const HomePage());
+          return NoTransitionPage(child: const PromotionPage());
         },
       ),
       GoRoute(

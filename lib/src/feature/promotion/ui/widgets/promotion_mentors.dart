@@ -21,7 +21,7 @@ class Mentor {
   });
 
   String get path {
-    return "assets/mentor_$image.png";
+    return "assets/mentor_$image.webp";
   }
 }
 

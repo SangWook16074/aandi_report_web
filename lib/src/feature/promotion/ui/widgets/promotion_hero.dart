@@ -14,7 +14,7 @@ class PromotionHero extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     precacheImage(
         AssetImage(
-          "assets/intro_bg.png",
+          "assets/intro_bg.webp",
         ),
         context);
 
@@ -31,7 +31,7 @@ class PromotionHero extends ConsumerWidget {
               // colorFilter: ColorFilter.mode(
               //     Color(0xff000000).withAlpha(150), BlendMode.darken),
               image: AssetImage(
-                "assets/intro_bg.png",
+                "assets/intro_bg.webp",
               ),
               fit: BoxFit.cover)),
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
