@@ -99,23 +99,23 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
       backgroundColor: Colors.black, // 전체 배경색 통일
       body: Stack(
         children: [
-          SingleChildScrollView(
+          ListView(
             controller: _scrollController,
-            child: Column(
-              children: [
-                const PromotionHero(),
-                SizedBox(
-                  height: 100,
-                ),
-                const PromotionIntro(),
-                const PromotionMentors(),
-                const PromotionCurriculum(),
-                PromotionSchedule(
-                  bottomBarKey: _bottomBarKey,
-                  isStaticBarVisible: _isBottomBarVisible,
-                ),
-              ],
-            ),
+            // cacheExtent를 넉넉하게 주어 스크롤 시 미리 빌드되도록 함 (버벅임 방지)
+            cacheExtent: 1000,
+            children: [
+              const PromotionHero(),
+              SizedBox(
+                height: 100,
+              ),
+              const PromotionIntro(),
+              const PromotionMentors(),
+              const PromotionCurriculum(),
+              PromotionSchedule(
+                bottomBarKey: _bottomBarKey,
+                isStaticBarVisible: _isBottomBarVisible,
+              ),
+            ],
           ),
           Positioned(
             bottom: 30,

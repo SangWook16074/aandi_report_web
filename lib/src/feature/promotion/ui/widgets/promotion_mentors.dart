@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/animate_on_visible.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/gradient_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class Mentor {
   final String image;
@@ -101,89 +103,104 @@ class _PromotionMentorsState extends State<PromotionMentors>
     const totalItemWidth = cardWidth + _cardMargin;
     final totalScrollWidth = totalItemWidth * _allMentors.length;
 
-    return Container(
-      width: double.infinity,
-      constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-      color: const Color(0xff000000), // 매우 어두운 배경 (Almost Black)
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // 메인 콘텐츠
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '멘토 및 운영진 소개',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: isMobile ? 24 : 58,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff3B83F6),
-                  letterSpacing: -1.0, // tracking
+    return VisibilityDetector(
+      key: const Key('promotion-mentors'),
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction == 0) {
+          if (_controller.isAnimating) _controller.stop();
+        } else {
+          if (!_controller.isAnimating) _controller.repeat();
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        color: const Color(0xff000000), // 매우 어두운 배경 (Almost Black)
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // 메인 콘텐츠
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AnimateOnVisible(
+                  uniqueKey: 'mentors_title',
+                  delay: 500.ms,
+                  child: Text(
+                    '멘토 및 운영진 소개',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: isMobile ? 24 : 58,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff3B83F6),
+                      letterSpacing: -1.0, // tracking
+                    ),
+                  ),
                 ),
-              )
-                  .animate()
-                  .fadeIn(duration: 600.ms, delay: 500.ms)
-                  .moveY(begin: 30, end: 0),
-              const SizedBox(height: 12),
-              Text(
-                '현직자 및 국내 유명 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: isMobile ? 16 : 30,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                  letterSpacing: -1.0, // tracking
+                const SizedBox(height: 12),
+                AnimateOnVisible(
+                  uniqueKey: 'mentors_subtitle',
+                  delay: 500.ms,
+                  duration: 800.ms,
+                  child: Text(
+                    '현직자 및 국내 유명 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: isMobile ? 16 : 30,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -1.0, // tracking
+                    ),
+                  ),
                 ),
-              )
-                  .animate()
-                  .fadeIn(duration: 800.ms, delay: 500.ms)
-                  .moveY(begin: 30, end: 0),
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              // 무한 스크롤 영역
-              RepaintBoundary(
-                child: SizedBox(
-                  height: 280,
-                  width: double.infinity,
-                  child: ClipRect(
-                    child: OverflowBox(
-                      minWidth: 0,
-                      maxWidth: double.infinity,
-                      alignment: Alignment.centerLeft,
-                      child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          final offset = -totalScrollWidth * _controller.value;
-                          return Transform.translate(
-                            offset: Offset(offset, 0),
-                            child: child,
-                          );
-                        },
-                        // Row를 child로 전달하여 재빌드 방지
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: infiniteMentors
-                              .map((mentor) => MentorCard(
-                                    mentor: mentor,
-                                    cardWidth: cardWidth,
-                                    margin: _cardMargin,
-                                  ))
-                              .toList(),
+                // 무한 스크롤 영역
+                AnimateOnVisible(
+                  uniqueKey: 'mentors_carousel',
+                  delay: 500.ms,
+                  duration: 1000.ms,
+                  child: RepaintBoundary(
+                  child: SizedBox(
+                    height: 280,
+                    width: double.infinity,
+                    child: ClipRect(
+                      child: OverflowBox(
+                        minWidth: 0,
+                        maxWidth: double.infinity,
+                        alignment: Alignment.centerLeft,
+                        child: AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, child) {
+                            final offset = -totalScrollWidth * _controller.value;
+                            return Transform.translate(
+                              offset: Offset(offset, 0),
+                              child: child,
+                            );
+                          },
+                          // Row를 child로 전달하여 재빌드 방지
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: infiniteMentors
+                                .map((mentor) => MentorCard(
+                                      mentor: mentor,
+                                      cardWidth: cardWidth,
+                                      margin: _cardMargin,
+                                    ))
+                                .toList(),
+                          ),
                         ),
                       ),
                     ),
                   ),
+                  ),
                 ),
-              ),
-            ],
-          )
-              .animate()
-              .fadeIn(duration: 1000.ms, delay: 500.ms)
-              .moveY(begin: 30, end: 0),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

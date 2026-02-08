@@ -35,14 +35,16 @@ class PromotionHero extends ConsumerWidget {
               ),
               fit: BoxFit.cover)),
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1400),
-          child: RepaintBoundary(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+      child: Stack(
+        children: [
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1400),
+              child: RepaintBoundary(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
                 const SizedBox(height: 400),
 
                 // 메인 타이틀
@@ -130,11 +132,60 @@ class PromotionHero extends ConsumerWidget {
                       .animate()
                       .fadeIn(delay: 1000.ms, duration: 600.ms),
                 )
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+
+          // 스크롤 유도 위젯
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: _buildScrollIndicator(isMobile),
+          ),
+        ],
       ),
     );
+  }
+
+  Widget _buildScrollIndicator(bool isMobile) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          '더 알아보기',
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: isMobile ? 12 : 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Icon(
+          Icons.keyboard_arrow_down,
+          color: Colors.white70,
+          size: isMobile ? 32 : 40,
+        ),
+      ],
+    )
+        .animate(
+          onPlay: (controller) => controller.repeat(),
+        )
+        .fadeIn(delay: 1200.ms, duration: 600.ms)
+        .moveY(
+          begin: 0,
+          end: 10,
+          duration: 1500.ms,
+          curve: Curves.easeInOut,
+        )
+        .then()
+        .moveY(
+          begin: 10,
+          end: 0,
+          duration: 1500.ms,
+          curve: Curves.easeInOut,
+        );
   }
 }

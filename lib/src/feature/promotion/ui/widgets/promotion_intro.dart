@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
+import 'package:a_and_i_report_web_server/src/core/widgets/animate_on_visible.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/growth_together_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -23,11 +24,14 @@ class PromotionIntro extends StatelessWidget {
             final shouldScale = availableWidth < 1024;
             final scaleFactor = shouldScale ? availableWidth / 1024 : 1.0;
 
-            final textWidget = RichText(
-              textAlign: TextAlign.start,
-              text: TextSpan(children: [
-                TextSpan(
-                  text: "A&I",
+            final textWidget = AnimateOnVisible(
+              uniqueKey: 'intro_text',
+              delay: 600.ms,
+              child: RichText(
+                textAlign: TextAlign.start,
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: "A&I",
                   style: TextStyle(
                     fontSize: 70 * scaleFactor,
                     fontWeight: FontWeight.w900,
@@ -88,34 +92,35 @@ class PromotionIntro extends StatelessWidget {
                     color: Colors.white,
                     height: 1.2,
                   ),
-                ),
-              ]),
-            )
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 600.ms)
-                .moveY(begin: 20, end: 0);
-
-            final underlineWidget = Container(
-              width: 400 * scaleFactor,
-              height: 5.0,
-              decoration: BoxDecoration(
-                  color:
-                      const Color(0xff3B83F6).withAlpha((255 * 0.3).toInt())),
-            )
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 600.ms)
-                .moveY(begin: 20, end: 0);
-
-            final graphWidget = SizedBox(
-              width: 500 * scaleFactor,
-              child: GrowthTogetherWidget(
-                primaryStrokeWidth: 20 * scaleFactor,
-                secondaryStrokeWidth: 15 * scaleFactor,
+                  ),
+                ]),
               ),
-            )
-                .animate()
-                .fadeIn(duration: 1000.ms, delay: 600.ms)
-                .moveY(begin: 30, end: 0);
+            );
+
+            final underlineWidget = AnimateOnVisible(
+              uniqueKey: 'intro_underline',
+              delay: 600.ms,
+              child: Container(
+                width: 400 * scaleFactor,
+                height: 5.0,
+                decoration: BoxDecoration(
+                    color:
+                        const Color(0xff3B83F6).withAlpha((255 * 0.3).toInt())),
+              ),
+            );
+
+            final graphWidget = AnimateOnVisible(
+              uniqueKey: 'intro_graph',
+              delay: 600.ms,
+              duration: 1000.ms,
+              child: SizedBox(
+                width: 500 * scaleFactor,
+                child: GrowthTogetherWidget(
+                  primaryStrokeWidth: 20 * scaleFactor,
+                  secondaryStrokeWidth: 15 * scaleFactor,
+                ),
+              ),
+            );
 
             return ConstrainedBox(
               constraints: BoxConstraints(maxWidth: availableWidth),
@@ -146,19 +151,21 @@ class PromotionIntro extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: (70) * scaleFactor),
-                  Text(
-                    '문법부터 협업, 실제 프로젝트까지 함께하며\n국내 유명 부트캠프 합격생도 배출해내는 업적을\n이뤄냈습니다.',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 20 * scaleFactor,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white70,
-                      height: 1.6,
+                  AnimateOnVisible(
+                    uniqueKey: 'intro_description',
+                    delay: 600.ms,
+                    duration: 1000.ms,
+                    child: Text(
+                      '문법부터 협업, 실제 프로젝트까지 함께하며\n국내 유명 부트캠프 합격생도 배출해내는 업적을\n이뤄냈습니다.',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 20 * scaleFactor,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white70,
+                        height: 1.6,
+                      ),
                     ),
-                  )
-                      .animate()
-                      .fadeIn(duration: 1000.ms, delay: 600.ms)
-                      .moveY(begin: 30, end: 0),
+                  ),
                 ],
               ),
             );
