@@ -8,11 +8,15 @@ class ErrorMessageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final errorMsg = ref
-        .watch(loginUiViewModelProvider.select((it) => (it as Idle).errorMsg));
+    final errorMsg = ref.watch(loginUiViewModelProvider.select((state) {
+      if (state is Idle) {
+        return state.errorMsg;
+      }
+      return "";
+    }));
     return Text(
       errorMsg,
-      style: TextStyle(color: Color(0xffff0000)),
+      style: const TextStyle(color: Color(0xffff0000)),
     );
   }
 }

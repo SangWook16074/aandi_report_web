@@ -1,4 +1,4 @@
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/cs_report_list_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/cs_report_list_view.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/widgets/report_header_widget.dart';
 import 'package:a_and_i_report_web_server/src/feature/reports/ui/widgets/triangle_point.dart';
 import 'package:flutter/material.dart';

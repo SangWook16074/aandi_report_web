@@ -1,8 +1,8 @@
 import 'package:a_and_i_report_web_server/src/core/widgets/bottom_logo.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/logo.dart';
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/home_header_view.dart';
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/basic_report_view.dart';
-import 'package:a_and_i_report_web_server/src/feature/home/ui/views/cs_report_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/home_header_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/basic_report_view.dart';
+import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/cs_report_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeMobileScreen extends StatelessWidget {
