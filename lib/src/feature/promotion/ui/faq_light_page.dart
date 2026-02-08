@@ -308,7 +308,10 @@ class _FAQLightPageState extends ConsumerState<FAQLightPage> {
                 // duration: const Duration(milliseconds: 300),
                 // curve: Curves.easeInOut,
                 child: Center(
-                  child: PromotionBottomBar(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: PromotionBottomBar(),
+                  ),
                 ),
               ),
             ),
