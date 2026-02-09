@@ -1,4 +1,4 @@
-import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_bottom_bar.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/animate_on_visible.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class PromotionSchedule extends ConsumerStatefulWidget {
   const PromotionSchedule({
@@ -30,6 +29,8 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveLayout.isMobile(context);
+    // 모바일 웹에서는 Blur 효과가 성능에 치명적이므로, RadialGradient로 대체하여 성능을 최적화함.
+    final useOptimizedBackground = kIsWeb && isMobile;
 
     return Container(
       width: double.infinity,
@@ -45,17 +46,34 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
             child: Transform.translate(
               offset: const Offset(-300, 0),
               child: RepaintBoundary(
-                child: ImageFiltered(
-                  imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                  child: Container(
-                    width: 500,
-                    height: 500,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E3A8A).withOpacity(0.2), // blue-900
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
+                child: useOptimizedBackground
+                    ? Container(
+                        width: 500,
+                        height: 500,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              const Color(0xFF1E3A8A).withOpacity(0.4),
+                              Colors.transparent,
+                            ],
+                            stops: const [0.0, 0.7],
+                          ),
+                        ),
+                      )
+                    : ImageFiltered(
+                        imageFilter:
+                            ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                        child: Container(
+                          width: 500,
+                          height: 500,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF1E3A8A)
+                                .withOpacity(0.2), // blue-900
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),
@@ -66,17 +84,34 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
             child: Transform.translate(
               offset: const Offset(-250, 250),
               child: RepaintBoundary(
-                child: ImageFiltered(
-                  imageFilter: ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
-                  child: Container(
-                    width: 500,
-                    height: 500,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF172554).withOpacity(0.2), // blue-950
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
+                child: useOptimizedBackground
+                    ? Container(
+                        width: 500,
+                        height: 500,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              const Color(0xFF172554).withOpacity(0.4),
+                              Colors.transparent,
+                            ],
+                            stops: const [0.0, 0.7],
+                          ),
+                        ),
+                      )
+                    : ImageFiltered(
+                        imageFilter:
+                            ui.ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                        child: Container(
+                          width: 500,
+                          height: 500,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF172554)
+                                .withOpacity(0.2), // blue-950
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),
@@ -98,7 +133,6 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                       children: [
                         AnimateOnVisible(
                           uniqueKey: 'schedule_title',
-                          delay: 500.ms,
                           child: Text(
                             '동아리 모집 일정',
                             style: TextStyle(
@@ -113,7 +147,6 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                         const SizedBox(height: 16),
                         AnimateOnVisible(
                           uniqueKey: 'schedule_subtitle',
-                          delay: 500.ms,
                           child: Text(
                             '지원서를 작성해주시면 멘토진이 꼼꼼히 읽어보겠습니다. 여러분의 열정을 기다립니다!',
                             style: TextStyle(
@@ -147,53 +180,67 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                               color: const Color(0xFF3B82F6).withOpacity(0.3),
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '모집 기간',
-                                content: '2026.01.16 (월) - 2026.03.15 (일)',
-                                icon: Icons.calendar_month_rounded,
-                                delay: 0,
+                          AnimateOnVisible(
+                            delay: 200.ms,
+                            uniqueKey: 'timeline',
+                            effects: [
+                              FadeEffect(
+                                duration: 600.ms,
                               ),
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '선발 과정',
-                                content: '서류 접수 → 대면 인터뷰 → 최종 합격',
-                                icon: Icons.playlist_add_check_circle,
-                                delay: 100,
-                              ),
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '인터뷰',
-                                content: '2026.03.18 (수)',
-                                icon: Icons.people_alt_rounded,
-                                delay: 200,
-                              ),
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '합격자 발표',
-                                content: '2026.03.19 (목)',
-                                icon: Icons.notifications_active_rounded,
-                                delay: 300,
-                              ),
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '네트워킹',
-                                content: '2026.03.20 (금)',
-                                icon: Icons.celebration_rounded,
-                                delay: 400,
-                              ),
-                              _buildTimelineItem(
-                                isMobile: isMobile,
-                                date: '오리엔테이션',
-                                content: '2026.03.21 (토)',
-                                icon: Icons.school_rounded,
-                                delay: 500,
-                                isLast: true,
+                              MoveEffect(
+                                duration: 600.ms,
+                                begin: const Offset(30, 0),
+                                end: Offset.zero,
                               ),
                             ],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '모집 기간',
+                                  content: '2026.01.16 (월) - 2026.03.15 (일)',
+                                  icon: Icons.calendar_month_rounded,
+                                  delay: 0,
+                                ),
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '선발 과정',
+                                  content: '서류 접수 → 대면 인터뷰 → 최종 합격',
+                                  icon: Icons.playlist_add_check_circle,
+                                  delay: 100,
+                                ),
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '인터뷰',
+                                  content: '2026.03.18 (수)',
+                                  icon: Icons.people_alt_rounded,
+                                  delay: 200,
+                                ),
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '합격자 발표',
+                                  content: '2026.03.19 (목)',
+                                  icon: Icons.notifications_active_rounded,
+                                  delay: 300,
+                                ),
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '네트워킹',
+                                  content: '2026.03.20 (금)',
+                                  icon: Icons.celebration_rounded,
+                                  delay: 400,
+                                ),
+                                _buildTimelineItem(
+                                  isMobile: isMobile,
+                                  date: '오리엔테이션',
+                                  content: '2026.03.21 (토)',
+                                  icon: Icons.school_rounded,
+                                  delay: 500,
+                                  isLast: true,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -206,25 +253,7 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
                       opacity: widget.isStaticBarVisible ? 1.0 : 0.0,
                       child: Container(
                         key: widget.bottomBarKey,
-                        child: VisibilityDetector(
-                          key: const Key('bottom-apply-button'),
-                          onVisibilityChanged: (info) {
-                            final visiblePercentage =
-                                info.visibleFraction * 100;
-                            if (visiblePercentage > 40) {
-                              ref
-                                  .read(bottomApplyButtonVisibilityProvider
-                                      .notifier)
-                                  .setVisible(true);
-                            } else {
-                              ref
-                                  .read(bottomApplyButtonVisibilityProvider
-                                      .notifier)
-                                  .setVisible(false);
-                            }
-                          },
-                          child: const PromotionBottomBar(),
-                        ),
+                        child: const PromotionBottomBar(),
                       ),
                     ),
 
@@ -344,23 +373,7 @@ class _PromotionScheduleState extends ConsumerState<PromotionSchedule> {
       ),
     );
 
-    return AnimateOnVisible(
-      uniqueKey: 'timeline_$date',
-      delay: Duration(milliseconds: 500 + delay),
-      effects: [
-        FadeEffect(
-          delay: Duration(milliseconds: 500 + delay),
-          duration: 600.ms,
-        ),
-        MoveEffect(
-          delay: Duration(milliseconds: 500 + delay),
-          duration: 600.ms,
-          begin: const Offset(30, 0),
-          end: Offset.zero,
-        ),
-      ],
-      child: timelineStep,
-    );
+    return timelineStep;
   }
 }
 

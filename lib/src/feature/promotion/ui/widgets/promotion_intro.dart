@@ -26,72 +26,71 @@ class PromotionIntro extends StatelessWidget {
 
             final textWidget = AnimateOnVisible(
               uniqueKey: 'intro_text',
-              delay: 600.ms,
               child: RichText(
                 textAlign: TextAlign.start,
                 text: TextSpan(children: [
                   TextSpan(
                     text: "A&I",
-                  style: TextStyle(
-                    fontSize: 70 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: const Color(0xff3B83F6),
-                    height: 1.2,
+                    style: TextStyle(
+                      fontSize: 70 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: const Color(0xff3B83F6),
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "는\n",
-                  style: TextStyle(
-                    fontSize: 70 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
+                  TextSpan(
+                    text: "는\n",
+                    style: TextStyle(
+                      fontSize: 70 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "개발을 좋아하는\n",
-                  style: TextStyle(
-                    fontSize: 58 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
+                  TextSpan(
+                    text: "개발을 좋아하는\n",
+                    style: TextStyle(
+                      fontSize: 58 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "사람들이 모여\n",
-                  style: TextStyle(
-                    fontSize: 58 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
+                  TextSpan(
+                    text: "사람들이 모여\n",
+                    style: TextStyle(
+                      fontSize: 58 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "지식을 공유하고\n",
-                  style: TextStyle(
-                    fontSize: 58 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
+                  TextSpan(
+                    text: "지식을 공유하고\n",
+                    style: TextStyle(
+                      fontSize: 58 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "함께 성장",
-                  style: TextStyle(
-                    fontSize: 58 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
+                  TextSpan(
+                    text: "함께 성장",
+                    style: TextStyle(
+                      fontSize: 58 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "합니다.",
-                  style: TextStyle(
-                    fontSize: 58 * scaleFactor,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    height: 1.2,
-                  ),
+                  TextSpan(
+                    text: "합니다.",
+                    style: TextStyle(
+                      fontSize: 58 * scaleFactor,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
                 ]),
               ),
@@ -99,7 +98,6 @@ class PromotionIntro extends StatelessWidget {
 
             final underlineWidget = AnimateOnVisible(
               uniqueKey: 'intro_underline',
-              delay: 600.ms,
               child: Container(
                 width: 400 * scaleFactor,
                 height: 5.0,
@@ -111,8 +109,7 @@ class PromotionIntro extends StatelessWidget {
 
             final graphWidget = AnimateOnVisible(
               uniqueKey: 'intro_graph',
-              delay: 600.ms,
-              duration: 1000.ms,
+              duration: 500.ms,
               child: SizedBox(
                 width: 500 * scaleFactor,
                 child: GrowthTogetherWidget(
@@ -153,8 +150,7 @@ class PromotionIntro extends StatelessWidget {
                   SizedBox(height: (70) * scaleFactor),
                   AnimateOnVisible(
                     uniqueKey: 'intro_description',
-                    delay: 600.ms,
-                    duration: 1000.ms,
+                    delay: 200.ms,
                     child: Text(
                       '문법부터 협업, 실제 프로젝트까지 함께하며\n국내 유명 부트캠프 합격생도 배출해내는 업적을\n이뤄냈습니다.',
                       textAlign: TextAlign.start,

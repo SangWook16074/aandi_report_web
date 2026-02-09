@@ -15,8 +15,8 @@ class AnimateOnVisible extends StatefulWidget {
     super.key,
     required this.child,
     this.delay = Duration.zero,
-    this.duration = const Duration(milliseconds: 600),
-    this.visibilityThreshold = 0.1, // 10% 보이면 트리거
+    this.duration = const Duration(milliseconds: 400),
+    this.visibilityThreshold = 0.1, // 30% 보이면 트리거
     this.effects, // 커스텀 effects, null이면 기본 fadeIn + moveY
     this.uniqueKey, // 선택적 고유 key
   });

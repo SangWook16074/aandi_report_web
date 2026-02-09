@@ -1,4 +1,3 @@
-import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/widgets/promotion_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -20,75 +19,72 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _bottomBarKey = GlobalKey();
   bool _isBottomBarVisible = false;
+  bool _isHeroVisible = true; // Hero 섹션 가시성 상태
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_checkBottomBarVisibility);
+    _scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_checkBottomBarVisibility);
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    _checkHeroVisibility();
+    _checkBottomBarVisibility();
+  }
+
+  void _checkHeroVisibility() {
+    // Hero 섹션의 높이는 최소 화면 높이(100vh)이므로,
+    // 대략 500px 정도 스크롤되면 Hero의 메인 콘텐츠(버튼 등)는 화면 밖으로 나갔다고 판단.
+    // 더 정교하게 하려면 GlobalKey를 사용하여 Hero의 실제 높이를 구할 수 있음.
+    final heroIsVisible = _scrollController.offset < 500;
+
+    if (_isHeroVisible != heroIsVisible) {
+      setState(() {
+        _isHeroVisible = heroIsVisible;
+      });
+    }
   }
 
   void _checkBottomBarVisibility() {
     final RenderBox? renderBox =
         _bottomBarKey.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      final position = renderBox.localToGlobal(Offset.zero);
-      final viewportHeight = MediaQuery.of(context).size.height;
 
-      // Floating Banner는 bottom: 30 위치에 있음.
-      // 따라서 Static Banner의 bottom(renderBox.size.height 포함)이
-      // viewportHeight - 30 위치에 도달했을 때 교체해야 함.
-      // 30은 Floating Banner의 bottom margin.
-      // 조금 더 여유를 두어 20정도 보정.
-      // Static Banner의 상단이 화면 하단에 보이기 시작하면 반응하도록 조정하거나,
-      // FAQ 페이지처럼 겹치는 순간을 계산.
-
-      // FAQ 페이지 로직 참조:
-      // final isVisible = (position.dy + renderBox.size.height) <= (viewportHeight + marginDiff);
-
-      // PromotionPage의 Floating Bar는 bottom: 30에 위치.
-      // Static Bar가 스크롤되어 올라와서 Floating Bar의 위치와 겹쳐지는 순간 숨겨야 함.
-
-      // FAQ 로직:
-      // final isVisible = (position.dy + renderBox.size.height) <= (viewportHeight + marginDiff);
-      // 이것은 Static Bar의 바닥이 화면 바닥보다 위로 올라갔을 때 (즉 완전히 화면에 들어왔거나, 어느정도 올라왔을 때)
-
-      // 여기서는 "닿으면 고정" 이므로, Static Bar가 Floating Bar 위치만큼 올라왔을 때 숨기면 됨.
-      // Floating Bar는 화면 하단에 고정되어 있음.
-      // Static Bar의 실제 화면상 위치(position.dy)가 Floating Bar가 떠있는 위치보다 위로 올라오면 Floating Bar 숨김.
-
-      // position.dy 는 Static Bar의 Top 위치.
-      // Floating Bar는 바닥에서 30px 떨어져 있음.
-      // 그러므로 Static Bar의 Top이 (Viewport Height - 30 - FloatingBarHeight) 보다 작으면?
-      // 아니면 그냥 간단하게 Static Bar가 화면에 보이기 시작하면?
-
-      // FAQ 예제 로직을 그대로 사용하되 marginDiff를 조정.
-      // FAQ는 bottom: 20 사용. 여기는 bottom: 30 사용.
-      final isVisible = (position.dy + renderBox.size.height) <=
-          (viewportHeight - 30); // Floating bar position match
-
-      if (_isBottomBarVisible != isVisible) {
+    // Static Bar가 화면에 렌더링되지 않았다면(화면 밖 등), Floating Bar를 보여줘야 함.
+    if (renderBox == null) {
+      if (_isBottomBarVisible) {
         setState(() {
-          _isBottomBarVisible = isVisible;
+          _isBottomBarVisible = false;
         });
       }
+      return;
+    }
+
+    final position = renderBox.localToGlobal(Offset.zero);
+    final viewportHeight = MediaQuery.of(context).size.height;
+
+    final isVisible = (position.dy + renderBox.size.height) <=
+        (viewportHeight - 30); // Floating bar position match
+
+    if (_isBottomBarVisible != isVisible) {
+      setState(() {
+        _isBottomBarVisible = isVisible;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isHeroButtonVisible = ref.watch(heroApplyButtonVisibilityProvider);
-
-    // Slide logic: Controlled ONLY by Hero visibility.
+    // Slide logic: Controlled by Hero visibility (Scroll Offset).
     // If Hero is visible, Floating bar is hidden (slid down).
     // If Hero is hidden, Floating bar is shown (slid up).
-    final shouldSlideUp = !isHeroButtonVisible;
+    final shouldSlideUp = !_isHeroVisible;
 
     // Docking logic: Controlled by Static Bar visibility.
     // If Static bar is visible (_isBottomBarVisible true), Floating bar hides (Opacity 0).
@@ -104,16 +100,18 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
             // cacheExtent를 넉넉하게 주어 스크롤 시 미리 빌드되도록 함 (버벅임 방지)
             cacheExtent: 1000,
             children: [
-              const PromotionHero(),
-              SizedBox(
+              const RepaintBoundary(child: PromotionHero()),
+              const SizedBox(
                 height: 100,
               ),
-              const PromotionIntro(),
-              const PromotionMentors(),
-              const PromotionCurriculum(),
-              PromotionSchedule(
-                bottomBarKey: _bottomBarKey,
-                isStaticBarVisible: _isBottomBarVisible,
+              const RepaintBoundary(child: PromotionIntro()),
+              const RepaintBoundary(child: PromotionMentors()),
+              const RepaintBoundary(child: PromotionCurriculum()),
+              RepaintBoundary(
+                child: PromotionSchedule(
+                  bottomBarKey: _bottomBarKey,
+                  isStaticBarVisible: _isBottomBarVisible,
+                ),
               ),
             ],
           ),

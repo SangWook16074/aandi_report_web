@@ -1,5 +1,4 @@
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
-import 'package:a_and_i_report_web_server/src/feature/promotion/ui/viewModels/promotion_ui_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,7 +12,7 @@ class PromotionHero extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     precacheImage(
-        AssetImage(
+        const AssetImage(
           "assets/intro_bg.webp",
         ),
         context);
@@ -25,7 +24,7 @@ class PromotionHero extends ConsumerWidget {
       constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height), // 전체 화면
       // color: Colors.black, // 강렬한 배경
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Color(0xff000000),
           image: DecorationImage(
               // colorFilter: ColorFilter.mode(
@@ -45,93 +44,78 @@ class PromotionHero extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                const SizedBox(height: 400),
+                    const SizedBox(height: 400),
 
-                // 메인 타이틀
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(children: [
-                    TextSpan(
-                      text: '2026 ',
+                    // 메인 타이틀
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(children: [
+                        TextSpan(
+                          text: '2026 ',
+                          style: TextStyle(
+                            fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            height: 1.3,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'A&I',
+                          style: TextStyle(
+                            fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xffffffff),
+                            height: 1.3,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' 신규 동아리원 모집',
+                          style: TextStyle(
+                            fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            height: 1.3,
+                          ),
+                        ),
+                      ]),
+                    )
+                        .animate()
+                        .fadeIn(delay: 400.ms, duration: 600.ms)
+                        .moveY(begin: 30, end: 0),
+                    const SizedBox(height: 20),
+
+                    // 서브 타이틀
+                    Text(
+                      '함께 성장할 여러분을 기다립니다!',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        height: 1.3,
+                        fontSize: isMobile ? 20 : 30, // 반응형 폰트 크기
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white70,
                       ),
-                    ),
-                    TextSpan(
-                      text: 'A&I',
+                    )
+                        .animate()
+                        .fadeIn(delay: 600.ms, duration: 600.ms)
+                        .moveY(begin: 30, end: 0),
+                    SizedBox(height: isMobile ? 10 : 20),
+
+                    // 모집 기간
+                    Text(
+                      '2026.01.16 - 2026.03.15',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffffffff),
-                        height: 1.3,
+                        fontSize: isMobile ? 18 : 24, // 반응형 폰트 크기
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ),
-                    TextSpan(
-                      text: ' 신규 동아리원 모집',
-                      style: TextStyle(
-                        fontSize: isMobile ? 32 : 58, // 반응형 폰트 크기
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        height: 1.3,
-                      ),
-                    ),
-                  ]),
-                )
-                    .animate()
-                    .fadeIn(delay: 400.ms, duration: 600.ms)
-                    .moveY(begin: 30, end: 0),
-                const SizedBox(height: 20),
+                    ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
 
-                // 서브 타이틀
-                Text(
-                  '함께 성장할 여러분을 기다립니다!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isMobile ? 20 : 30, // 반응형 폰트 크기
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white70,
-                  ),
-                )
-                    .animate()
-                    .fadeIn(delay: 600.ms, duration: 600.ms)
-                    .moveY(begin: 30, end: 0),
-                SizedBox(height: isMobile ? 10 : 20),
+                    SizedBox(height: isMobile ? 50 : 20),
 
-                // 모집 기간
-                Text(
-                  '2026.01.16 - 2026.03.15',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isMobile ? 18 : 24, // 반응형 폰트 크기
-                    color: Colors.white70,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
-
-                SizedBox(height: isMobile ? 50 : 20),
-
-                // CTA 버튼
-                VisibilityDetector(
-                  key: const Key('hero-apply-button'),
-                  onVisibilityChanged: (info) {
-                    final visiblePercentage = info.visibleFraction * 100;
-                    if (visiblePercentage == 0) {
-                      ref
-                          .read(heroApplyButtonVisibilityProvider.notifier)
-                          .setVisible(false);
-                    } else {
-                      ref
-                          .read(heroApplyButtonVisibilityProvider.notifier)
-                          .setVisible(true);
-                    }
-                  },
-                  child: ApplyButtonView()
-                      .animate()
-                      .fadeIn(delay: 1000.ms, duration: 600.ms),
-                )
+                    // CTA 버튼
+                    ApplyButtonView()
+                        .animate()
+                        .fadeIn(delay: 1000.ms, duration: 600.ms)
                   ],
                 ),
               ),

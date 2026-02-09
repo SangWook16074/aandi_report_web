@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:a_and_i_report_web_server/src/core/widgets/responsive_layout.dart';
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/views/apply_button_view.dart';
 import 'package:flutter/material.dart';
@@ -11,67 +12,80 @@ class PromotionBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveLayout.isMobile(context);
+    // 모바일 웹에서는 BackdropFilter가 매우 무거우므로 제거하고 불투명한 배경을 사용함.
+    final useOptimizedBackground = kIsWeb && isMobile;
+
+    Widget content = Container(
+      constraints: const BoxConstraints(maxWidth: 600),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 24 : 32,
+        vertical: 12,
+      ),
+      decoration: BoxDecoration(
+        color: useOptimizedBackground
+            ? Colors.black.withOpacity(0.9) // 최적화: 진한 배경
+            : Colors.black
+                .withOpacity(0.8), // 기본: 반투명 (Blur 효과용)
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: const Color(0xFF3B82F6).withOpacity(0.3),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          )
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min, // Important for floating bar
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "A&I 4기 모집 중",
+                    style: TextStyle(
+                      fontSize: isMobile ? 18 : 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "함께 성장할 동료를 찾습니다",
+                    style: TextStyle(
+                      fontSize: isMobile ? 12 : 14,
+                      color: Colors.white60,
+                    ),
+                  ),
+                ],
+              ),
+              ApplyButtonView()
+                  .animate()
+                  .shimmer(delay: 1500.ms, duration: 1000.ms),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    if (useOptimizedBackground) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: content,
+      );
+    }
 
     return ClipRRect(
       borderRadius: BorderRadiusGeometry.circular(16),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 24 : 32,
-            vertical: 12,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.black
-                .withOpacity(0.8), // Slight transparency for floating feel
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFF3B82F6).withOpacity(0.3),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              )
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min, // Important for floating bar
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "A&I 4기 모집 중",
-                        style: TextStyle(
-                          fontSize: isMobile ? 18 : 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "함께 성장할 동료를 찾습니다",
-                        style: TextStyle(
-                          fontSize: isMobile ? 12 : 14,
-                          color: Colors.white60,
-                        ),
-                      ),
-                    ],
-                  ),
-                  ApplyButtonView()
-                      .animate()
-                      .shimmer(delay: 1500.ms, duration: 1000.ms),
-                ],
-              ),
-            ],
-          ),
-        ),
+        child: content,
       ),
     );
   }
