@@ -127,7 +127,6 @@ class _PromotionMentorsState extends State<PromotionMentors>
               children: [
                 AnimateOnVisible(
                   uniqueKey: 'mentors_title',
-                  delay: 500.ms,
                   child: Text(
                     '멘토 및 운영진 소개',
                     textAlign: TextAlign.center,
@@ -142,8 +141,6 @@ class _PromotionMentorsState extends State<PromotionMentors>
                 const SizedBox(height: 12),
                 AnimateOnVisible(
                   uniqueKey: 'mentors_subtitle',
-                  delay: 500.ms,
-                  duration: 800.ms,
                   child: Text(
                     '현직자 및 국내 유명 부트캠프 출신 멘토진이 여러분의 성장을 돕습니다.',
                     textAlign: TextAlign.center,
@@ -160,41 +157,40 @@ class _PromotionMentorsState extends State<PromotionMentors>
                 // 무한 스크롤 영역
                 AnimateOnVisible(
                   uniqueKey: 'mentors_carousel',
-                  delay: 500.ms,
-                  duration: 1000.ms,
                   child: RepaintBoundary(
-                  child: SizedBox(
-                    height: 280,
-                    width: double.infinity,
-                    child: ClipRect(
-                      child: OverflowBox(
-                        minWidth: 0,
-                        maxWidth: double.infinity,
-                        alignment: Alignment.centerLeft,
-                        child: AnimatedBuilder(
-                          animation: _controller,
-                          builder: (context, child) {
-                            final offset = -totalScrollWidth * _controller.value;
-                            return Transform.translate(
-                              offset: Offset(offset, 0),
-                              child: child,
-                            );
-                          },
-                          // Row를 child로 전달하여 재빌드 방지
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: infiniteMentors
-                                .map((mentor) => MentorCard(
-                                      mentor: mentor,
-                                      cardWidth: cardWidth,
-                                      margin: _cardMargin,
-                                    ))
-                                .toList(),
+                    child: SizedBox(
+                      height: 280,
+                      width: double.infinity,
+                      child: ClipRect(
+                        child: OverflowBox(
+                          minWidth: 0,
+                          maxWidth: double.infinity,
+                          alignment: Alignment.centerLeft,
+                          child: AnimatedBuilder(
+                            animation: _controller,
+                            builder: (context, child) {
+                              final offset =
+                                  -totalScrollWidth * _controller.value;
+                              return Transform.translate(
+                                offset: Offset(offset, 0),
+                                child: child,
+                              );
+                            },
+                            // Row를 child로 전달하여 재빌드 방지
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: infiniteMentors
+                                  .map((mentor) => MentorCard(
+                                        mentor: mentor,
+                                        cardWidth: cardWidth,
+                                        margin: _cardMargin,
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                   ),
                 ),
               ],
