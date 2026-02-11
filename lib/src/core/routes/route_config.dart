@@ -11,6 +11,7 @@ import 'package:a_and_i_report_web_server/src/feature/reports/ui/view/report_det
 import 'package:a_and_i_report_web_server/src/feature/promotion/ui/promotion_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web/web.dart' as html;
+import 'package:a_and_i_report_web_server/src/core/providers/analytics_provider.dart';
 
 part 'route_config.g.dart';
 
@@ -41,10 +42,12 @@ class _RiverpodRefreshNotifier extends ChangeNotifier {
 @riverpod
 GoRouter goRouter(Ref ref) {
   final authState = ref.watch(authViewModelProvider);
+  final analyticsObserver = ref.watch(firebaseAnalyticsObserverProvider);
 
   return GoRouter(
     initialLocation: '/',
     refreshListenable: _RiverpodRefreshNotifier(ref),
+    observers: [analyticsObserver],
     redirect: (context, state) {
       final status = authState.status;
       final isLoggedIn = status == AuthenticationStatus.authenticated;
