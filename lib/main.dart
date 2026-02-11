@@ -5,13 +5,19 @@ import 'package:a_and_i_report_web_server/src/core/routes/route_config.dart';
 import 'package:a_and_i_report_web_server/src/core/theme/app_theme.dart';
 import 'package:a_and_i_report_web_server/src/core/utils/logger.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:a_and_i_report_web_server/firebase_options.dart';
 
 /// 애플리케이션의 진입점(Entry Point)입니다.
 ///
 /// 웹 환경에서의 깔끔한 URL 처리를 위해 [usePathUrlStrategy]를 설정하고,
 /// Riverpod 상태 관리를 위한 [ProviderScope]로 앱을 감싸서 실행합니다.
 /// [Logger]를 옵저버로 등록하여 상태 변경 로그를 확인합니다.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   usePathUrlStrategy();
   runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
 }
